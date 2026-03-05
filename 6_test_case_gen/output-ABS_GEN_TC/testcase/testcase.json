@@ -1,0 +1,210 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format",
+		"service": "Testcase Specification",
+		"generatedDate": "Wed Feb 18 15:43:28 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Res",
+				"parameters": [
+					{
+						"name": "result",
+						"type": "integer"
+					}
+				]
+			}
+		],
+		"input_ports": [
+			{
+				"name": "Val",
+				"parameters": [
+					{
+						"name": "value",
+						"type": "integer"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "pos_rational"
+			},
+			{
+				"name": "clt",
+				"type": "clock< uinteger >"
+			},
+			{
+				"name": "$_1",
+				"type": "integer"
+			},
+			{
+				"name": "x_1",
+				"type": "integer"
+			},
+			{
+				"name": "z_2",
+				"type": "time< uinteger >"
+			},
+			{
+				"name": "z_1",
+				"type": "time< uinteger >"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "z_1",
+				"transitions": [
+					{
+						"name": "tr_R1_Val",
+
+						"timed_guard": "((z_1 == clt) && (clt < TM))",
+
+						"guard": "exists< z_2 : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Val",
+							"parameters": [
+								"x_1"
+							]
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_R10b_Res",
+
+						"timed_guard": "((z_1 == clt) && (clt < TM))",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_R9_quiescence",
+
+						"timed_guard": "((z_1 == clt) && (clt >= TM))",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_R11_unspecifiedQuiescence",
+
+						"timed_guard": "((z_1 == clt) && (clt >= TM))",
+
+						"guard": "false",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "z_2",
+				"transitions": [
+					{
+						"name": "tr_R4_PASS_Res",
+
+						"timed_guard": "((z_2 == clt) && (clt < TM))",
+
+						"guard": "(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_R10a_Res",
+
+						"timed_guard": "((z_2 == clt) && (clt < TM))",
+
+						"guard": "(((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 1) || (x_1 < 0)) && (((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 > 1)))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_R6_Res",
+
+						"timed_guard": "((z_2 == clt) && (clt < TM))",
+
+						"guard": "((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "INCONCLUSIVE_OUTPUT"
+					},
+					{
+						"name": "tr_R9_quiescence",
+
+						"timed_guard": "((z_2 == clt) && (clt >= TM))",
+
+						"guard": "(exists< # : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 < #) && (# <= 1)) || exists< # : uinteger , $_1 : integer >((yR_1 == x_1) && ($_1 == yR_1) && (z_2 < #) && (# <= 1) && (x_1 >= 0)) || (forall< z_2 : uinteger >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 > 1)) && forall< z_2 : uinteger >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 1) || (x_1 < 0))))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_R11_unspecifiedQuiescence",
+
+						"timed_guard": "((z_2 == clt) && (clt >= TM))",
+
+						"guard": "(forall< # : uinteger , $_1 : integer >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 >= #) || (# > 1)) && forall< # : uinteger , $_1 : integer >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 >= #) || (# > 1) || (x_1 < 0)) && (exists< z_2 : uinteger >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1)) || exists< z_2 : uinteger >((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

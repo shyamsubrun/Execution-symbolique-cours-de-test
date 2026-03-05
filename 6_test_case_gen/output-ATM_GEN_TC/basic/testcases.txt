@@ -1,0 +1,6 @@
+TRACE PATH 1 ec_7_H:5
+	transition = "t_init"
+	transition = "t_receive"
+	transition = "t_valid"
+	transition = "t_auth_cash"
+

@@ -1,0 +1,107 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+atm_syst:Idle
+
+$time = 0
+	z = 0
+	_clock_index_ = 0
+	cl = 0
+	wtb = 5
+	threshold = 10
+	amount = 0
+	x = 0
+	auth_ok = false
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label=""
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+atm_syst:Idle"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired atm_syst.t_init
+	INPUT atm_SM:Init
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+atm_syst:Ready
+
+$time = z_0
+	z = z_0
+	cl = z_0
+	
+tpid#1->Idle.t_init"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired atm_syst.t_receive
+	INPUT atm_SM:Wdrl( x_0 )
+	"
+]
+EC3 [
+	label="ec_3< ev:4 , h:3 , w:1 >
+atm_syst:Decision
+
+$time = (z_0 + z_1)
+	z = z_1
+	cl = (z_0 + z_1)
+	x = x_0
+	
+tpid#2->Ready.t_receive"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC3 -> EC5 [
+	label="fired atm_syst.t_valid
+	OUTPUT atm_SM:Debit( x_0 )
+	"
+]
+EC5 [
+	label="ec_5< ev:5 , h:4 , w:2 >
+atm_syst:WaitingAuth
+
+PC: (x_0 >= 10)
+	$time = (z_0 + z_1 + z_2)
+	z = z_2
+	cl = 0
+	amount = x_0
+	
+tpid#3->Decision.t_valid"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC5 -> EC7 [
+	label="fired atm_syst.t_auth_cash
+	INPUT atm_SM:Auth( auth_ok_0 )
+	"
+]
+EC7 [
+	label="ec_7< ev:7 , h:5 , w:3 >
+atm_syst:givecash
+
+PC: ((auth_ok_0 == true) && (x_0 >= 10))
+	$time = (z_0 + z_1 + z_2 + z_3)
+	z = z_3
+	cl = z_3
+	auth_ok = auth_ok_0
+	
+tpid#4->WaitingAuth.t_auth_cash"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

@@ -1,0 +1,73 @@
+digraph atm_syst {
+compound = true;
+fontsize = 12
+ subgraph "cluster_spec::atm_syst" {
+  label = "SYSTEM spec::atm_syst"
+
+  subgraph "cluster_spec::atm_syst.atm_SM" {
+   label = "atm_SM"
+   style=dashed;
+
+   "spec::atm_syst.atm_SM"
+   [
+    label = "atm_SM"
+    shape=point, style=invis, color=white
+   ];
+
+   "spec::atm_syst.atm_SM.Idle"
+   [
+    label = "Idle"
+    shape=ellipse, style="bold,filled", fillcolor=green
+   ];
+
+   "spec::atm_syst.atm_SM.Idle" -> "spec::atm_syst.atm_SM.Ready" [ label = "t_init" ];
+
+   "spec::atm_syst.atm_SM.Ready"
+   [
+    label = "Ready"
+    shape=ellipse, style="bold,filled", color=skyblue
+   ];
+
+   "spec::atm_syst.atm_SM.Ready" -> "spec::atm_syst.atm_SM.Decision" [ label = "t_receive" ];
+
+   "spec::atm_syst.atm_SM.Decision"
+   [
+    label = "Decision"
+    shape=ellipse, style="bold,filled", color=skyblue
+   ];
+
+   "spec::atm_syst.atm_SM.Decision" -> "spec::atm_syst.atm_SM.Ready" [ label = "t_small" ];
+
+   "spec::atm_syst.atm_SM.Decision" -> "spec::atm_syst.atm_SM.WaitingAuth" [ label = "t_valid" ];
+
+   "spec::atm_syst.atm_SM.WaitingAuth"
+   [
+    label = "WaitingAuth"
+    shape=ellipse, style="bold,filled", color=skyblue
+   ];
+
+   "spec::atm_syst.atm_SM.WaitingAuth" -> "spec::atm_syst.atm_SM.Ready" [ label = "t_timeout" ];
+
+   "spec::atm_syst.atm_SM.WaitingAuth" -> "spec::atm_syst.atm_SM.givecash" [ label = "t_auth_cash" ];
+
+   "spec::atm_syst.atm_SM.WaitingAuth" -> "spec::atm_syst.atm_SM.abortauth" [ label = "t_abort_auth" ];
+
+   "spec::atm_syst.atm_SM.givecash"
+   [
+    label = "givecash"
+    shape=ellipse, style="bold,filled", color=skyblue
+   ];
+
+   "spec::atm_syst.atm_SM.givecash" -> "spec::atm_syst.atm_SM.Ready" [ label = "t_cash" ];
+
+   "spec::atm_syst.atm_SM.abortauth"
+   [
+    label = "abortauth"
+    shape=ellipse, style="bold,filled", color=skyblue
+   ];
+
+   "spec::atm_syst.atm_SM.abortauth" -> "spec::atm_syst.atm_SM.Ready" [ label = "t_abort" ];
+  }
+ }
+}
+

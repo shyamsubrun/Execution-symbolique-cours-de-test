@@ -1,0 +1,100 @@
+[SEW] Symbolic Execution based WorkflowParameter analysis ... START
+[SEW] Location: C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/6_test_case_gen/.sew/workflow-6_TEST_CASE_GEN-ATM.sew
+[SEW] Console verbosity level: 'MAXIMUM'
+[SEW] Developer debug level: 'MEDIUM'
+[SEW] Developer debug flags: 'CONFIGURING | COMPUTING | SOLVING | TEST_DECISION | PROCESSING'
+[SEW] The launch! folder: C:\Users\shyam\Desktop\ecole\UPEC M2\test\partie2\mbtesting (1)\mbtesting\efm-diversity_tool-2026\efm-diversity_tool-2026\workspace
+[SEW] The working folder: <launch>:/6_test_case_gen
+[SEW] The <wroot> folder: C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/6_test_case_gen
+[SEW] The source! folder: <wroot>:./
+[SEW] The output! folder: <wroot>:/output-ABS_GEN_TC
+[SEW] The logger! folder: <wroot>:/output-ABS_GEN_TC/log
+[SEW] The !debug! folder: <wroot>:/output-ABS_GEN_TC/debug
+[SEW] Symbolic Execution based WorkflowParameter analysis ... DONE
+
+[SEW] Configure Engine director: sew:/workflow.extraneous#module
+
+object< director > sew:/workflow.extraneous#module "as main execution objective"
+[SEW] The default solver: < checksat=true , Z3 > |=> Z3
+[SEW] Computing resource: < multitasking=false , thread=1 >
+[SEW] Checking the specification ...
+[SEW] File location:> C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/ATM/ATM.xlia ==> DONE
+configuration extraneous#module {
+ WorkspaceRootPath = C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/6_test_case_gen
+ mProjectSourceLocation = C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/ATM
+ SpecificationFileLocation = C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/ATM/ATM.xlia
+ isOwnedSpecificationFlag = true
+ OutputFilenamePattern = <wroot>:/output-ABS_GEN_TC/ATM_%1%
+ DebugFilenamePattern  = <wroot>:/output-ABS_GEN_TC/debug/ATM_%1%
+ isOutputExecutableEnabledGenerationFlag = true
+ OutputExecutableFileLocation = <wroot>:/output-ABS_GEN_TC/debug/ATM.fexe
+ isOutputSymbexGraphEnabledGenerationFlag = false
+ OutputSymbexGraphFileLocation = ATM_graph.gv
+ isOutputSymbexScenariiEnabledGenerationFlag = true
+ OutputSymbexScenariiFileLocation = <wroot>:/output-ABS_GEN_TC/ATM.fscn
+ isDebugStageEnabled          = true
+ isDebugParsingStageEnabled   = true
+ isDebugCompilingStageEnabled = true
+ isebugLoadingStageEnabled   = false
+ isDebugComputingEnabled     = true
+ DebugOutputSymbexGraphTextFileLocation = <wroot>:/output-ABS_GEN_TC/debug/ATM.fet
+ mInconditionalStopMarkerLocation = <wroot>:/output-ABS_GEN_TC/symbex.stop
+}
+
+[SEW] < start > Parsing ...
+[SEW] Done ==> 0 syntax error found.
+[SEW] < end > Parsing ... done.
+[DBG] Saving of the Specification in text format --> parsed
+	path: <wroot>:/output-ABS_GEN_TC/debug/ATM_parsed.xlia... OK
+
+[SEW] < start > Building ...
+[SEW] Compilation report:> 0 error 0 warning
+[SEW] Saving of the Executable in text format
+	path: <wroot>:/output-ABS_GEN_TC/debug/ATM.fexe... OK
+[SEW] Saving of the specification representation in GraphViz format 
+	path: <wroot>:/output-ABS_GEN_TC/debug/ATM.gv... OK
+	path: <wroot>:/output-ABS_GEN_TC/debug/ATM_init.fet... OK
+[SEW] < end > Building ... done.
+[SEW] < start > SymbexControllerUnitManager::configure ...
+
+object< director > sew:/workflow.extraneous#module "as main execution objective"
+
+object< controlled#width#eval > sew:/workflow.extraneous#module.controlled_width_eval
+Configuration of trace sequence: 
+{
+}
+{
+}
+
+The parsed test purpose :> 
+	{
+	}
+	#null<Modifier> executable< moc: executable , id:0, instanciation: [ 0, 1 ] > exec#anonym {
+	moe:
+	}
+
+The extract IO trace :> 
+	{
+	}
+
+The process configuration:> 
+moe:
+	supervisor = [p:0]null<WObject>;
+	queue = [p:0]null<WObject>;
+	redundancy = [p:100]null<WObject>;
+
+	pre_processor = { |;|
+		[p:40]sew:/workflow.extraneous#module.controlled_width_eval
+	}
+
+	pre_filter = { |;|
+		[p:40]sew:/workflow.extraneous#module.controlled_width_eval
+	}
+	post_filter = { |;|
+		[p:40]sew:/workflow.extraneous#module.controlled_width_eval
+	}
+
+	post_processor = { |;|
+		[p:40]sew:/workflow.extraneous#module.controlled_width_eval
+	}
+[SEW] < end > SymbexControllerUnitManager::configure ... done.

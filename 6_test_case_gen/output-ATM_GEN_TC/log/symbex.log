@@ -1,0 +1,203 @@
+[SEW] Symbolic Execution based WorkflowParameter analysis ... START
+[SEW] Location: C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/6_test_case_gen/.sew/workflow-6_TEST_CASE_GEN-ATM.sew
+[SEW] Console verbosity level: 'MAXIMUM'
+[SEW] Developer debug level: 'MEDIUM'
+[SEW] Developer debug flags: 'CONFIGURING | COMPUTING | SOLVING | TEST_DECISION | PROCESSING'
+[SEW] The launch! folder: C:\Users\shyam\Desktop\ecole\UPEC M2\test\partie2\mbtesting (1)\mbtesting\efm-diversity_tool-2026\efm-diversity_tool-2026\workspace
+[SEW] The working folder: <launch>:/6_test_case_gen
+[SEW] The <wroot> folder: C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/6_test_case_gen
+[SEW] The source! folder: <wroot>:./
+[SEW] The output! folder: <wroot>:/output-ATM_GEN_TC
+[SEW] The logger! folder: <wroot>:/output-ATM_GEN_TC/log
+[SEW] The !debug! folder: <wroot>:/output-ATM_GEN_TC/debug
+[SEW] Symbolic Execution based WorkflowParameter analysis ... DONE
+
+[SEW] Configure Engine director: sew:/workflow.behavior#selection
+
+object< director > sew:/workflow.behavior#selection "as main execution objective"
+[SEW] The default solver: < checksat=true , Z3 > |=> Z3
+[SEW] Computing resource: < multitasking=false , thread=1 >
+[SEW] Checking the specification ...
+[SEW] File location:> C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/ATM/ATM.xlia ==> DONE
+configuration behavior#selection {
+ WorkspaceRootPath = C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/6_test_case_gen
+ mProjectSourceLocation = C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/ATM
+ SpecificationFileLocation = C:/Users/shyam/Desktop/ecole/UPEC M2/test/partie2/mbtesting (1)/mbtesting/efm-diversity_tool-2026/efm-diversity_tool-2026/workspace/ATM/ATM.xlia
+ isOwnedSpecificationFlag = true
+ OutputFilenamePattern = <wroot>:/output-ATM_GEN_TC/ATM_%1%
+ DebugFilenamePattern  = <wroot>:/output-ATM_GEN_TC/debug/ATM_%1%
+ isOutputExecutableEnabledGenerationFlag = true
+ OutputExecutableFileLocation = <wroot>:/output-ATM_GEN_TC/debug/ATM.fexe
+ isOutputSymbexGraphEnabledGenerationFlag = false
+ OutputSymbexGraphFileLocation = ATM_graph.gv
+ isOutputSymbexScenariiEnabledGenerationFlag = true
+ OutputSymbexScenariiFileLocation = <wroot>:/output-ATM_GEN_TC/ATM.fscn
+ isDebugStageEnabled          = true
+ isDebugParsingStageEnabled   = true
+ isDebugCompilingStageEnabled = true
+ isebugLoadingStageEnabled   = false
+ isDebugComputingEnabled     = true
+ DebugOutputSymbexGraphTextFileLocation = <wroot>:/output-ATM_GEN_TC/debug/ATM.fet
+ mInconditionalStopMarkerLocation = <wroot>:/output-ATM_GEN_TC/symbex.stop
+}
+
+[SEW] < start > Parsing ...
+[SEW] Done ==> 0 syntax error found.
+[SEW] < end > Parsing ... done.
+[DBG] Saving of the Specification in text format --> parsed
+	path: <wroot>:/output-ATM_GEN_TC/debug/ATM_parsed.xlia... OK
+
+[SEW] < start > Building ...
+[SEW] Compilation report:> 0 error 0 warning
+[SEW] Saving of the Executable in text format
+	path: <wroot>:/output-ATM_GEN_TC/debug/ATM.fexe... OK
+[SEW] Saving of the specification representation in GraphViz format 
+	path: <wroot>:/output-ATM_GEN_TC/debug/ATM.gv... OK
+	path: <wroot>:/output-ATM_GEN_TC/debug/ATM_init.fet... OK
+[SEW] < end > Building ... done.
+[SEW] < start > SymbexControllerUnitManager::configure ...
+
+object< director > sew:/workflow.behavior#selection "as main execution objective"
+
+object< coverage#behavior > sew:/workflow.behavior#selection.behavior_coverage
+The parsed trace :> 
+	{
+		tpid#1 transition::atm_syst.atm_SM.Idle.t_init
+		tpid#2 transition::atm_syst.atm_SM.Ready.t_receive
+		tpid#3 transition::atm_syst.atm_SM.Decision.t_valid
+		tpid#4 transition::atm_syst.atm_SM.WaitingAuth.t_auth_cash
+	}
+	#null<Modifier> executable< moc: executable , id:0, instanciation: [ 0, 1 ] > exec#anonym {
+	moe:
+	}
+
+
+object< serializer#symbex#trace#sequencediagram > sew:/workflow.behavior#selection.sequence_diagram_trace_generator
+
+object< serializer#symbex#trace#basic > sew:/workflow.behavior#selection.basic_trace_generator
+
+object< serializer#model#graphic > sew:/workflow.behavior#selection.model2graphic
+
+object< serializer#model#graphviz > sew:/workflow.behavior#selection.model2graphviz
+
+object< serializer#symbex#graphic > sew:/workflow.behavior#selection.symbex2graphic
+
+object< serializer#symbex#graphviz > sew:/workflow.behavior#selection.symbex2graphviz
+
+object< supervisor > sew:/workflow.behavior#selection.supervisor
+
+object< supervisor > sew:/workflow.behavior#selection.supervisor
+ProcessorUnitFactory::autoconfigure <sew:/workflow.behavior#selection>
+moe:
+ supervisor = [p:0]sew:/workflow.behavior#selection.supervisor;
+ queue = [p:0]sew:/workflow.behavior#selection.supervisor;
+ redundancy = [p:100]sew:/workflow.behavior#selection.supervisor;
+
+ pre_processor = { |;|
+  [p:40]sew:/workflow.behavior#selection.behavior_coverage
+  [p:75]sew:/workflow.behavior#selection.model2graphic
+  [p:75]sew:/workflow.behavior#selection.model2graphviz
+ }
+
+ pre_filter = { |;|
+  [p:40]sew:/workflow.behavior#selection.behavior_coverage
+ }
+ post_filter = { |;|
+ }
+
+ post_processor = { |;|
+  [p:75]sew:/workflow.behavior#selection.sequence_diagram_trace_generator
+  [p:75]sew:/workflow.behavior#selection.basic_trace_generator
+  [p:75]sew:/workflow.behavior#selection.symbex2graphic
+  [p:75]sew:/workflow.behavior#selection.symbex2graphviz
+ }
+The process configuration:> 
+moe:
+ supervisor = [p:0]sew:/workflow.behavior#selection.supervisor;
+ queue = [p:0]sew:/workflow.behavior#selection.supervisor;
+ redundancy = [p:100]sew:/workflow.behavior#selection.supervisor;
+
+ pre_processor = { |;|
+  [p:40]sew:/workflow.behavior#selection.behavior_coverage
+  [p:75]sew:/workflow.behavior#selection.model2graphic
+  [p:75]sew:/workflow.behavior#selection.model2graphviz
+ }
+
+ pre_filter = { |;|
+  [p:40]sew:/workflow.behavior#selection.behavior_coverage
+ }
+ post_filter = { |;|
+ }
+
+ post_processor = { |;|
+  [p:75]sew:/workflow.behavior#selection.sequence_diagram_trace_generator
+  [p:75]sew:/workflow.behavior#selection.basic_trace_generator
+  [p:75]sew:/workflow.behavior#selection.symbex2graphic
+  [p:75]sew:/workflow.behavior#selection.symbex2graphviz
+ }
+[SEW] < end > SymbexControllerUnitManager::configure ... done.
+
+object< director > sew:/workflow.behavior#selection "as main execution objective"
+
+object< director > sew:/workflow.behavior#selection "as main execution objective"
+
+object< director > sew:/workflow.behavior#selection "as main execution objective"
+
+[SEW] < start > Computing ...
+
+[SBX] < start > Computing ...
+
+
+
+$time< 311 ms , 311ms205us > @ Wed Mar  4 18:19:51 2026
+	steady: 311ms205us , system: 311ms205us
+
+
+
+REPORT
+ EXECUTION QUEUE
+  strategy : #WEIGHT#BFS
+ FAM< SUPERVISOR  > supervisor
+  The CONTEXT  count : 12
+
+  The RUN EVAL count : 8
+  The RUN STEP count : 9
+  The GLOBAL  STOP count  : 0
+
+  The Max HEIGHT reaching : 5
+  The Max WIDTH  reaching : 4
+ FAM< coverage#behavior , HoJ > behavior_coverage[ ordered : globally ] < heuristic:1 , height:2 , hit:1 , jump:1 ; backtrack:1:0 , black_hole:0/22 , slice:6 >: Coverage 4 / 4 ==> DONE !
+ hit<covered> { |;|
+  tpid#1 transition::atm_syst.atm_SM.Idle.t_init
+  tpid#2 transition::atm_syst.atm_SM.Ready.t_receive
+  tpid#3 transition::atm_syst.atm_SM.Decision.t_valid
+  tpid#4 transition::atm_syst.atm_SM.WaitingAuth.t_auth_cash
+ }
+ FAM< coverage#behavior , HoJ > behavior_coverage[ ordered ] < heuristic:1 , height:2 , hit:1 , jump:1 ; backtrack:1:0 , black_hole:0/22 , slice:6 >: Coverage 4 / 4 ==> DONE !
+ SEQUENCE_DIAGRAM TRACE GENERATOR
+  The TRACE count : 1
+  Warning : The default trace count limit is reached !
+You could fix it with the parameter attribute 
+< trace#count = -1 > to serialize all computed traces !
+  DONE !
+ BASIC TRACE GENERATOR
+  The TRACE count : 1
+  DONE !
+ GRAPHIC STATEMACHINE SERIALIZER< sew:/workflow.behavior#selection.model2graphic > DONE !!!
+ GRAPHVIZ STATEMACHINE SERIALIZER< sew:/workflow.behavior#selection.model2graphviz > DONE !!!
+ GRAPHVIZ EXECUTION GRAPH SERIALIZER< sew:/workflow.behavior#selection.symbex2graphic > DONE !!!
+ GRAPHVIZ EXECUTION GRAPH SERIALIZER< sew:/workflow.behavior#selection.symbex2graphviz > DONE !!!
+
+
+$time< 404 ms , 404ms597us800ns > @ Wed Mar  4 18:19:51 2026
+	steady: 404ms597us900ns , system: 404ms598us200ns
+[SEW] Saving of the trace of the execution specification representation in textual format 
+	path: <wroot>:/output-ATM_GEN_TC/ATM.fscn... OK
+[SEW] Saving of the trace of the execution specification representation in textual format 
+	path: <wroot>:/output-ATM_GEN_TC/debug/ATM.fet... OK
+	path: <wroot>:/output-ATM_GEN_TC/debug/ATM_graph_tec.fet... OK
+
+[SBX] < end > Computing ... done.
+
+
+[SEW] < end >Computing ... done.

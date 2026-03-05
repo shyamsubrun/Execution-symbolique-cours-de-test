@@ -1,0 +1,105 @@
+@xlia< system , 1.0 >:
+
+timed#discrete system< and > MySys {
+@property:
+	public static const time< uinteger > $time#initial = 0;
+	var time< uinteger > $time = spec::MySys.$time#initial;
+	public static const time< uinteger > $delta#initial = 0;
+	var time< uinteger > z = spec::MySys.$delta#initial;
+	var uint _clock_index_ = 0;
+
+@routine:
+	macro #model routine time#get --> ($0: transient parameter time< uinteger > _time_){
+		return $time;
+	}
+	macro #model routine delta#get --> ($0: transient parameter time< uinteger > _delta_){
+		return z;
+	}
+	macro #model routine time#reset{
+		$time := 0;
+	}
+	macro #model routine clock#reset($0: inout clock< uinteger > _clock_){
+		_clock_ := 0;
+	}
+	macro #model routine clock#update($0: inout clock< uinteger > _clock_){
+		_clock_ := (_clock_ + z);
+	}
+	macro #model routine clock#reset#vector($0: inout vector< clock< uinteger > > _clock_vector_){
+		for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+		{
+			&spec::MySys.clock#reset#vector._clock_vector_[&spec::MySys._clock_index_] := 0;
+		}
+	}
+	macro #model routine clock#update#vector($0: inout vector< clock< uinteger > > _clock_vector_){
+		for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+		{
+			&spec::MySys.clock#update#vector._clock_vector_[&spec::MySys._clock_index_] := (&spec::MySys.clock#update#vector._clock_vector_[&spec::MySys._clock_index_] + z);
+		}
+	}
+	macro #model routine time#update{ |§|
+		newfresh(z)
+		$time := ($time + z);
+		if ${ status#is enable spec::MySys.ABS }
+		{
+			clk := (clk + z);
+		}
+	}
+
+@composite:
+	statemachine< or > ABS {
+	@property:
+		public input port Val(integer value);
+		public output port Res(integer result);
+		public volatile var clock< urational > clk = 0;
+		var integer x;
+		var integer yR;
+
+	@region:
+		state< start > Ready {
+			transition t_value --> Compute {
+				input Val(x);
+				clk := 0;
+			}
+		}
+
+		state Compute {
+			transition t_result_pos --> Ready {
+				guard (x >= 0);
+				guard (yR == x);
+				output Res(yR);
+				guard (clk <= 1);
+			}
+			transition t_result_neg --> Ready {
+				guard (x < 0);
+				guard (yR == (- x));
+				output Res(yR);
+				guard (clk <= 1);
+			}
+			@enable{
+				invoke#method yR newfresh;
+			}
+		}
+	}
+
+@com:
+	connector< env > _#connector_0 {
+		input ABS->Val;
+	}
+	connector< env > _#connector_1 {
+		output ABS->Res;
+	}
+
+@moe:
+	@init{ |§|
+		$time := $time#initial;
+		z := $delta#initial;
+	}
+	@irun{ |§|
+		newfresh(z)
+		$time := ($time + z);
+		if ${ status#is enable spec::MySys.ABS }
+		{
+			clk := (clk + z);
+		}
+	}
+}

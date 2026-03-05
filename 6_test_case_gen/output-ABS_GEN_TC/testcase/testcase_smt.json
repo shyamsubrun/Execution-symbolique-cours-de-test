@@ -1,0 +1,210 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format using SMT formulas, types, ...",
+		"service": "Testcase Specification (ready for the Z3 SMT solver)",
+		"generatedDate": "Wed Feb 18 15:43:28 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Res",
+				"parameters": [
+					{
+						"name": "result",
+						"type": "Int"
+					}
+				]
+			}
+		],
+		"input_ports": [
+			{
+				"name": "Val",
+				"parameters": [
+					{
+						"name": "value",
+						"type": "Int"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "Real"
+			},
+			{
+				"name": "clt",
+				"type": "Int"
+			},
+			{
+				"name": "$_1",
+				"type": "Int"
+			},
+			{
+				"name": "x_1",
+				"type": "Int"
+			},
+			{
+				"name": "z_2",
+				"type": "Int"
+			},
+			{
+				"name": "z_1",
+				"type": "Int"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "z_1",
+				"transitions": [
+					{
+						"name": "tr_R1_Val",
+
+						"timed_guard": "(declare-const z_1 Int)(assert (<= 0 z_1))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_1 clt) (< clt TM) ))",
+
+						"guard": "(declare-const x_1 Int)(declare-const yR_1 Int)(declare-const $_1 Int)(declare-const z_2 Int)(assert (<= 0 z_2))(assert  (exists ( (z_2 Int) ($_1 Int) ) (and (<= 0 z_2)  (and (= (+ x_1 yR_1) 0) (= $_1 yR_1) (< x_1 0) (<= z_2 1) ) ) ))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Val",
+							"parameters": [
+								"x_1"
+							]
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_R10b_Res",
+
+						"timed_guard": "(declare-const z_1 Int)(assert (<= 0 z_1))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_1 clt) (< clt TM) ))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_R9_quiescence",
+
+						"timed_guard": "(declare-const z_1 Int)(assert (<= 0 z_1))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_1 clt) (>= clt TM) ))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_R11_unspecifiedQuiescence",
+
+						"timed_guard": "(declare-const z_1 Int)(assert (<= 0 z_1))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_1 clt) (>= clt TM) ))",
+
+						"guard": "(assert  false)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "z_2",
+				"transitions": [
+					{
+						"name": "tr_R4_PASS_Res",
+
+						"timed_guard": "(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_2 clt) (< clt TM) ))",
+
+						"guard": "(declare-const x_1 Int)(declare-const yR_1 Int)(declare-const $_1 Int)(declare-const z_2 Int)(assert (<= 0 z_2))(assert  (and (= (+ x_1 yR_1) 0) (= $_1 yR_1) (< x_1 0) (<= z_2 1) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_R10a_Res",
+
+						"timed_guard": "(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_2 clt) (< clt TM) ))",
+
+						"guard": "(declare-const yR_1 Int)(declare-const x_1 Int)(declare-const $_1 Int)(declare-const z_2 Int)(assert (<= 0 z_2))(assert  (and (or (not (= yR_1 x_1)) (not (= $_1 yR_1)) (> z_2 1) (< x_1 0) ) (or (not (= (+ x_1 yR_1) 0)) (not (= $_1 yR_1)) (>= x_1 0) (> z_2 1) ) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_R6_Res",
+
+						"timed_guard": "(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_2 clt) (< clt TM) ))",
+
+						"guard": "(declare-const yR_1 Int)(declare-const x_1 Int)(declare-const $_1 Int)(declare-const z_2 Int)(assert (<= 0 z_2))(assert  (and (= yR_1 x_1) (= $_1 yR_1) (<= z_2 1) (>= x_1 0) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "INCONCLUSIVE_OUTPUT"
+					},
+					{
+						"name": "tr_R9_quiescence",
+
+						"timed_guard": "(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_2 clt) (>= clt TM) ))",
+
+						"guard": "(declare-const x_1 Int)(declare-const yR_1 Int)(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const $_1 Int)(assert  (or (exists ( (# Int) ($_1 Int) ) (and (<= 0 #)  (and (= (+ x_1 yR_1) 0) (= $_1 yR_1) (< x_1 0) (< z_2 #) (<= # 1) ) ) ) (exists ( (# Int) ($_1 Int) ) (and (<= 0 #)  (and (= yR_1 x_1) (= $_1 yR_1) (< z_2 #) (<= # 1) (>= x_1 0) ) ) ) (and (forall ( (z_2 Int) ) (=> (<= 0 z_2)  (or (not (= (+ x_1 yR_1) 0)) (not (= $_1 yR_1)) (>= x_1 0) (> z_2 1) ) ) ) (forall ( (z_2 Int) ) (=> (<= 0 z_2)  (or (not (= yR_1 x_1)) (not (= $_1 yR_1)) (> z_2 1) (< x_1 0) ) ) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_R11_unspecifiedQuiescence",
+
+						"timed_guard": "(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const clt Int)(assert (<= 0 clt))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_2 clt) (>= clt TM) ))",
+
+						"guard": "(declare-const x_1 Int)(declare-const yR_1 Int)(declare-const z_2 Int)(assert (<= 0 z_2))(declare-const $_1 Int)(assert  (and (forall ( (# Int) ($_1 Int) ) (=> (<= 0 #)  (or (not (= (+ x_1 yR_1) 0)) (not (= $_1 yR_1)) (>= x_1 0) (>= z_2 #) (> # 1) ) ) ) (forall ( (# Int) ($_1 Int) ) (=> (<= 0 #)  (or (not (= yR_1 x_1)) (not (= $_1 yR_1)) (>= z_2 #) (> # 1) (< x_1 0) ) ) ) (or (exists ( (z_2 Int) ) (and (<= 0 z_2)  (and (= (+ x_1 yR_1) 0) (= $_1 yR_1) (< x_1 0) (<= z_2 1) ) ) ) (exists ( (z_2 Int) ) (and (<= 0 z_2)  (and (= yR_1 x_1) (= $_1 yR_1) (<= z_2 1) (>= x_1 0) ) ) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

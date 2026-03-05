@@ -1,0 +1,121 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+MySys:Ready
+
+$time = 0
+	z = 0
+	_clock_index_ = 0
+	clk = 0
+	x = x_0
+	yR = yR_0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label=""
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+MySys:Ready"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired MySys.t_value
+	INPUT ABS:Val( x_1 )
+	"
+]
+EC1 -> EC3 [
+	label="output MySys:Quiescence
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+MySys:Compute
+
+$time = z_1
+	z = z_1
+	x = x_1
+	yR = yR_1
+	
+tpid#1->Ready.t_value\nDETERMINISTIC EC<4> , EC<5>"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC2 -> EC4 [
+	label="fired MySys.t_result_pos
+	OUTPUT ABS:Res( $_1 )
+	"
+]
+EC2 -> EC5 [
+	label="fired MySys.t_result_neg
+	OUTPUT ABS:Res( $_1 )
+	"
+]
+EC2 -> EC6 [
+	label="output MySys:Quiescence
+	"
+]
+EC3 [
+	label="ec_3< ev:0 , h:2 , w:2 >
+MySys:Ready
+
+$time = z_1
+	z = z_1
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC4 [
+	label="ec_4< ev:0 , h:3 , w:1 >
+MySys:Ready
+
+PC: ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))
+	$time = (z_1 + z_2)
+	z = z_2
+	clk = z_2
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC5 [
+	label="ec_5< ev:0 , h:3 , w:3 >
+MySys:Ready
+
+PC: (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1))
+	$time = (z_1 + z_2)
+	z = z_2
+	clk = z_2
+	
+tpid#2->Compute.t_result_neg"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC6 [
+	label="ec_6< ev:0 , h:3 , w:4 >
+MySys:Compute
+
+PC: (exists< # : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) 
+	&& (x_1 < 0) && (z_2 < #) && (# <= 1)) || exists< # : uinteger , $_1 : integer 
+	>((yR_1 == x_1) && ($_1 == yR_1) && (z_2 < #) && (# <= 1) && (x_1 >= 0)) || 
+	(forall< z_2 : uinteger >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || 
+	(z_2 > 1)) && forall< z_2 : uinteger >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 
+	1) || (x_1 < 0))))
+	$time = (z_1 + z_2)
+	z = z_2
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+}

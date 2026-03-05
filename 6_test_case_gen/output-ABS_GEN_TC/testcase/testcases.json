@@ -1,0 +1,184 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcases definition in JSON Format",
+		"service": "Testcase Specification",
+		"generatedDate": "Mon Jan  6 09:35:30 2025"
+	},
+
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Res",
+				"parameters": [
+					{
+						"name": "result",
+						"type": "integer"
+					}
+				]
+			}
+		],
+		"input_ports": [
+			{
+				"name": "Val",
+				"parameters": [
+					{
+						"name": "value",
+						"type": "integer"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "pos_rational"
+			},
+			{
+				"name": "tc_clock",
+				"type": "clock< uinteger >"
+			},
+			{
+				"name": "yR_1",
+				"type": "integer"
+			},
+			{
+				"name": "x_1",
+				"type": "integer"
+			},
+			{
+				"name": "z_2",
+				"type": "time< uinteger >"
+			},
+			{
+				"name": "z_1",
+				"type": "time< uinteger >"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_2_Ready",
+				"sut_state": "Ready",
+				"time_var": "z_1",
+				"transitions": [
+					{
+						"name": "tr_R1_Val",
+						"guard": "exists< x_0 : integer , yR_0 : integer , z_2 : uinteger , yR_1 : integer >(((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 <= 1))",
+						"guard_smt": " (exists ( (_0_x_0 Int) (_0_yR_0 Int) (_7_z_2 Int) (_5_yR_1 Int) ) (and (<= 0 _7_z_2)  (and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0) (<= _7_z_2 1) ) ) )",
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Val",
+							"parameters": [
+								"x_1"
+							]
+						},
+						"next": "ec_3_Compute"
+					},
+					{
+						"name": "tr_R9_quiescenceAdmissible",
+						"guard": "true",
+						"guard_smt": " true",
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION "
+					},
+					{
+						"name": "tr_R11_unspecifiedQuiescence",
+						"guard": "forall< x_0 : integer , yR_0 : integer >( false )",
+						"guard_smt": " (forall ( (_0_x_0 Int) (_0_yR_0 Int) ) false)",
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					},
+					{
+						"name": "tr_R10b_Res",
+						"guard": "true",
+						"guard_smt": " true",
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res"
+						},
+						"verdict": "FAIL_OUTPUT"
+					}
+				]
+			},
+			{
+				"name": "ec_3_Compute",
+				"sut_state": "Compute",
+				"time_var": "z_2",
+				"transitions": [
+					{
+						"name": "tr_R4_PASS_Res",
+						"guard": "exists< x_0 : integer , yR_0 : integer >(((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 <= 1))",
+						"guard_smt": " (exists ( (_0_x_0 Int) (_0_yR_0 Int) ) (and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0) (<= _7_z_2 1) ))",
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"yR_1"
+							]
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_R10a_Res",
+						"guard": "((! exists< x_0 : integer , yR_0 : integer >((yR_1 == x_1) && (z_2 <= 1) && (x_1 >= 0))) && (! exists< x_0 : integer , yR_0 : integer >(((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 <= 1))))",
+						"guard_smt": " (and (not (exists ( (_0_x_0 Int) (_0_yR_0 Int) ) (and (= _6_yR_1 _5_x_1) (<= _7_z_2 1) (>= _5_x_1 0) )) ) (not (exists ( (_0_x_0 Int) (_0_yR_0 Int) ) (and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0) (<= _7_z_2 1) )) ) )",
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"yR_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_R9_quiescenceAdmissible",
+						"guard": "exists< x_0 : integer , yR_0 : integer >(exists< yR_1 : integer , z : uinteger >(((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 < z) && (z <= 1) && (z >= 0)) || exists< yR_1 : integer , z : uinteger >((yR_1 == x_1) && (z_2 < z) && (z <= 1) && (x_1 >= 0) && (z >= 0)) || (forall< z_2 : uinteger , yR_1 : integer >(((x_1 + yR_1) != 0) || (z_2 < 0) || (z_2 > 1) || (x_1 >= 0)) && forall< z_2 : uinteger , yR_1 : integer >((yR_1 != x_1) || (x_1 < 0) || (z_2 < 0) || (z_2 > 1))))",
+						"guard_smt": " (exists ( (_0_x_0 Int) (_0_yR_0 Int) ) (or (exists ( (_6_yR_1 Int) (_0_z Int) ) (and (<= 0 _0_z)  (and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0) (< _7_z_2 _0_z) (<= _0_z 1) (>= _0_z 0) ) ) ) (exists ( (_6_yR_1 Int) (_0_z Int) ) (and (<= 0 _0_z)  (and (= _6_yR_1 _5_x_1) (< _7_z_2 _0_z) (<= _0_z 1) (>= _5_x_1 0) (>= _0_z 0) ) ) ) (and (forall ( (_7_z_2 Int) (_6_yR_1 Int) ) (=> (<= 0 _7_z_2)  (or (not (= (+ _5_x_1 _6_yR_1) 0)) (< _7_z_2 0) (> _7_z_2 1) (>= _5_x_1 0) ) ) ) (forall ( (_7_z_2 Int) (_6_yR_1 Int) ) (=> (<= 0 _7_z_2)  (or (not (= _6_yR_1 _5_x_1)) (< _5_x_1 0) (< _7_z_2 0) (> _7_z_2 1) ) ) ) ) ))",
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION "
+					},
+					{
+						"name": "tr_R11_unspecifiedQuiescence",
+						"guard": "forall< x_0 : integer , yR_0 : integer >((! exists< yR_1 : integer , z : uinteger >(((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 < z) && (z <= 1) && (z >= 0))) && (! exists< yR_1 : integer , z : uinteger >((yR_1 == x_1) && (z_2 < z) && (z <= 1) && (x_1 >= 0) && (z >= 0))) && ((! forall< z_2 : uinteger , yR_1 : integer >(((x_1 + yR_1) != 0) || (z_2 < 0) || (z_2 > 1) || (x_1 >= 0))) || (! forall< z_2 : uinteger , yR_1 : integer >((yR_1 != x_1) || (x_1 < 0) || (z_2 < 0) || (z_2 > 1)))))",
+						"guard_smt": " (forall ( (_0_x_0 Int) (_0_yR_0 Int) ) (and (not (exists ( (_6_yR_1 Int) (_0_z Int) ) (and (<= 0 _0_z)  (and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0) (< _7_z_2 _0_z) (<= _0_z 1) (>= _0_z 0) ) ) ) ) (not (exists ( (_6_yR_1 Int) (_0_z Int) ) (and (<= 0 _0_z)  (and (= _6_yR_1 _5_x_1) (< _7_z_2 _0_z) (<= _0_z 1) (>= _5_x_1 0) (>= _0_z 0) ) ) ) ) (or (not (forall ( (_7_z_2 Int) (_6_yR_1 Int) ) (=> (<= 0 _7_z_2)  (or (not (= (+ _5_x_1 _6_yR_1) 0)) (< _7_z_2 0) (> _7_z_2 1) (>= _5_x_1 0) ) ) ) ) (not (forall ( (_7_z_2 Int) (_6_yR_1 Int) ) (=> (<= 0 _7_z_2)  (or (not (= _6_yR_1 _5_x_1)) (< _5_x_1 0) (< _7_z_2 0) (> _7_z_2 1) ) ) ) ) ) ))",
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					},
+					{
+						"name": "tr_R6_Res",
+						"guard": "exists< x_0 : integer , yR_0 : integer >((yR_1 == x_1) && (z_2 <= 1) && (x_1 >= 0))",
+						"guard_smt": " (exists ( (_0_x_0 Int) (_0_yR_0 Int) ) (and (= _6_yR_1 _5_x_1) (<= _7_z_2 1) (>= _5_x_1 0) ))",
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Res",
+							"parameters": [
+								"yR_1"
+							]
+						},
+						"verdict": "INCONCLUSIVE_OUTPUT "
+					}
+				]
+			}
+		]
+
+	}
+}

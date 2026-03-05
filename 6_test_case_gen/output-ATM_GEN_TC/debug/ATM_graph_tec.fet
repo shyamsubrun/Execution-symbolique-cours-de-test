@@ -1,0 +1,92 @@
+ec( Id:0 , Pr:0 , Ev:0 , H:0 , W:1 , Q:0 ) {
+	ed(pid_3:Idle) {
+		exec_status = AEES_OK;
+		@init{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init run::pid_2:atm_syst.atm_SM;
+		}
+		@schedule{
+			{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable run::pid_2:atm_syst.atm_SM }
+				{
+					cl := (cl + z);
+				}
+			}
+			schedule $self;
+		}
+		rid = run::pid_1:atm_syst;
+
+	runtime#state:
+		<@rid#0 = STATE_UNDEFINED;		// run::#PARAMETERS#
+		<@rid#1 = STATE_RUNNING;		// run::atm_syst
+		<@rid#2 = STATE_DISABLED;		// run::atm_syst.atm_SM
+		<@rid#3 = STATE_DISABLED;		// run::atm_syst.atm_SM.Idle
+		<@rid#4 = STATE_DISABLED;		// run::atm_syst.atm_SM.Ready
+		<@rid#5 = STATE_DISABLED;		// run::atm_syst.atm_SM.Decision
+		<@rid#6 = STATE_DISABLED;		// run::atm_syst.atm_SM.WaitingAuth
+		<@rid#7 = STATE_DISABLED;		// run::atm_syst.atm_SM.givecash
+		<@rid#8 = STATE_DISABLED;		// run::atm_syst.atm_SM.abortauth
+
+	runtime:
+		runtime ppid_0.pid_0 run::#PARAMETERS# as &inst::#PARAMETERS# {
+		}
+		runtime ppid_0.pid_1 run::atm_syst as &prot::atm_syst {
+			@schedule{
+				run run::pid_2:atm_syst.atm_SM;
+			}
+
+		variable:
+			$time := 0;
+			z := 0;
+			_clock_index_ := 0;
+		}
+		runtime ppid_1.pid_2 run::atm_syst.atm_SM as &prot::atm_syst.atm_SM {
+			@schedule{
+				run run::pid_3:atm_syst.atm_SM.Idle;
+			}
+
+		variable:
+			cl := 0;
+			wtb := 5;
+			threshold := 10;
+			amount := 0;
+			x := 0;
+			auth_ok := false;
+
+		router:
+			router prot::atm_syst.atm_SM {
+			input:
+				routing< env , mid:1 > inst::atm_syst.atm_SM.Init {
+					connector = inst::atm_syst.atm_SM._#connector_0;
+				}
+				routing< env , mid:1 > inst::atm_syst.atm_SM.Wdrl {
+					connector = inst::atm_syst.atm_SM._#connector_0;
+				}
+				routing< env , mid:1 > inst::atm_syst.atm_SM.Auth {
+					connector = inst::atm_syst.atm_SM._#connector_0;
+				}
+			output:
+				routing< env , mid:1 > inst::atm_syst.atm_SM.Debit {
+					connector = inst::atm_syst.atm_SM._#connector_0;
+				}
+				routing< env , mid:1 > inst::atm_syst.atm_SM.Cash {
+					connector = inst::atm_syst.atm_SM._#connector_0;
+				}
+				routing< env , mid:1 > inst::atm_syst.atm_SM.Abort {
+					connector = inst::atm_syst.atm_SM._#connector_0;
+				}
+			}
+		}
+		runtime ppid_2.pid_3 run::atm_syst.atm_SM.Idle as &prot::atm_syst.atm_SM.Idle;
+		runtime ppid_2.pid_4 run::atm_syst.atm_SM.Ready as &prot::atm_syst.atm_SM.Ready;
+		runtime ppid_2.pid_5 run::atm_syst.atm_SM.Decision as &prot::atm_syst.atm_SM.Decision;
+		runtime ppid_2.pid_6 run::atm_syst.atm_SM.WaitingAuth as &prot::atm_syst.atm_SM.WaitingAuth;
+		runtime ppid_2.pid_7 run::atm_syst.atm_SM.givecash as &prot::atm_syst.atm_SM.givecash;
+		runtime ppid_2.pid_8 run::atm_syst.atm_SM.abortauth as &prot::atm_syst.atm_SM.abortauth;
+	}
+}

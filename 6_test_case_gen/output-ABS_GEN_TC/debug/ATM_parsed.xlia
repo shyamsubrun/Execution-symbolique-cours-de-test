@@ -1,0 +1,120 @@
+@xlia< system , 1.0 >:
+
+timed system< and > atm_syst {
+@property:
+	public static const time< urational > $time#initial = 0;
+	var time< urational > $time = spec::atm_syst.$time#initial;
+	public static const time< urational > $delta#initial = 0;
+	var time< urational > z = spec::atm_syst.$delta#initial;
+	var uint _clock_index_ = 0;
+
+@routine:
+	macro #model routine time#get --> ($0: transient parameter time< urational > _time_){
+		return $time;
+	}
+	macro #model routine delta#get --> ($0: transient parameter time< urational > _delta_){
+		return z;
+	}
+	macro #model routine time#reset{
+		$time := 0;
+	}
+	macro #model routine clock#reset($0: inout clock< urational > _clock_){
+		_clock_ := 0;
+	}
+	macro #model routine clock#update($0: inout clock< urational > _clock_){
+		_clock_ := (_clock_ + z);
+	}
+	macro #model routine clock#reset#vector($0: inout vector< clock< urational > > _clock_vector_){
+		for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+		{
+			&spec::atm_syst.clock#reset#vector._clock_vector_[&spec::atm_syst._clock_index_] := 0;
+		}
+	}
+	macro #model routine clock#update#vector($0: inout vector< clock< urational > > _clock_vector_){
+		for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+		{
+			&spec::atm_syst.clock#update#vector._clock_vector_[&spec::atm_syst._clock_index_] := (&spec::atm_syst.clock#update#vector._clock_vector_[&spec::atm_syst._clock_index_] + z);
+		}
+	}
+	macro #model routine time#update{ |§|
+		newfresh(z)
+		$time := ($time + z);
+		if ${ status#is enable spec::atm_syst.atm_SM }
+		{
+			cl := (cl + z);
+		}
+	}
+
+@composite:
+	statemachine< or > atm_SM {
+	@property:
+		public input port Init;
+		public input port Wdrl;
+		public input port Auth;
+		public output port Debit;
+		public output port Cash;
+		public output port Abort;
+		public volatile var clock< urational > cl = 0;
+		var urational wtb = 5;
+		var urational threshold = 10;
+
+	@region:
+		state< start > Idle {
+			transition t_init --> Ready {
+				input Init;
+			}
+		}
+
+		state Ready {
+			transition t_abort_small --> Ready {
+				input Wdrl;
+				guard (threshold > 0);
+				output Abort;
+			}
+			transition t_send_debit --> WaitingAuth {
+				input Wdrl;
+				output Debit;
+				cl := 0;
+			}
+		}
+
+		state WaitingAuth {
+			transition t_timeout --> Ready {
+				guard (cl > wtb);
+				output Abort;
+			}
+			transition t_cash --> Ready {
+				input Auth;
+				output Cash;
+			}
+			transition t_abort_auth --> Ready {
+				input Auth;
+				output Abort;
+			}
+		}
+
+	@com:
+		connector< env > _#connector_0 {
+			input atm_SM->Init;
+			input atm_SM->Wdrl;
+			input atm_SM->Auth;
+			output atm_SM->Debit;
+			output atm_SM->Cash;
+			output atm_SM->Abort;
+		}
+	}
+
+@moe:
+	@init{ |§|
+		$time := $time#initial;
+		z := $delta#initial;
+	}
+	@run{ |§|
+		newfresh(z)
+		$time := ($time + z);
+		if ${ status#is enable spec::atm_syst.atm_SM }
+		{
+			cl := (cl + z);
+		}
+	}
+}

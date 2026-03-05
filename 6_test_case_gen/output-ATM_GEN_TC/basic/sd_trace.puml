@@ -1,0 +1,23 @@
+
+@startuml
+
+hide unlinked
+skinparam note{
+	BackgroundColor White
+	BorderColor White
+}
+
+skinparam BackgroundColor transparent
+
+box "atm_syst" #transparent
+participant "atm_SM" as atm_SM
+end box
+
+== TRACE PATH 1 ec_7 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_auth_cash
+
+
+@enduml

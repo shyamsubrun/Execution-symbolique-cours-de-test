@@ -1,0 +1,184 @@
+@startuml
+
+hide empty description
+' skinparam linetype polyline"
+' skinparam linetype ortho"
+' left to right direction"
+
+!function $kw($key_word)
+!return "**<color blue>" + $key_word + "</color>**"
+!endfunction
+
+!function $kop($key_operator)
+!return "**<color blue>" + $key_operator + "</color>**"
+!endfunction
+
+!function $ks($key_symbol)
+!return "**<color blue>" + $key_symbol + "</color>**"
+!endfunction
+
+'<style>
+'	note {
+'		backgroundcolor white
+'		shadowing 0
+'		linecolor transparent
+'	}
+'</style>
+
+skinparam backgroundColor White
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les états composites
+	BackgroundColor<< System       >> Turquoise
+	BackgroundColor<< Statemachine >> DodgerBlue
+	BackgroundColor<< Machine      >> SpringGreen
+	BackgroundColor<< Instance     >> Orchid
+	BackgroundColor<< Composite    >> SpringGreen
+
+	'Attribut pour les états simples
+	BackgroundColor<< simple_hierarchic >> PaleTurquoise
+	BackgroundColor<< simple >> PaleTurquoise
+	BackgroundColor<< start  >> Green
+	BackgroundColor<< final >> Red
+	BackgroundColor<< sync   >> Aqua
+
+	'Attribut pour les pseudo-états
+	BackgroundColor<< pseudostate >> Lavender
+	BackgroundColor<< initial     >> GreenYellow
+	BackgroundColor<< junction    >> GreenYellow
+	BackgroundColor<< choice      >> Orange
+	BackgroundColor<< fork        >> SpringGreen
+	BackgroundColor<< junction    >> SpringGreen
+	BackgroundColor<< dhistory    >> SpringGreen
+	BackgroundColor<< shistory    >> SpringGreen
+	BackgroundColor<< return      >> OrangeRed
+	BackgroundColor<< terminal    >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+	
+state "**discrete_timed system** WashingMachineWithRemotePaymentment" as WashingMachineWithRemotePaymentment_371567956 << System >> {
+	state "**statemachine** Washer" as Washer_1861490883 << Statemachine >> {
+		state "Standby" as Standby_1415557071 << start >>
+		
+		
+		Standby_1415557071 --> Payment_2005421064
+		note on link #white
+			**t_washProg** 
+			$kw("input") WashProg(pdur) $ks(";")
+			clk $kop("=") 0 $ks(";")
+			rid $kop("=") (rid $kop("+") 1) $ks(";")
+		end note
+		
+		state "Payment" as Payment_2005421064 << simple >>
+		
+		note bottom of Payment_2005421064 #white
+			**enable( )**
+			$kw("newfresh(") yD1 $kw(")");
+			$kw("newfresh(") yD2 $kw(")");
+		end note
+		
+		Payment_2005421064 --> Wait_1348220994
+		note on link #white
+			**t_debit** 
+			$kw("guard") (yD1 $kop("==") rid) $ks(";")
+			$kw("guard") (yD2 $kop("==") 10) $ks(";")
+			$kw("output") Debit(yD1, yD2) $ks(";")
+			$kw("guard") (((30 $kop("<=") pdur) < 60)
+				$kop("&&") (clk $kop("<=") 1)) $ks(";")
+			clk $kop("=") 0 $ks(";")
+		end note
+		Payment_2005421064 --> Wait_1348220994
+		note on link #white
+			**t_debit_fee** 
+			$kw("guard") (yD1 $kop("==") rid) $ks(";")
+			$kw("guard") (yD2 $kop("==") (10 $kop("+") fee)) $ks(";")
+			$kw("output") Debit(yD1, yD2) $ks(";")
+			$kw("guard") (((60 $kop("<=") pdur) <= 120)
+				$kop("&&") (fee $kop(">") 0)
+				$kop("&&") (clk $kop("<=") 1)) $ks(";")
+			clk $kop("=") 0 $ks(";")
+		end note
+		Payment_2005421064 --> Standby_1415557071
+		note on link #white
+			**t_p_abort** 
+			$kw("output") Abort $ks(";")
+			$kw("guard") (((pdur $kop("<") 30)
+				$kop("||") (pdur $kop(">") 120))
+				$kop("&&") (clk $kop("<=") 1)) $ks(";")
+		end note
+		
+		state "Wait" as Wait_1348220994 << simple >>
+		
+		
+		Wait_1348220994 --> Launch_706923093
+		note on link #white
+			**t_msg** 
+			$kw("input") Msg(rid_ret, auth) $ks(";")
+			$kw("guard") (clk $kop("<") 4) $ks(";")
+			clk $kop("=") 0 $ks(";")
+		end note
+		Wait_1348220994 --> Standby_1415557071
+		note on link #white
+			**t_w_abort** 
+			$kw("output") Abort $ks(";")
+			$kw("guard") ((4 $kop("<=") clk) <= 5) $ks(";")
+		end note
+		
+		state "Launch" as Launch_706923093 << simple >>
+		
+		note bottom of Launch_706923093 #white
+			**enable( )**
+			$kw("newfresh(") ySC1 $kw(")");
+		end note
+		
+		Launch_706923093 --> Wash_53098761
+		note on link #white
+			**t_startCycle** 
+			$kw("guard") (ySC1 $kop("==") (pdur $kop("+") 12)) $ks(";")
+			$kw("output") StartCycle(ySC1) $ks(";")
+			$kw("guard") ((rid_ret $kop("==") rid)
+				$kop("&&") (auth $kop("==") 1)
+				$kop("&&") (clk $kop("<=") 1)) $ks(";")
+			clk $kop("=") 0 $ks(";")
+		end note
+		Launch_706923093 --> Standby_1415557071
+		note on link #white
+			**t_l_abort** 
+			$kw("output") Abort $ks(";")
+			$kw("guard") (((rid_ret $kop("!=") rid)
+				$kop("||") (auth $kop("!=") 1))
+				$kop("&&") (clk $kop("<=") 1)) $ks(";")
+		end note
+		
+		state "Wash" as Wash_53098761 << simple >>
+		
+		
+		Wash_53098761 --> Standby_1415557071
+		note on link #white
+			**t_endCycle** 
+			$kw("output") EndCycle $ks(";")
+			$kw("guard") (clk $kop("==") (pdur $kop("+") 12)) $ks(";")
+		end note
+		
+	}
+	--
+	state "main behavior" as BehaviorImpl_1582425912 {
+	}
+	
+}
+	
+@enduml

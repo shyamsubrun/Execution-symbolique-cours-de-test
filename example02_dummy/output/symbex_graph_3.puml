@@ -1,0 +1,195 @@
+
+@startuml symbex_graph
+
+' // scale 600 width
+
+hide empty description
+
+skinparam linetype polyline
+' skinparam linetype ortho
+' left to right direction
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les noeuds/feuilles du graphes SymBex
+	BackgroundColor<< DefaultNode >> LightBlue
+
+	BackgroundColor<< RedondancyTargetSource >> Green
+	BackgroundColor<< RedondancyTargetNode >> GreenYellow
+
+	BackgroundColor<< PassedNode >> GreenYellow
+	BackgroundColor<< FailedNode >> Red
+	BackgroundColor<< InconclusiveNode >> Orange
+	BackgroundColor<< AbortedNode >> Orange
+	BackgroundColor<< WarningNode >> Orange
+	BackgroundColor<< ErrorNode >> Red
+	BackgroundColor<< AlertNode >> Red
+	BackgroundColor<< ExitNode >> Red
+
+	'Attribut pour les paths du graphes SymBex
+	BackgroundColor<< PassedPath >> LawnGreen
+	BackgroundColor<< FailedPath >> Red
+	BackgroundColor<< InconclusiveNodePath >> Orange
+	BackgroundColor<< AbortedPath >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+
+
+state "EC 28" as EC28 << DefaultNode >>
+
+EC28: < ev:1 , h:0 , w:1 > 
+EC28: Example02_Dummy_S:q0
+note left of EC28
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	
+end note
+
+EC28 -down-> EC29
+
+state "EC 29" as EC29 << PassedPath >>
+
+EC29: < ev:2 , h:1 , w:1 > 
+EC29: Example02_Dummy_S:q0
+note left of EC29
+sum = 0
+	
+end note
+
+EC29 -down-> EC30
+
+state "EC 30" as EC30 << PassedPath >>
+
+EC30: < ev:3 , h:2 , w:1 > 
+EC30: Example02_Dummy_S:q1
+note left of EC30
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = $delay_1
+	$delay = $delay_1
+	sum = x_1
+	x = x_1
+	
+end note
+EC30: ----
+EC30: tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0
+
+EC30 -down-> EC31
+
+state "EC 31" as EC31 << PassedPath >>
+
+EC31: < ev:4 , h:3 , w:1 > 
+EC31: Example02_Dummy_S:q0
+note left of EC31
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) 
+	&& (x_1 <= 10))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+end note
+EC31: ----
+EC31: tpid#2->q1.tr2
+
+EC31 -down-> EC32
+
+state "EC 32" as EC32 << PassedPath >>
+
+EC32: < ev:5 , h:4 , w:1 > 
+EC32: Example02_Dummy_S:q1
+note left of EC32
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + 
+	-1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3)
+	$delay = $delay_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+end note
+EC32: ----
+EC32: tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0
+
+EC32 -down-> EC33
+
+state "EC 33" as EC33 << PassedPath >>
+
+EC33: < ev:6 , h:5 , w:3 > 
+EC33: Example02_Dummy_S:q0
+note left of EC33
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	cl = $delay_4
+	
+end note
+EC33: ----
+EC33: tpid#4->q1.tr3
+
+EC33 -down-> EC34
+
+EC33 -down-> EC35
+
+state "EC 34" as EC34 << DefaultNode >>
+
+EC34: < ev:0 , h:6 , w:3 > 
+EC34: Example02_Dummy_S:q1
+note left of EC34
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 
+	<= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	
+end note
+
+state "EC 35" as EC35 << PassedPath >>
+
+EC35: < ev:0 , h:6 , w:4 > 
+EC35: Example02_Dummy_S:q2
+note left of EC35
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	cl = ($delay_4 + $delay_5)
+	
+end note
+EC35: ----
+EC35: tpid#5->q0.tr4\nFINALIZE
+EC35: STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+@enduml

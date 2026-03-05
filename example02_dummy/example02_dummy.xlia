@@ -1,0 +1,55 @@
+@xlia< system , 1.0 >:
+
+timed system Example02_Dummy_S {
+
+@composite:
+	statemachine Example02_Dummy_SM {
+	@public:
+		port input  In( urational );
+		port output Out( urational );
+		port output Done;
+	@private:
+		var urational       sum;
+		var urational       x;
+		var clock urational cl;
+	@region:
+	
+	    state< start > q0 {
+	    	@init{
+	    		sum := 0;
+	    	}
+	        transition  tr1 --> q1 { 
+	            input In( x );
+	            guard ( 1 <= x <= 10 );
+	            sum := sum+x;
+	            cl  := 0;
+	        }                   
+	        transition  tr4 --> q2 { 
+	            guard ( sum >= 15 );
+	            output Done;
+	        }                   
+	    }
+	    state q1 {
+	        transition tr2 --> q0 {
+	        	guard ( x <= 5 && cl == 42-x );
+	            output Out( 0 );
+	        }
+	        transition tr3 --> q0 {
+	        	guard ( x > 5 && cl == 42-x );
+	            output Out( x );
+	        }
+        }
+        	    
+       	state< terminal > q2;
+       	
+	@com:
+		connect< env >{
+			input  In;
+			output Out;
+			output Done;
+		}
+	 }
+}
+//Sequence of transitions characterizing a test purpose.
+//	transition = "tr1"
+//	transition = "tr2"

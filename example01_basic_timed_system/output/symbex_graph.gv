@@ -1,0 +1,271 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label=""
+]
+EC4 [
+	label="ec_4< ev:1 , h:0 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC4 -> EC5 [
+	label=""
+]
+EC8 [
+	label="ec_8< ev:1 , h:0 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC8 -> EC9 [
+	label=""
+]
+EC12 [
+	label="ec_12< ev:1 , h:0 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC12 -> EC13 [
+	label=""
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+Example01_Basic_Timed_System_S:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired Example01_Basic_Timed_System_S.tr1
+	INPUT Example01_Basic_Timed_System_SM:In
+	"
+]
+EC1 -> EC16 [
+	label="output Example01_Basic_Timed_System_S:Quiescence
+	"
+]
+EC5 [
+	label="ec_5< ev:2 , h:1 , w:1 >
+Example01_Basic_Timed_System_S:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC5 -> EC6 [
+	label="fired Example01_Basic_Timed_System_S.tr1
+	INPUT Example01_Basic_Timed_System_SM:In
+	"
+]
+EC9 [
+	label="ec_9< ev:2 , h:1 , w:1 >
+Example01_Basic_Timed_System_S:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC9 -> EC10 [
+	label="fired Example01_Basic_Timed_System_S.tr1
+	INPUT Example01_Basic_Timed_System_SM:In
+	"
+]
+EC13 [
+	label="ec_13< ev:2 , h:1 , w:1 >
+Example01_Basic_Timed_System_S:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC13 -> EC14 [
+	label="fired Example01_Basic_Timed_System_S.tr1
+	INPUT Example01_Basic_Timed_System_SM:In
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+$time = $delay_1
+	$delay = $delay_1
+	
+tpid#1->q0.tr1"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired Example01_Basic_Timed_System_S.tr2
+	OUTPUT Example01_Basic_Timed_System_SM:Out
+	"
+]
+EC2 -> EC17 [
+	label="output Example01_Basic_Timed_System_S:Quiescence
+	"
+]
+EC16 [
+	label="ec_16< ev:0 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = $delay_1
+	$delay = $delay_1
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC6 [
+	label="ec_6< ev:3 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+$time = $delay_1
+	$delay = $delay_1
+	
+tpid#1->q0.tr1"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC6 -> EC7 [
+	label="fired Example01_Basic_Timed_System_S.tr2
+	OUTPUT Example01_Basic_Timed_System_SM:Out
+	"
+]
+EC10 [
+	label="ec_10< ev:3 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+$time = $delay_1
+	$delay = $delay_1
+	
+tpid#1->q0.tr1"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC10 -> EC11 [
+	label="fired Example01_Basic_Timed_System_S.tr2
+	OUTPUT Example01_Basic_Timed_System_SM:Out
+	"
+]
+EC14 [
+	label="ec_14< ev:3 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+$time = $delay_1
+	$delay = $delay_1
+	
+tpid#1->q0.tr1"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC14 -> EC15 [
+	label="fired Example01_Basic_Timed_System_S.tr2
+	OUTPUT Example01_Basic_Timed_System_SM:Out
+	"
+]
+EC3 [
+	label="ec_3< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+PC: ($delay_2 <= 5)
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC17 [
+	label="ec_17< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+PC: exists< # : urational >(($delay_2 < #) && (# <= 5))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC7 [
+	label="ec_7< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+PC: ($delay_2 <= 5)
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC11 [
+	label="ec_11< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+PC: ($delay_2 <= 5)
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC15 [
+	label="ec_15< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+PC: ($delay_2 <= 5)
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

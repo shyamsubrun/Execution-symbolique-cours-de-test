@@ -1,0 +1,45 @@
+digraph Example02_Dummy_S {
+compound = true;
+fontsize = 12
+	subgraph "cluster_spec::Example02_Dummy_S" {
+		label = "SYSTEM spec::Example02_Dummy_S"
+
+		subgraph "cluster_spec::Example02_Dummy_S.Example02_Dummy_SM" {
+			label = "Example02_Dummy_SM"
+			style=dashed;
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM"
+			[
+				label = "Example02_Dummy_SM"
+				shape=point, style=invis, color=white
+			];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q0"
+			[
+				label = "q0"
+				shape=ellipse, style="bold,filled", fillcolor=green
+			];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q0" -> "spec::Example02_Dummy_S.Example02_Dummy_SM.q1" [ label = "tr1" ];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q0" -> "spec::Example02_Dummy_S.Example02_Dummy_SM.q2" [ label = "tr4" ];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q1"
+			[
+				label = "q1"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q1" -> "spec::Example02_Dummy_S.Example02_Dummy_SM.q0" [ label = "tr2" ];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q1" -> "spec::Example02_Dummy_S.Example02_Dummy_SM.q0" [ label = "tr3" ];
+
+			"spec::Example02_Dummy_S.Example02_Dummy_SM.q2"
+			[
+				label = "q2"
+				shape=Msquare, style="filled", fillcolor=red
+			];
+		}
+	}
+}
+

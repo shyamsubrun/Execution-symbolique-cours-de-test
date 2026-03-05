@@ -1,0 +1,152 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format",
+		"service": "Testcase Specification",
+		"generatedDate": "Mon Jan 26 09:20:10 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Out"
+			}
+		],
+		"input_ports": [
+			{
+				"name": "In"
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "pos_rational"
+			},
+			{
+				"name": "clk",
+				"type": "clock< urational >"
+			},
+			{
+				"name": "$delay_2",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$delay_1",
+				"type": "time< urational >"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec2_In",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "In"
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "$delay_2",
+				"transitions": [
+					{
+						"name": "tr_PASS_Out",
+
+						"timed_guard": "(($delay_2 == clk) && (clk < TM))",
+
+						"guard": "($delay_2 <= 5)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out"
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(($delay_2 == clk) && (clk < TM))",
+
+						"guard": "($delay_2 > 5)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(($delay_2 == clk) && (clk >= TM))",
+
+						"guard": "exists< # : urational >(($delay_2 < #) && (# <= 5))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(($delay_2 == clk) && (clk >= TM))",
+
+						"guard": "forall< # : urational >(($delay_2 >= #) || (# > 5))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

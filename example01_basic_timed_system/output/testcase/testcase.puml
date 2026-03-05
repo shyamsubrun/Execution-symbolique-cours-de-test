@@ -1,0 +1,181 @@
+
+@startuml
+
+	' // scale 600 width
+	
+	' allow_mixing
+	' !pragma teoz true
+	
+	skinparam componentstyle uml2
+	
+	hide empty description
+	
+	skinparam linetype polyline
+	' skinparam linetype ortho
+	' left to right direction
+	
+	!function $kw($key_word)
+	' // !return "**<color blue>" + $key_word + "</color>**"
+	!return "**" + $key_word + "**"
+	!endfunction
+	
+	!function $kop($key_operator)
+	' // !return "**<color blue>" + $key_operator + "</color>**"
+	!return "**" + $key_operator + "**"
+	!endfunction
+	
+	!function $ks($key_symbol)
+	' // !return "**<color blue>" + $key_symbol + "</color>**"
+	!return "**" + $key_symbol + "**"
+	!endfunction
+	
+	!function $param($p)
+	' // !return "**<color darkred>" + $p + "</color>**"
+	!return "**" + $p + "**"
+	!endfunction
+	
+	!$natural = "**<color darkred>&#9838;</color>**"
+	
+	!$tp_path = "#Green,thickness=2"
+	
+	<style>
+		note {
+			backgroundcolor white
+			shadowing 0
+			linecolor transparent
+			FontSize 35
+		}
+	</style>
+	
+	skinparam backgroundColor White
+	
+	skinparam arrow {
+		Thickness 3
+	}
+	
+	skinparam RoundCorner 0
+	
+	skinparam state {
+		StartColor Green
+		EndColor Red
+		'Attribut pour les transitions
+		ArrowColor Black
+		ArrowColor<< Else >> Orange
+		'Attribut par défaut pour les états
+		BorderColor Black
+		BorderThickness 3
+		BackgroundColor Wheat
+		'Attribut pour les états composites
+		BackgroundColor<< System            >> LightGrey
+		BackgroundColor<< Statemachine      >> GenericDisplay
+		BackgroundColor<< Machine           >> GenericDisplay
+		BackgroundColor<< Instance          >> GenericDisplay
+		BackgroundColor<< Composite         >> GenericDisplay
+		'Attribut pour les états simples
+		BackgroundColor<< simple_hierarchic >> PaleTurquoise
+		BackgroundColor<< simple            >> #E6E6E6
+		BackgroundColor<< start             >> #E6E6E6
+		BackgroundColor<< final             >> #E6E6E6 //#E6F4EA
+		BackgroundColor<< pass              >> GreenYellow
+		BackgroundColor<< sync              >> Aqua
+		'Attribut pour les pseudo-états
+		BackgroundColor<< pseudostate       >> Lavender
+		BackgroundColor<< initial           >> GreenYellow
+		BackgroundColor<< junction          >> #FFF7CC
+		BackgroundColor<< choice            >> Orange
+		BackgroundColor<< fork              >> #FFF7CC
+		BackgroundColor<< join              >> SpringGreen
+		BackgroundColor<< dhistory          >> SpringGreen
+		BackgroundColor<< shistory          >> SpringGreen
+		BackgroundColor<< return            >> OrangeRed
+		BackgroundColor<< terminal          >> #E6E6E6 // #F8E1E1
+		FontColor Black
+		FontName Times
+		FontSize 35
+	}
+
+state "System Testcase_S" as Testcase_S__975303598112 << System >> {
+	state "Testcase_SM" as Testcase_SM__2473833196264 << Composite >> {
+		state "ec1" as ec_1__2473851359176 << Start >>
+
+		ec_1__2473851359176--> ec_2__2473832592664
+		note on link #white
+			**tr_ec2_In**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("output") In $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_1__2473851359176--> FAIL_out_ec_1_Out__2473832586744
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Out $ks(";")
+		end note
+
+		ec_1__2473851359176--> INC_dur_ec_1__2473832588104
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "ec2" as ec_2__2473832592664 << Simple >>
+
+		ec_2__2473832592664--> PASS_ec_3__2473832589464
+		note on link #white
+			**tr_PASS_Out**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Out $ks(";")
+			$kw("guard") ($delay_2 $kop("<=") 5) $ks(";")
+		end note
+
+		ec_2__2473832592664--> FAIL_out_ec_2_3_Out__2473851326936
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Out $ks(";")
+			$kw("guard") ($delay_2 $kop(">") 5) $ks(";")
+		end note
+
+		ec_2__2473832592664--> INC_dur_ec_2__2473851328920
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") exists< # : urational >(($delay_2 $kop("<") #)
+				 $kop("&&") (# $kop("<=") 5)) $ks(";")
+		end note
+
+		ec_2__2473832592664--> FAIL_dur_ec_2__2473850438392
+		note on link #white
+			**tr_FAILdur_Quiescence**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") forall< # : urational >(($delay_2 $kop(">=") #)
+				 $kop("||") (# $kop(">") 5)) $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_1_Out__2473832586744 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_1__2473832588104 << Terminal >>
+
+		state "PASS" as PASS_ec_3__2473832589464 << Final >>
+
+		state "FAILout" as FAIL_out_ec_2_3_Out__2473851326936 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_2__2473851328920 << Terminal >>
+
+		state "FAILdur" as FAIL_dur_ec_2__2473850438392 << Terminal >>
+
+	}
+
+}
+
+@enduml
+
+

@@ -1,0 +1,441 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format using SMT formulas, types, ...",
+		"service": "Testcase Specification (ready for the Z3 SMT solver)",
+		"generatedDate": "Mon Jan 26 09:19:15 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Out",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "Real"
+					}
+				]
+			},
+			{
+				"name": "Done"
+			}
+		],
+		"input_ports": [
+			{
+				"name": "In",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "Real"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "Real"
+			},
+			{
+				"name": "clk",
+				"type": "Real"
+			},
+			{
+				"name": "x_5",
+				"type": "Real"
+			},
+			{
+				"name": "$_2",
+				"type": "Real"
+			},
+			{
+				"name": "x_3",
+				"type": "Real"
+			},
+			{
+				"name": "$_1",
+				"type": "Real"
+			},
+			{
+				"name": "x_1",
+				"type": "Real"
+			},
+			{
+				"name": "$delay_5",
+				"type": "Real"
+			},
+			{
+				"name": "$delay_4",
+				"type": "Real"
+			},
+			{
+				"name": "$delay_3",
+				"type": "Real"
+			},
+			{
+				"name": "$delay_2",
+				"type": "Real"
+			},
+			{
+				"name": "$delay_1",
+				"type": "Real"
+			},
+			{
+				"name": "$_3",
+				"type": "Real"
+			},
+			{
+				"name": "$_4",
+				"type": "Real"
+			},
+			{
+				"name": "$_5",
+				"type": "Real"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec2_In",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const x_1 Real)(assert (<= 0 x_1))(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const x_3 Real)(assert (<= 0 x_3))(declare-const $_1 Real)(assert (<= 0 $_1))(declare-const $_2 Real)(assert (<= 0 $_2))(assert  (and (exists ( ($delay_4 Real) ($_2 Real) (x_3 Real) ($delay_2 Real) ($_1 Real) ) (and (<= 0 $delay_4) (<= 0 $_2) (<= 0 x_3) (<= 0 $delay_2) (<= 0 $_1)  (and (= (+ $delay_2 x_1) 42) (= (+ $delay_4 x_3) 42) (= $_1 0) (= $_2 x_3) (<= 0 (+ x_3 -1)) (<= x_3 10) (> x_3 5) (>= (+ x_1 x_3) 15) ) ) ) (<= 0 (+ x_1 -1)) (<= x_1 5) (<= x_1 10) ))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "In",
+							"parameters": [
+								"x_1"
+							]
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_3"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (>= clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "$delay_2",
+				"transitions": [
+					{
+						"name": "tr_ec3_Out",
+
+						"timed_guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_2 clk) (< clk TM) ))",
+
+						"guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const x_1 Real)(assert (<= 0 x_1))(declare-const $_1 Real)(assert (<= 0 $_1))(assert  (and (= (+ $delay_2 x_1) 42) (= $_1 0) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"next": "ec_3"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_2 clk) (< clk TM) ))",
+
+						"guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const x_1 Real)(assert (<= 0 x_1))(declare-const $_1 Real)(assert (<= 0 $_1))(assert  (or (not (= (+ $delay_2 x_1) 42)) (not (= $_1 0)) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_2 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const x_1 Real)(assert (<= 0 x_1))(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(assert  (exists ( (# Real) ($_1 Real) ) (and (<= 0 #) (<= 0 $_1)  (and (= (+ # x_1) 42) (= $_1 0) (< $delay_2 #) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_2 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const x_1 Real)(assert (<= 0 x_1))(declare-const $delay_2 Real)(assert (<= 0 $delay_2))(assert  (forall ( (# Real) ($_1 Real) ) (=> (<= 0 #) (<= 0 $_1)  (or (not (= (+ # x_1) 42)) (not (= $_1 0)) (>= $delay_2 #) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_3",
+				"sut_state": "ec_3",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec5_In",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const x_3 Real)(assert (<= 0 x_3))(declare-const $_2 Real)(assert (<= 0 $_2))(declare-const x_1 Real)(assert (<= 0 x_1))(assert  (and (exists ( ($delay_4 Real) ($_2 Real) ) (and (<= 0 $delay_4) (<= 0 $_2)  (and (= (+ $delay_4 x_3) 42) (= $_2 x_3) ) ) ) (<= 0 (+ x_3 -1)) (<= x_3 10) (> x_3 5) (>= (+ x_1 x_3) 15) ))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "In",
+							"parameters": [
+								"x_3"
+							]
+						},
+						"next": "ec_5"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_4"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (>= clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_5",
+				"sut_state": "ec_5",
+				"time_var": "$delay_4",
+				"transitions": [
+					{
+						"name": "tr_ec7_Out",
+
+						"timed_guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_4 clk) (< clk TM) ))",
+
+						"guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const x_3 Real)(assert (<= 0 x_3))(declare-const $_2 Real)(assert (<= 0 $_2))(assert  (and (= (+ $delay_4 x_3) 42) (= $_2 x_3) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_2"
+							]
+						},
+						"next": "ec_7"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_4 clk) (< clk TM) ))",
+
+						"guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const x_3 Real)(assert (<= 0 x_3))(declare-const $_2 Real)(assert (<= 0 $_2))(assert  (or (not (= (+ $delay_4 x_3) 42)) (not (= $_2 x_3)) ))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_2"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_4 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const x_3 Real)(assert (<= 0 x_3))(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(assert  (exists ( (# Real) ($_2 Real) ) (and (<= 0 #) (<= 0 $_2)  (and (= (+ # x_3) 42) (= $_2 x_3) (< $delay_4 #) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= $delay_4 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const x_3 Real)(assert (<= 0 x_3))(declare-const $delay_4 Real)(assert (<= 0 $delay_4))(assert  (forall ( (# Real) ($_2 Real) ) (=> (<= 0 #) (<= 0 $_2)  (or (not (= (+ # x_3) 42)) (not (= $_2 x_3)) (>= $delay_4 #) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_7",
+				"sut_state": "ec_7",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_PASS_Done",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_5"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (>= clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

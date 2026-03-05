@@ -1,0 +1,223 @@
+@xlia< system , 1.0 >:
+
+timed system< and > Testcase_S {
+@composite:
+	statemachine Testcase_SM {
+	@property:
+		public input port Quiescence;
+		public output port In(urational);
+		public input port Out(urational);
+		public input port Done;
+		var pos_rational TM;
+		var clock< urational > clk;
+		var urational x_5;
+		var urational $2;
+		var urational x_3;
+		var urational $1;
+		var urational x_1;
+		var time< urational > #_5;
+		var time< urational > #_4;
+		var time< urational > #_3;
+		var time< urational > #_2;
+		var time< urational > #_1;
+		var urational $3;
+		var urational $4;
+		var urational $5;
+
+	@region:
+		state< start > ec_1 "ec1" {
+			transition tr_ec2_In --> ec_2 {
+				tguard (clk < TM);
+				guard (exists< #_4 : urational , $2 : urational , x_3 : urational , #_2 : urational , $1 : urational >(((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && (0 <= (x_3 + -1)) && (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15)) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 <= 10));
+				output In(x_1);
+				clk := 0;
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_1_Out {
+				tguard (clk < TM);
+				input Out($3);
+			}
+			transition tr_FAILout_Done --> FAIL_out_ec_1_Done {
+				tguard (clk < TM);
+				input Done;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_1 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state ec_2 "ec2" {
+			transition tr_ec3_Out --> ec_3 {
+				tguard ((#_2 == clk) && (clk < TM));
+				input Out($1);
+				guard (((#_2 + x_1) == 42) && ($1 == 0));
+				clk := 0;
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_2_3_Out {
+				tguard ((#_2 == clk) && (clk < TM));
+				input Out($1);
+				guard (((#_2 + x_1) != 42) || ($1 != 0));
+			}
+			transition tr_FAILout_Done --> FAIL_out_ec_2_Done {
+				tguard (clk < TM);
+				input Done;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_2 {
+				tguard ((#_2 == clk) && (clk >= TM));
+				input Quiescence;
+				guard exists< # : urational , $1 : urational >(((# + x_1) == 42) && ($1 == 0) && (#_2 < #));
+			}
+			transition tr_FAILdur_Quiescence --> FAIL_dur_ec_2 {
+				tguard ((#_2 == clk) && (clk >= TM));
+				input Quiescence;
+				guard forall< # : urational , $1 : urational >(((# + x_1) != 42) || ($1 != 0) || (#_2 >= #));
+			}
+		}
+
+		state< terminal > FAIL_out_ec_1_Out "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_1_Done "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_1 "INCdur" {
+
+		}
+
+		state ec_3 "ec3" {
+			transition tr_ec5_In --> ec_5 {
+				tguard (clk < TM);
+				guard (exists< #_4 : urational , $2 : urational >(((#_4 + x_3) == 42) && ($2 == x_3)) && (0 <= (x_3 + -1)) && (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15));
+				output In(x_3);
+				clk := 0;
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_3_Out {
+				tguard (clk < TM);
+				input Out($4);
+			}
+			transition tr_FAILout_Done --> FAIL_out_ec_3_Done {
+				tguard (clk < TM);
+				input Done;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_3 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state< terminal > FAIL_out_ec_2_3_Out "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_2_Done "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_2 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_2 "FAILdur" {
+
+		}
+
+		state ec_5 "ec5" {
+			transition tr_ec7_Out --> ec_7 {
+				tguard ((#_4 == clk) && (clk < TM));
+				input Out($2);
+				guard (((#_4 + x_3) == 42) && ($2 == x_3));
+				clk := 0;
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_5_7_Out {
+				tguard ((#_4 == clk) && (clk < TM));
+				input Out($2);
+				guard (((#_4 + x_3) != 42) || ($2 != x_3));
+			}
+			transition tr_FAILout_Done --> FAIL_out_ec_5_Done {
+				tguard (clk < TM);
+				input Done;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_5 {
+				tguard ((#_4 == clk) && (clk >= TM));
+				input Quiescence;
+				guard exists< # : urational , $2 : urational >(((# + x_3) == 42) && ($2 == x_3) && (#_4 < #));
+			}
+			transition tr_FAILdur_Quiescence --> FAIL_dur_ec_5 {
+				tguard ((#_4 == clk) && (clk >= TM));
+				input Quiescence;
+				guard forall< # : urational , $2 : urational >(((# + x_3) != 42) || ($2 != x_3) || (#_4 >= #));
+			}
+		}
+
+		state< terminal > FAIL_out_ec_3_Out "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_3_Done "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_3 "INCdur" {
+
+		}
+
+		state ec_7 "ec7" {
+			transition tr_PASS_Done --> PASS_ec_9 {
+				tguard (clk < TM);
+				input Done;
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_7_Out {
+				tguard (clk < TM);
+				input Out($5);
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_7 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state< terminal > FAIL_out_ec_5_7_Out "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_5_Done "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_5 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_5 "FAILdur" {
+
+		}
+
+		state< final > PASS_ec_9 "PASS" {
+
+		}
+
+		state< terminal > FAIL_out_ec_7_Out "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_7 "INCdur" {
+
+		}
+
+	@com:
+		connector< env >  {
+			input Testcase_SM->Quiescence;
+		}
+		connector< env >  {
+			output Testcase_SM->In;
+		}
+		connector< env >  {
+			input Testcase_SM->Out;
+		}
+		connector< env >  {
+			input Testcase_SM->Done;
+		}
+	}
+}

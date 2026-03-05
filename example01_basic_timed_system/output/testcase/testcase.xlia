@@ -1,0 +1,90 @@
+@xlia< system , 1.0 >:
+
+timed system< and > Testcase_S {
+@composite:
+	statemachine Testcase_SM {
+	@property:
+		public input port Quiescence;
+		public output port In;
+		public input port Out;
+		var pos_rational TM;
+		var clock< urational > clk;
+		var time< urational > $delay_2;
+		var time< urational > $delay_1;
+
+	@region:
+		state< start > ec_1 "ec1" {
+			transition tr_ec2_In --> ec_2 {
+				tguard (clk < TM);
+				output In;
+				clk := 0;
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_1_Out {
+				tguard (clk < TM);
+				input Out;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_1 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state ec_2 "ec2" {
+			transition tr_PASS_Out --> PASS_ec_3 {
+				tguard (($delay_2 == clk) && (clk < TM));
+				input Out;
+				guard ($delay_2 <= 5);
+			}
+			transition tr_FAILout_Out --> FAIL_out_ec_2_3_Out {
+				tguard (($delay_2 == clk) && (clk < TM));
+				input Out;
+				guard ($delay_2 > 5);
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_2 {
+				tguard (($delay_2 == clk) && (clk >= TM));
+				input Quiescence;
+				guard exists< # : urational >(($delay_2 < #) && (# <= 5));
+			}
+			transition tr_FAILdur_Quiescence --> FAIL_dur_ec_2 {
+				tguard (($delay_2 == clk) && (clk >= TM));
+				input Quiescence;
+				guard forall< # : urational >(($delay_2 >= #) || (# > 5));
+			}
+		}
+
+		state< terminal > FAIL_out_ec_1_Out "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_1 "INCdur" {
+
+		}
+
+		state< final > PASS_ec_3 "PASS" {
+
+		}
+
+		state< terminal > FAIL_out_ec_2_3_Out "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_2 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_2 "FAILdur" {
+
+		}
+
+	@com:
+		connector< env >  {
+			input Testcase_SM->Quiescence;
+		}
+		connector< env >  {
+			output Testcase_SM->In;
+		}
+		connector< env >  {
+			input Testcase_SM->Out;
+		}
+	}
+}

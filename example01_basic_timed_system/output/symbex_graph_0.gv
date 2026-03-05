@@ -1,0 +1,94 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label=""
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+Example01_Basic_Timed_System_S:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired Example01_Basic_Timed_System_S.tr1
+	INPUT Example01_Basic_Timed_System_SM:In
+	"
+]
+EC1 -> EC16 [
+	label="output Example01_Basic_Timed_System_S:Quiescence
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+$time = $delay_1
+	$delay = $delay_1
+	
+tpid#1->q0.tr1"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired Example01_Basic_Timed_System_S.tr2
+	OUTPUT Example01_Basic_Timed_System_SM:Out
+	"
+]
+EC2 -> EC17 [
+	label="output Example01_Basic_Timed_System_S:Quiescence
+	"
+]
+EC16 [
+	label="ec_16< ev:0 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = $delay_1
+	$delay = $delay_1
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC3 [
+	label="ec_3< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+PC: ($delay_2 <= 5)
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC17 [
+	label="ec_17< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+PC: exists< # : urational >(($delay_2 < #) && (# <= 5))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+}

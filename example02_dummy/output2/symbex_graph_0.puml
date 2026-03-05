@@ -1,0 +1,273 @@
+
+@startuml symbex_graph
+
+' // scale 600 width
+
+hide empty description
+
+skinparam linetype polyline
+' skinparam linetype ortho
+' left to right direction
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les noeuds/feuilles du graphes SymBex
+	BackgroundColor<< DefaultNode >> LightBlue
+
+	BackgroundColor<< RedondancyTargetSource >> Green
+	BackgroundColor<< RedondancyTargetNode >> GreenYellow
+
+	BackgroundColor<< PassedNode >> GreenYellow
+	BackgroundColor<< FailedNode >> Red
+	BackgroundColor<< InconclusiveNode >> Orange
+	BackgroundColor<< AbortedNode >> Orange
+	BackgroundColor<< WarningNode >> Orange
+	BackgroundColor<< ErrorNode >> Red
+	BackgroundColor<< AlertNode >> Red
+	BackgroundColor<< ExitNode >> Red
+
+	'Attribut pour les paths du graphes SymBex
+	BackgroundColor<< PassedPath >> LawnGreen
+	BackgroundColor<< FailedPath >> Red
+	BackgroundColor<< InconclusiveNodePath >> Orange
+	BackgroundColor<< AbortedPath >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+
+
+state "EC 0" as EC0 << DefaultNode >>
+
+EC0: < ev:1 , h:0 , w:1 > 
+EC0: Example02_Dummy_S:q0
+note left of EC0
+$time = 0
+	# = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	
+end note
+
+EC0 -down-> EC1
+
+state "EC 1" as EC1 << PassedPath >>
+
+EC1: < ev:2 , h:1 , w:1 > 
+EC1: Example02_Dummy_S:q0
+note left of EC1
+sum = 0
+	
+end note
+
+EC1 -down-> EC2
+
+EC1 -down-> EC36
+
+state "EC 2" as EC2 << PassedPath >>
+
+EC2: < ev:3 , h:2 , w:1 > 
+EC2: Example02_Dummy_S:q1
+note left of EC2
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = #_1
+	# = #_1
+	sum = x_1
+	x = x_1
+	
+end note
+EC2: ----
+EC2: tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED\nEC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0
+
+EC2 -down-> EC3
+
+EC2 -down-> EC37
+
+state "EC 36" as EC36 << DefaultNode >>
+
+EC36: < ev:0 , h:2 , w:1 > 
+EC36: Example02_Dummy_S:q0
+note left of EC36
+$time = #_1
+	# = #_1
+	
+end note
+EC36: ----
+EC36: QUIESCENCE
+
+state "EC 3" as EC3 << PassedPath >>
+
+EC3: < ev:4 , h:3 , w:1 > 
+EC3: Example02_Dummy_S:q0
+note left of EC3
+PC: (((#_2 + x_1) == 42) && ($1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 
+	<= 10))
+	$time = (#_1 + #_2)
+	# = #_2
+	cl = #_2
+	
+end note
+EC3: ----
+EC3: tpid#2->q1.tr2
+
+EC3 -down-> EC5
+
+EC3 -down-> EC38
+
+state "EC 37" as EC37 << DefaultNode >>
+
+EC37: < ev:0 , h:3 , w:1 > 
+EC37: Example02_Dummy_S:q1
+note left of EC37
+PC: (exists< # : urational , $1 : urational >(((# + x_1) == 42) && ($1 == 0) && 
+	(#_2 < #)) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 <= 10))
+	$time = (#_1 + #_2)
+	# = #_2
+	
+end note
+EC37: ----
+EC37: QUIESCENCE
+
+state "EC 5" as EC5 << PassedPath >>
+
+EC5: < ev:5 , h:4 , w:1 > 
+EC5: Example02_Dummy_S:q1
+note left of EC5
+PC: (((#_2 + x_1) == 42) && ($1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) 
+	&& (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = (#_1 + #_2 + #_3)
+	# = #_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+end note
+EC5: ----
+EC5: tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED\nEC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0
+
+EC5 -down-> EC7
+
+EC5 -down-> EC39
+
+state "EC 38" as EC38 << DefaultNode >>
+
+EC38: < ev:0 , h:4 , w:1 > 
+EC38: Example02_Dummy_S:q0
+note left of EC38
+PC: (((#_2 + x_1) == 42) && ($1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 
+	<= 10))
+	$time = (#_1 + #_2 + #_3)
+	# = #_3
+	
+end note
+EC38: ----
+EC38: QUIESCENCE
+
+state "EC 7" as EC7 << PassedPath >>
+
+EC7: < ev:6 , h:5 , w:3 > 
+EC7: Example02_Dummy_S:q0
+note left of EC7
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 
+	10) && (x_3 > 5))
+	$time = (#_1 + #_2 + #_3 + #_4)
+	# = #_4
+	cl = #_4
+	
+end note
+EC7: ----
+EC7: tpid#4->q1.tr3
+
+EC7 -down-> EC8
+
+EC7 -down-> EC9
+
+EC7 -down-> EC40
+
+state "EC 39" as EC39 << DefaultNode >>
+
+EC39: < ev:0 , h:5 , w:1 > 
+EC39: Example02_Dummy_S:q1
+note left of EC39
+PC: (exists< # : urational , $2 : urational >(((# + x_3) == 42) && ($2 == x_3) 
+	&& (#_4 < #)) && ((#_2 + x_1) == 42) && ($1 == 0) && (0 <= (x_1 + -1)) && (0 <= 
+	(x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_3 > 5))
+	$time = (#_1 + #_2 + #_3 + #_4)
+	# = #_4
+	
+end note
+EC39: ----
+EC39: QUIESCENCE
+
+state "EC 8" as EC8 << DefaultNode >>
+
+EC8: < ev:0 , h:6 , w:3 > 
+EC8: Example02_Dummy_S:q1
+note left of EC8
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 <= 5) && 
+	(x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = (#_1 + #_2 + #_3 + #_4 + #_5)
+	# = #_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	
+end note
+
+state "EC 9" as EC9 << PassedPath >>
+
+EC9: < ev:0 , h:6 , w:4 > 
+EC9: Example02_Dummy_S:q2
+note left of EC9
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 
+	10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = (#_1 + #_2 + #_3 + #_4 + #_5)
+	# = #_5
+	cl = (#_4 + #_5)
+	
+end note
+EC9: ----
+EC9: tpid#5->q0.tr4\nFINALIZE
+EC9: STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+
+state "EC 40" as EC40 << DefaultNode >>
+
+EC40: < ev:0 , h:6 , w:3 > 
+EC40: Example02_Dummy_S:q0
+note left of EC40
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 
+	10) && (x_3 > 5))
+	$time = (#_1 + #_2 + #_3 + #_4 + #_5)
+	# = #_5
+	
+end note
+EC40: ----
+EC40: QUIESCENCE
+@enduml

@@ -1,0 +1,196 @@
+digraph symbex_graph {
+EC10 [
+	label="ec_10< ev:1 , h:0 , w:1 >
+Example02_Dummy_S:q0
+
+$time = 0
+	# = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC10 -> EC11 [
+	label=""
+]
+EC11 [
+	label="ec_11< ev:2 , h:1 , w:1 >
+Example02_Dummy_S:q0
+
+sum = 0
+	"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC11 -> EC12 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_1 )
+	"
+]
+EC12 [
+	label="ec_12< ev:3 , h:2 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = #_1
+	# = #_1
+	sum = x_1
+	x = x_1
+	
+tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED\nEC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC12 -> EC13 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $1 )
+	"
+]
+EC12 -> EC19 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $1 )
+	"
+]
+EC13 [
+	label="ec_13< ev:4 , h:3 , w:1 >
+Example02_Dummy_S:q0
+
+PC: (((#_2 + x_1) == 42) && ($1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 
+	<= 10))
+	$time = (#_1 + #_2)
+	# = #_2
+	cl = #_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC13 -> EC14 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_3 )
+	"
+]
+EC19 [
+	label="ec_19< ev:0 , h:3 , w:2 >
+Example02_Dummy_S:q0
+
+PC: (((#_2 + x_1) == 42) && ($1 == x_1) && (0 <= (x_1 + -1)) && (x_1 <= 10) && 
+	(x_1 > 5))
+	$time = (#_1 + #_2)
+	# = #_2
+	cl = #_2
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC14 [
+	label="ec_14< ev:5 , h:4 , w:1 >
+Example02_Dummy_S:q1
+
+PC: (((#_2 + x_1) == 42) && ($1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) 
+	&& (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = (#_1 + #_2 + #_3)
+	# = #_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED\nEC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC14 -> EC15 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $2 )
+	"
+]
+EC14 -> EC16 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $2 )
+	"
+]
+EC15 [
+	label="ec_15< ev:0 , h:5 , w:1 >
+Example02_Dummy_S:q0
+
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == 0) && (0 
+	<= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 5) 
+	&& (x_3 <= 10))
+	$time = (#_1 + #_2 + #_3 + #_4)
+	# = #_4
+	cl = #_4
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC16 [
+	label="ec_16< ev:6 , h:5 , w:3 >
+Example02_Dummy_S:q0
+
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 
+	10) && (x_3 > 5))
+	$time = (#_1 + #_2 + #_3 + #_4)
+	# = #_4
+	cl = #_4
+	
+tpid#4->q1.tr3"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC16 -> EC17 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_5 )
+	"
+]
+EC16 -> EC18 [
+	label="fired Example02_Dummy_S.tr4
+	OUTPUT Example02_Dummy_SM:Done
+	"
+]
+EC17 [
+	label="ec_17< ev:0 , h:6 , w:3 >
+Example02_Dummy_S:q1
+
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 <= 5) && 
+	(x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = (#_1 + #_2 + #_3 + #_4 + #_5)
+	# = #_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC18 [
+	label="ec_18< ev:0 , h:6 , w:4 >
+Example02_Dummy_S:q2
+STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+
+PC: (((#_2 + x_1) == 42) && ((#_4 + x_3) == 42) && ($1 == 0) && ($2 == x_3) && 
+	(0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 
+	10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = (#_1 + #_2 + #_3 + #_4 + #_5)
+	# = #_5
+	cl = (#_4 + #_5)
+	
+tpid#5->q0.tr4\nFINALIZE"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

@@ -1,0 +1,134 @@
+@xlia< system , 1.0 >:
+
+timed#discrete system WashingMachineWithRemotePaymentment {
+
+@composite:
+	statemachine  Washer {
+
+	@public:
+//	  	type Message enum {ACCEPT, REJECT}
+//	  	type Message boolean
+
+	@public:
+		port input WashProg( uinteger progDuration );
+
+		port output Abort;
+
+		port output StartCycle(uinteger progDuration);
+		port output EndCycle;
+
+		port output Debit(integer rid, integer cost);
+		port input Msg( uinteger rid_ret , integer auth);
+
+	@private:
+		var clock urational clk;
+
+		var time uinteger pdur;
+
+		var uinteger rid;
+		var uinteger rid_ret;
+
+		var integer fee;
+
+		var integer auth;
+
+		var integer yD1;
+		var integer yD2;
+		var uinteger ySC1;
+
+	@region:
+		state< start > Standby {
+			transition t_washProg --> Payment {
+				input WashProg( pdur );
+				clk = 0;
+				rid = rid + 1;
+			}
+		}//Standby
+
+		state Payment {
+//	 		var urational yD42;
+			@enable{
+				newfresh(yD1);
+				newfresh(yD2);
+			}
+
+			transition t_debit --> Wait {
+				guard( yD1 == rid);
+				guard( yD2 == 10 );
+				output Debit( yD1,  yD2 );
+				guard( (30 <= pdur < 60) && (clk <= 1) );
+				clk = 0;
+			}
+			transition t_debit_fee --> Wait {
+				guard( yD1 == rid);
+				guard( yD2 == 10 + fee);
+				output Debit( yD1,  yD2 );
+				guard( (60 <= pdur <= 120) && (fee > 0) && (clk <= 1) );
+				clk = 0;
+			}
+			transition t_p_abort --> Standby {
+				output Abort;
+				guard( ((pdur < 30) || (pdur > 120)) && (clk <= 1) );
+			}
+		}//Payment
+
+		state Wait {
+			transition t_msg --> Launch {
+				input Msg( rid_ret, auth );
+				guard( clk < 4 );
+				clk = 0;
+			}
+			transition t_w_abort --> Standby {
+				output Abort;
+				guard( 4 <= clk <= 5 );
+			}
+		}//Wait
+
+		state Launch {
+			@enable{
+				newfresh(ySC1);
+			}
+			transition t_startCycle --> Wash {
+				guard( ySC1 == pdur + 12 );
+				output StartCycle( ySC1 );
+//				guard( (rid_ret == rid) && (auth == ACCEPT) && (clk <= 1) );
+				guard( (rid_ret == rid) && (auth == 1) && (clk <= 1) );
+				clk = 0;
+			}
+			transition t_l_abort --> Standby {
+				output Abort;
+//				guard( ((rid_ret != rid) || (auth != ACCEPT)) && (clk <= 1) );
+				guard( ((rid_ret != rid) || (auth != 1)) && (clk <= 1) );
+			}
+		}//Launch
+
+		state Wash {
+			transition t_endCycle --> Standby {
+				output EndCycle;
+				guard( clk == pdur + 12 );
+			}
+		}//Wash
+	}
+
+@com:
+	connect< env >{
+		input Washer->WashProg;
+	}
+	connect< env >{
+		output Washer->Debit;
+	}
+	connect< env >{
+		output Washer->Abort;
+	}
+	connect< env >{
+		input Washer->Msg;
+	}
+	connect< env >{
+		output Washer->StartCycle;
+	}
+	connect< env >{
+		output Washer->EndCycle;
+	}
+
+
+}

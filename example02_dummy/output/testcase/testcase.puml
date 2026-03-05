@@ -1,0 +1,354 @@
+
+@startuml
+
+	' // scale 600 width
+	
+	' allow_mixing
+	' !pragma teoz true
+	
+	skinparam componentstyle uml2
+	
+	hide empty description
+	
+	skinparam linetype polyline
+	' skinparam linetype ortho
+	' left to right direction
+	
+	!function $kw($key_word)
+	' // !return "**<color blue>" + $key_word + "</color>**"
+	!return "**" + $key_word + "**"
+	!endfunction
+	
+	!function $kop($key_operator)
+	' // !return "**<color blue>" + $key_operator + "</color>**"
+	!return "**" + $key_operator + "**"
+	!endfunction
+	
+	!function $ks($key_symbol)
+	' // !return "**<color blue>" + $key_symbol + "</color>**"
+	!return "**" + $key_symbol + "**"
+	!endfunction
+	
+	!function $param($p)
+	' // !return "**<color darkred>" + $p + "</color>**"
+	!return "**" + $p + "**"
+	!endfunction
+	
+	!$natural = "**<color darkred>&#9838;</color>**"
+	
+	!$tp_path = "#Green,thickness=2"
+	
+	<style>
+		note {
+			backgroundcolor white
+			shadowing 0
+			linecolor transparent
+			FontSize 35
+		}
+	</style>
+	
+	skinparam backgroundColor White
+	
+	skinparam arrow {
+		Thickness 3
+	}
+	
+	skinparam RoundCorner 0
+	
+	skinparam state {
+		StartColor Green
+		EndColor Red
+		'Attribut pour les transitions
+		ArrowColor Black
+		ArrowColor<< Else >> Orange
+		'Attribut par défaut pour les états
+		BorderColor Black
+		BorderThickness 3
+		BackgroundColor Wheat
+		'Attribut pour les états composites
+		BackgroundColor<< System            >> LightGrey
+		BackgroundColor<< Statemachine      >> GenericDisplay
+		BackgroundColor<< Machine           >> GenericDisplay
+		BackgroundColor<< Instance          >> GenericDisplay
+		BackgroundColor<< Composite         >> GenericDisplay
+		'Attribut pour les états simples
+		BackgroundColor<< simple_hierarchic >> PaleTurquoise
+		BackgroundColor<< simple            >> #E6E6E6
+		BackgroundColor<< start             >> #E6E6E6
+		BackgroundColor<< final             >> #E6E6E6 //#E6F4EA
+		BackgroundColor<< pass              >> GreenYellow
+		BackgroundColor<< sync              >> Aqua
+		'Attribut pour les pseudo-états
+		BackgroundColor<< pseudostate       >> Lavender
+		BackgroundColor<< initial           >> GreenYellow
+		BackgroundColor<< junction          >> #FFF7CC
+		BackgroundColor<< choice            >> Orange
+		BackgroundColor<< fork              >> #FFF7CC
+		BackgroundColor<< join              >> SpringGreen
+		BackgroundColor<< dhistory          >> SpringGreen
+		BackgroundColor<< shistory          >> SpringGreen
+		BackgroundColor<< return            >> OrangeRed
+		BackgroundColor<< terminal          >> #E6E6E6 // #F8E1E1
+		FontColor Black
+		FontName Times
+		FontSize 35
+	}
+
+state "System Testcase_S" as Testcase_S__804092107952 << System >> {
+	state "Testcase_SM" as Testcase_SM__2447893131304 << Composite >> {
+		state "ec1" as ec_1__2447892124696 << Start >>
+
+		ec_1__2447892124696--> ec_2__2447893507448
+		note on link #white
+			**tr_ec2_In**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("guard") (exists< $delay_4 : urational , 
+				$_2 : urational , 
+				x_3 : urational , 
+				$delay_2 : urational , 
+				$_1 : urational >((($delay_2 $kop("+") x_1) $kop("==") 42)
+				 $kop("&&") (($delay_4 $kop("+") x_3) $kop("==") 42)
+				 $kop("&&") ($_1 $kop("==") 0)
+				 $kop("&&") ($_2 $kop("==") x_3)
+				 $kop("&&") (0 $kop("<=") (x_3 $kop("+") -1))
+				 $kop("&&") (x_3 $kop("<=") 10)
+				 $kop("&&") (x_3 $kop(">") 5)
+				 $kop("&&") ((x_1 $kop("+") x_3) $kop(">=") 15))
+				 $kop("&&") (0 $kop("<=") (x_1 $kop("+") -1))
+				 $kop("&&") (x_1 $kop("<=") 5)
+				 $kop("&&") (x_1 $kop("<=") 10)) $ks(";")
+			$kw("output") In(x_1) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_1__2447892124696--> FAIL_out_ec_1_Out__2447893508808
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Out($_3) $ks(";")
+		end note
+
+		ec_1__2447892124696--> FAIL_out_ec_1_Done__2447893262728
+		note on link #white
+			**tr_FAILout_Done**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Done $ks(";")
+		end note
+
+		ec_1__2447892124696--> INC_dur_ec_1__2447893264712
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "ec2" as ec_2__2447893507448 << Simple >>
+
+		ec_2__2447893507448--> ec_3__2447893362360
+		note on link #white
+			**tr_ec3_Out**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Out($_1) $ks(";")
+			$kw("guard") ((($delay_2 $kop("+") x_1) $kop("==") 42)
+				 $kop("&&") ($_1 $kop("==") 0)) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_2__2447893507448--> FAIL_out_ec_2_3_Out__2447893363720
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Out($_1) $ks(";")
+			$kw("guard") ((($delay_2 $kop("+") x_1) $kop("!=") 42)
+				 $kop("||") ($_1 $kop("!=") 0)) $ks(";")
+		end note
+
+		ec_2__2447893507448--> FAIL_out_ec_2_Done__2447893442296
+		note on link #white
+			**tr_FAILout_Done**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Done $ks(";")
+		end note
+
+		ec_2__2447893507448--> INC_dur_ec_2__2447893443656
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") exists< # : urational , 
+				$_1 : urational >(((# $kop("+") x_1) $kop("==") 42)
+				 $kop("&&") ($_1 $kop("==") 0)
+				 $kop("&&") ($delay_2 $kop("<") #)) $ks(";")
+		end note
+
+		ec_2__2447893507448--> FAIL_dur_ec_2__2447893445016
+		note on link #white
+			**tr_FAILdur_Quiescence**
+			$kw("tguard") (($delay_2 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") forall< # : urational , 
+				$_1 : urational >(((# $kop("+") x_1) $kop("!=") 42)
+				 $kop("||") ($_1 $kop("!=") 0)
+				 $kop("||") ($delay_2 $kop(">=") #)) $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_1_Out__2447893508808 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_1_Done__2447893262728 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_1__2447893264712 << Terminal >>
+
+		state "ec3" as ec_3__2447893362360 << Simple >>
+
+		ec_3__2447893362360--> ec_5__2447893446376
+		note on link #white
+			**tr_ec5_In**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("guard") (exists< $delay_4 : urational , 
+				$_2 : urational >((($delay_4 $kop("+") x_3) $kop("==") 42)
+				 $kop("&&") ($_2 $kop("==") x_3))
+				 $kop("&&") (0 $kop("<=") (x_3 $kop("+") -1))
+				 $kop("&&") (x_3 $kop("<=") 10)
+				 $kop("&&") (x_3 $kop(">") 5)
+				 $kop("&&") ((x_1 $kop("+") x_3) $kop(">=") 15)) $ks(";")
+			$kw("output") In(x_3) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_3__2447893362360--> FAIL_out_ec_3_Out__2447894049048
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Out($_4) $ks(";")
+		end note
+
+		ec_3__2447893362360--> FAIL_out_ec_3_Done__2447893384968
+		note on link #white
+			**tr_FAILout_Done**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Done $ks(";")
+		end note
+
+		ec_3__2447893362360--> INC_dur_ec_3__2447893395848
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_2_3_Out__2447893363720 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_2_Done__2447893442296 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_2__2447893443656 << Terminal >>
+
+		state "FAILdur" as FAIL_dur_ec_2__2447893445016 << Terminal >>
+
+		state "ec5" as ec_5__2447893446376 << Simple >>
+
+		ec_5__2447893446376--> ec_7__2447893386328
+		note on link #white
+			**tr_ec7_Out**
+			$kw("tguard") (($delay_4 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Out($_2) $ks(";")
+			$kw("guard") ((($delay_4 $kop("+") x_3) $kop("==") 42)
+				 $kop("&&") ($_2 $kop("==") x_3)) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_5__2447893446376--> FAIL_out_ec_5_7_Out__2447893393128
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (($delay_4 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Out($_2) $ks(";")
+			$kw("guard") ((($delay_4 $kop("+") x_3) $kop("!=") 42)
+				 $kop("||") ($_2 $kop("!=") x_3)) $ks(";")
+		end note
+
+		ec_5__2447893446376--> FAIL_out_ec_5_Done__2447893398568
+		note on link #white
+			**tr_FAILout_Done**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Done $ks(";")
+		end note
+
+		ec_5__2447893446376--> INC_dur_ec_5__2447893389048
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (($delay_4 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") exists< # : urational , 
+				$_2 : urational >(((# $kop("+") x_3) $kop("==") 42)
+				 $kop("&&") ($_2 $kop("==") x_3)
+				 $kop("&&") ($delay_4 $kop("<") #)) $ks(";")
+		end note
+
+		ec_5__2447893446376--> FAIL_dur_ec_5__2447893390408
+		note on link #white
+			**tr_FAILdur_Quiescence**
+			$kw("tguard") (($delay_4 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") forall< # : urational , 
+				$_2 : urational >(((# $kop("+") x_3) $kop("!=") 42)
+				 $kop("||") ($_2 $kop("!=") x_3)
+				 $kop("||") ($delay_4 $kop(">=") #)) $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_3_Out__2447894049048 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_3_Done__2447893384968 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_3__2447893395848 << Terminal >>
+
+		state "ec7" as ec_7__2447893386328 << Simple >>
+
+		ec_7__2447893386328--> PASS_ec_9__2447893391768
+		note on link #white
+			**tr_PASS_Done**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Done $ks(";")
+		end note
+
+		ec_7__2447893386328--> FAIL_out_ec_7_Out__2447893394488
+		note on link #white
+			**tr_FAILout_Out**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Out($_5) $ks(";")
+		end note
+
+		ec_7__2447893386328--> INC_dur_ec_7__2447893397208
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_5_7_Out__2447893393128 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_5_Done__2447893398568 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_5__2447893389048 << Terminal >>
+
+		state "FAILdur" as FAIL_dur_ec_5__2447893390408 << Terminal >>
+
+		state "PASS" as PASS_ec_9__2447893391768 << Final >>
+
+		state "FAILout" as FAIL_out_ec_7_Out__2447893394488 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_7__2447893397208 << Terminal >>
+
+	}
+
+}
+
+@enduml
+
+

@@ -1,0 +1,61 @@
+digraph symbex_graph {
+EC12 [
+	label="ec_12< ev:1 , h:0 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC12 -> EC13 [
+	label=""
+]
+EC13 [
+	label="ec_13< ev:2 , h:1 , w:1 >
+Example01_Basic_Timed_System_S:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC13 -> EC14 [
+	label="fired Example01_Basic_Timed_System_S.tr1
+	INPUT Example01_Basic_Timed_System_SM:In
+	"
+]
+EC14 [
+	label="ec_14< ev:3 , h:2 , w:1 >
+Example01_Basic_Timed_System_S:q1
+
+$time = $delay_1
+	$delay = $delay_1
+	
+tpid#1->q0.tr1"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC14 -> EC15 [
+	label="fired Example01_Basic_Timed_System_S.tr2
+	OUTPUT Example01_Basic_Timed_System_SM:Out
+	"
+]
+EC15 [
+	label="ec_15< ev:0 , h:3 , w:1 >
+Example01_Basic_Timed_System_S:q0
+
+PC: ($delay_2 <= 5)
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

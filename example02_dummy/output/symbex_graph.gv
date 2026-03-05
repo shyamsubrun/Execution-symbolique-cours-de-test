@@ -1,0 +1,759 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+Example02_Dummy_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label=""
+]
+EC10 [
+	label="ec_10< ev:1 , h:0 , w:1 >
+Example02_Dummy_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC10 -> EC11 [
+	label=""
+]
+EC20 [
+	label="ec_20< ev:1 , h:0 , w:1 >
+Example02_Dummy_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC20 -> EC21 [
+	label=""
+]
+EC28 [
+	label="ec_28< ev:1 , h:0 , w:1 >
+Example02_Dummy_S:q0
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	sum = sum_0
+	x = x_0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC28 -> EC29 [
+	label=""
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+Example02_Dummy_S:q0
+
+sum = 0
+	"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_1 )
+	"
+]
+EC1 -> EC36 [
+	label="output Example02_Dummy_S:Quiescence
+	"
+]
+EC11 [
+	label="ec_11< ev:2 , h:1 , w:1 >
+Example02_Dummy_S:q0
+
+sum = 0
+	"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC11 -> EC12 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_1 )
+	"
+]
+EC21 [
+	label="ec_21< ev:2 , h:1 , w:1 >
+Example02_Dummy_S:q0
+
+sum = 0
+	"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC21 -> EC22 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_1 )
+	"
+]
+EC29 [
+	label="ec_29< ev:2 , h:1 , w:1 >
+Example02_Dummy_S:q0
+
+sum = 0
+	"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC29 -> EC30 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_1 )
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = $delay_1
+	$delay = $delay_1
+	sum = x_1
+	x = x_1
+	
+tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $_1 )
+	"
+]
+EC2 -> EC37 [
+	label="output Example02_Dummy_S:Quiescence
+	"
+]
+EC36 [
+	label="ec_36< ev:0 , h:2 , w:1 >
+Example02_Dummy_S:q0
+
+$time = $delay_1
+	$delay = $delay_1
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC12 [
+	label="ec_12< ev:3 , h:2 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = $delay_1
+	$delay = $delay_1
+	sum = x_1
+	x = x_1
+	
+tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC12 -> EC13 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $_1 )
+	"
+]
+EC12 -> EC19 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $_1 )
+	"
+]
+EC22 [
+	label="ec_22< ev:3 , h:2 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = $delay_1
+	$delay = $delay_1
+	sum = x_1
+	x = x_1
+	
+tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC22 -> EC23 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $_1 )
+	"
+]
+EC30 [
+	label="ec_30< ev:3 , h:2 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((0 <= (x_1 + -1)) && (x_1 <= 10))
+	$time = $delay_1
+	$delay = $delay_1
+	sum = x_1
+	x = x_1
+	
+tpid#1->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:4 PE:3 H:3 W:2 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC30 -> EC31 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $_1 )
+	"
+]
+EC3 [
+	label="ec_3< ev:4 , h:3 , w:1 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) 
+	&& (x_1 <= 10))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC3 -> EC5 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_3 )
+	"
+]
+EC3 -> EC38 [
+	label="output Example02_Dummy_S:Quiescence
+	"
+]
+EC37 [
+	label="ec_37< ev:0 , h:3 , w:1 >
+Example02_Dummy_S:q1
+
+PC: (exists< # : urational , $_1 : urational >(((# + x_1) == 42) && ($_1 == 0) 
+	&& ($delay_2 < #)) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 <= 10))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC13 [
+	label="ec_13< ev:4 , h:3 , w:1 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) 
+	&& (x_1 <= 10))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC13 -> EC14 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_3 )
+	"
+]
+EC19 [
+	label="ec_19< ev:0 , h:3 , w:2 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == x_1) && (0 <= (x_1 + -1)) && (x_1 <= 10)
+	 && (x_1 > 5))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC23 [
+	label="ec_23< ev:4 , h:3 , w:1 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) 
+	&& (x_1 <= 10))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC23 -> EC24 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_3 )
+	"
+]
+EC31 [
+	label="ec_31< ev:4 , h:3 , w:1 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) 
+	&& (x_1 <= 10))
+	$time = ($delay_1 + $delay_2)
+	$delay = $delay_2
+	cl = $delay_2
+	
+tpid#2->q1.tr2"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC31 -> EC32 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_3 )
+	"
+]
+EC5 [
+	label="ec_5< ev:5 , h:4 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + 
+	-1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3)
+	$delay = $delay_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC5 -> EC7 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $_2 )
+	"
+]
+EC5 -> EC39 [
+	label="output Example02_Dummy_S:Quiescence
+	"
+]
+EC38 [
+	label="ec_38< ev:0 , h:4 , w:1 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (x_1 <= 5) 
+	&& (x_1 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3)
+	$delay = $delay_3
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC14 [
+	label="ec_14< ev:5 , h:4 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + 
+	-1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3)
+	$delay = $delay_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC14 -> EC15 [
+	label="fired Example02_Dummy_S.tr2
+	OUTPUT Example02_Dummy_SM:Out( $_2 )
+	"
+]
+EC14 -> EC16 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $_2 )
+	"
+]
+EC24 [
+	label="ec_24< ev:5 , h:4 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + 
+	-1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3)
+	$delay = $delay_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC24 -> EC25 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $_2 )
+	"
+]
+EC32 [
+	label="ec_32< ev:5 , h:4 , w:1 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + 
+	-1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3)
+	$delay = $delay_3
+	sum = (x_1 + x_3)
+	x = x_3
+	cl = 0
+	
+tpid#3->q0.tr1\nDEAD_BRANCH_PRUNED
+EC< Id:6 PE:5 H:5 W:1 Q:0 > pid_3:q0"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC32 -> EC33 [
+	label="fired Example02_Dummy_S.tr3
+	OUTPUT Example02_Dummy_SM:Out( $_2 )
+	"
+]
+EC7 [
+	label="ec_7< ev:6 , h:5 , w:3 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	cl = $delay_4
+	
+tpid#4->q1.tr3"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC7 -> EC8 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_5 )
+	"
+]
+EC7 -> EC9 [
+	label="fired Example02_Dummy_S.tr4
+	OUTPUT Example02_Dummy_SM:Done
+	"
+]
+EC7 -> EC40 [
+	label="output Example02_Dummy_S:Quiescence
+	"
+]
+EC39 [
+	label="ec_39< ev:0 , h:5 , w:1 >
+Example02_Dummy_S:q1
+
+PC: (exists< # : urational , $_2 : urational >(((# + x_3) == 42) && ($_2 == x_3) 
+	&& ($delay_4 < #)) && (($delay_2 + x_1) == 42) && ($_1 == 0) && (0 <= (x_1 + -1))
+	 && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC15 [
+	label="ec_15< ev:0 , h:5 , w:1 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== 0) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) && 
+	(x_3 <= 5) && (x_3 <= 10))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	cl = $delay_4
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC16 [
+	label="ec_16< ev:6 , h:5 , w:3 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	cl = $delay_4
+	
+tpid#4->q1.tr3"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC16 -> EC17 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_5 )
+	"
+]
+EC16 -> EC18 [
+	label="fired Example02_Dummy_S.tr4
+	OUTPUT Example02_Dummy_SM:Done
+	"
+]
+EC25 [
+	label="ec_25< ev:6 , h:5 , w:3 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	cl = $delay_4
+	
+tpid#4->q1.tr3"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC25 -> EC26 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_5 )
+	"
+]
+EC25 -> EC27 [
+	label="fired Example02_Dummy_S.tr4
+	OUTPUT Example02_Dummy_SM:Done
+	"
+]
+EC33 [
+	label="ec_33< ev:6 , h:5 , w:3 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4)
+	$delay = $delay_4
+	cl = $delay_4
+	
+tpid#4->q1.tr3"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC33 -> EC34 [
+	label="fired Example02_Dummy_S.tr1
+	INPUT Example02_Dummy_SM:In( x_5 )
+	"
+]
+EC33 -> EC35 [
+	label="fired Example02_Dummy_S.tr4
+	OUTPUT Example02_Dummy_SM:Done
+	"
+]
+EC8 [
+	label="ec_8< ev:0 , h:6 , w:3 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 
+	<= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC9 [
+	label="ec_9< ev:0 , h:6 , w:4 >
+Example02_Dummy_S:q2
+STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	cl = ($delay_4 + $delay_5)
+	
+tpid#5->q0.tr4\nFINALIZE"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC40 [
+	label="ec_40< ev:0 , h:6 , w:3 >
+Example02_Dummy_S:q0
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	
+QUIESCENCE"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC17 [
+	label="ec_17< ev:0 , h:6 , w:3 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 
+	<= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC18 [
+	label="ec_18< ev:0 , h:6 , w:4 >
+Example02_Dummy_S:q2
+STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	cl = ($delay_4 + $delay_5)
+	
+tpid#5->q0.tr4\nFINALIZE"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC26 [
+	label="ec_26< ev:0 , h:6 , w:3 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 
+	<= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC27 [
+	label="ec_27< ev:0 , h:6 , w:4 >
+Example02_Dummy_S:q2
+STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	cl = ($delay_4 + $delay_5)
+	
+tpid#5->q0.tr4\nFINALIZE"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC34 [
+	label="ec_34< ev:0 , h:6 , w:3 >
+Example02_Dummy_S:q1
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (0 <= (x_5 + -1)) && (x_1 
+	<= 5) && (x_1 <= 10) && (x_3 <= 10) && (x_5 <= 10) && (x_3 > 5))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	sum = (x_1 + x_3 + x_5)
+	x = x_5
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC35 [
+	label="ec_35< ev:0 , h:6 , w:4 >
+Example02_Dummy_S:q2
+STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+
+PC: ((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 
+	== x_3) && (0 <= (x_1 + -1)) && (0 <= (x_3 + -1)) && (x_1 <= 5) && (x_1 <= 10) 
+	&& (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15))
+	$time = ($delay_1 + $delay_2 + $delay_3 + $delay_4 + $delay_5)
+	$delay = $delay_5
+	cl = ($delay_4 + $delay_5)
+	
+tpid#5->q0.tr4\nFINALIZE"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

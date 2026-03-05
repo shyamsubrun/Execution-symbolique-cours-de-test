@@ -1,0 +1,35 @@
+digraph Example01_Basic_Timed_System_S {
+compound = true;
+fontsize = 12
+	subgraph "cluster_spec::Example01_Basic_Timed_System_S" {
+		label = "SYSTEM spec::Example01_Basic_Timed_System_S"
+
+		subgraph "cluster_spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM" {
+			label = "Example01_Basic_Timed_System_SM"
+			style=dashed;
+
+			"spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM"
+			[
+				label = "Example01_Basic_Timed_System_SM"
+				shape=point, style=invis, color=white
+			];
+
+			"spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM.q0"
+			[
+				label = "q0"
+				shape=ellipse, style="bold,filled", fillcolor=green
+			];
+
+			"spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM.q0" -> "spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM.q1" [ label = "tr1" ];
+
+			"spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM.q1"
+			[
+				label = "q1"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM.q1" -> "spec::Example01_Basic_Timed_System_S.Example01_Basic_Timed_System_SM.q0" [ label = "tr2" ];
+		}
+	}
+}
+

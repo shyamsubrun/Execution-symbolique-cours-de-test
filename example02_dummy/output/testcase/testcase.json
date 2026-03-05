@@ -1,0 +1,441 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format",
+		"service": "Testcase Specification",
+		"generatedDate": "Mon Jan 26 09:19:15 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Out",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "urational"
+					}
+				]
+			},
+			{
+				"name": "Done"
+			}
+		],
+		"input_ports": [
+			{
+				"name": "In",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "urational"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "pos_rational"
+			},
+			{
+				"name": "clk",
+				"type": "clock< urational >"
+			},
+			{
+				"name": "x_5",
+				"type": "urational"
+			},
+			{
+				"name": "$_2",
+				"type": "urational"
+			},
+			{
+				"name": "x_3",
+				"type": "urational"
+			},
+			{
+				"name": "$_1",
+				"type": "urational"
+			},
+			{
+				"name": "x_1",
+				"type": "urational"
+			},
+			{
+				"name": "$delay_5",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$delay_4",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$delay_3",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$delay_2",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$delay_1",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$_3",
+				"type": "urational"
+			},
+			{
+				"name": "$_4",
+				"type": "urational"
+			},
+			{
+				"name": "$_5",
+				"type": "urational"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec2_In",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "(exists< $delay_4 : urational , $_2 : urational , x_3 : urational , $delay_2 : urational , $_1 : urational >((($delay_2 + x_1) == 42) && (($delay_4 + x_3) == 42) && ($_1 == 0) && ($_2 == x_3) && (0 <= (x_3 + -1)) && (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15)) && (0 <= (x_1 + -1)) && (x_1 <= 5) && (x_1 <= 10))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "In",
+							"parameters": [
+								"x_1"
+							]
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_3"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "$delay_2",
+				"transitions": [
+					{
+						"name": "tr_ec3_Out",
+
+						"timed_guard": "(($delay_2 == clk) && (clk < TM))",
+
+						"guard": "((($delay_2 + x_1) == 42) && ($_1 == 0))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"next": "ec_3"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(($delay_2 == clk) && (clk < TM))",
+
+						"guard": "((($delay_2 + x_1) != 42) || ($_1 != 0))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(($delay_2 == clk) && (clk >= TM))",
+
+						"guard": "exists< # : urational , $_1 : urational >(((# + x_1) == 42) && ($_1 == 0) && ($delay_2 < #))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(($delay_2 == clk) && (clk >= TM))",
+
+						"guard": "forall< # : urational , $_1 : urational >(((# + x_1) != 42) || ($_1 != 0) || ($delay_2 >= #))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_3",
+				"sut_state": "ec_3",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec5_In",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "(exists< $delay_4 : urational , $_2 : urational >((($delay_4 + x_3) == 42) && ($_2 == x_3)) && (0 <= (x_3 + -1)) && (x_3 <= 10) && (x_3 > 5) && ((x_1 + x_3) >= 15))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "In",
+							"parameters": [
+								"x_3"
+							]
+						},
+						"next": "ec_5"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_4"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_5",
+				"sut_state": "ec_5",
+				"time_var": "$delay_4",
+				"transitions": [
+					{
+						"name": "tr_ec7_Out",
+
+						"timed_guard": "(($delay_4 == clk) && (clk < TM))",
+
+						"guard": "((($delay_4 + x_3) == 42) && ($_2 == x_3))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_2"
+							]
+						},
+						"next": "ec_7"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(($delay_4 == clk) && (clk < TM))",
+
+						"guard": "((($delay_4 + x_3) != 42) || ($_2 != x_3))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_2"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Done",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(($delay_4 == clk) && (clk >= TM))",
+
+						"guard": "exists< # : urational , $_2 : urational >(((# + x_3) == 42) && ($_2 == x_3) && ($delay_4 < #))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(($delay_4 == clk) && (clk >= TM))",
+
+						"guard": "forall< # : urational , $_2 : urational >(((# + x_3) != 42) || ($_2 != x_3) || ($delay_4 >= #))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_7",
+				"sut_state": "ec_7",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_PASS_Done",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Done"
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_FAILout_Out",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Out",
+							"parameters": [
+								"$_5"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

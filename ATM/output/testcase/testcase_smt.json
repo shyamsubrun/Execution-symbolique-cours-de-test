@@ -1,0 +1,531 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format using SMT formulas, types, ...",
+		"service": "Testcase Specification (ready for the Z3 SMT solver)",
+		"generatedDate": "Wed Mar  4 16:12:31 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Debit",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "Real"
+					}
+				]
+			},
+			{
+				"name": "Cash"
+			},
+			{
+				"name": "Abort"
+			}
+		],
+		"input_ports": [
+			{
+				"name": "Init"
+			},
+			{
+				"name": "Wdrl",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "Real"
+					}
+				]
+			},
+			{
+				"name": "Auth",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "Bool"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "Real"
+			},
+			{
+				"name": "clk",
+				"type": "Real"
+			},
+			{
+				"name": "auth_ok_4",
+				"type": "Bool"
+			},
+			{
+				"name": "auth_ok_4",
+				"type": "Bool"
+			},
+			{
+				"name": "$_1",
+				"type": "Real"
+			},
+			{
+				"name": "x_2",
+				"type": "Real"
+			},
+			{
+				"name": "z_5",
+				"type": "Real"
+			},
+			{
+				"name": "z_4",
+				"type": "Real"
+			},
+			{
+				"name": "z_3",
+				"type": "Real"
+			},
+			{
+				"name": "z_2",
+				"type": "Real"
+			},
+			{
+				"name": "z_1",
+				"type": "Real"
+			},
+			{
+				"name": "$_2",
+				"type": "Real"
+			},
+			{
+				"name": "$_3",
+				"type": "Real"
+			},
+			{
+				"name": "$_4",
+				"type": "Real"
+			},
+			{
+				"name": "$_5",
+				"type": "Real"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec2_Init",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Init"
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_2"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (>= clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec3_Wdrl",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(declare-const auth_ok_4 Bool)(declare-const $_1 Real)(assert (<= 0 $_1))(declare-const x_2 Real)(assert (<= 0 x_2))(assert  (and (exists ( (auth_ok_4 Bool) ($_1 Real) ) (and (<= 0 $_1)  (and (= auth_ok_4 true) (= $_1 x_2) ) ) ) (>= x_2 10) ))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Wdrl",
+							"parameters": [
+								"x_2"
+							]
+						},
+						"next": "ec_3"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_3"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (>= clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_3",
+				"sut_state": "ec_3",
+				"time_var": "z_3",
+				"transitions": [
+					{
+						"name": "tr_ec5_Debit",
+
+						"timed_guard": "(declare-const z_3 Real)(assert (<= 0 z_3))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_3 clk) (< clk TM) ))",
+
+						"guard": "(declare-const $_1 Real)(assert (<= 0 $_1))(declare-const x_2 Real)(assert (<= 0 x_2))(assert  (= $_1 x_2))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"next": "ec_5"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(declare-const $_1 Real)(assert (<= 0 $_1))(declare-const x_2 Real)(assert (<= 0 x_2))(assert  (not (= $_1 x_2)))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const z_3 Real)(assert (<= 0 z_3))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_3 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const x_2 Real)(assert (<= 0 x_2))(declare-const z_3 Real)(assert (<= 0 z_3))(assert  (exists ( (# Real) ($_1 Real) ) (and (<= 0 #) (<= 0 $_1)  (and (= $_1 x_2) (< z_3 #) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(declare-const z_3 Real)(assert (<= 0 z_3))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_3 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const x_2 Real)(assert (<= 0 x_2))(declare-const z_3 Real)(assert (<= 0 z_3))(assert  (forall ( (# Real) ($_1 Real) ) (=> (<= 0 #) (<= 0 $_1)  (or (not (= $_1 x_2)) (>= z_3 #) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_5",
+				"sut_state": "ec_5",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec7_Auth",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(declare-const auth_ok_4 Bool)(assert  (= auth_ok_4 true))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Auth",
+							"parameters": [
+								"auth_ok_4"
+							]
+						},
+						"next": "ec_7"
+					},
+					{
+						"name": "tr_INCout_Abort",
+
+						"timed_guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_4 clk) (< clk TM) ))",
+
+						"guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(assert  (>= z_4 5))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "INCONCLUSIVE_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_4 clk) (< clk TM) ))",
+
+						"guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(assert  (< z_4 5))",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_4"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_4 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(assert  (exists ( (# Real) ) (and (<= 0 #)  (and (< z_4 #) (>= # 5) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (and (= z_4 clk) (>= clk TM) ))",
+
+						"guard": "(declare-const z_4 Real)(assert (<= 0 z_4))(assert  (forall ( (# Real) ) (=> (<= 0 #)  (or (>= z_4 #) (< # 5) ) ) ))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_7",
+				"sut_state": "ec_7",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_PASS_Cash",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_5"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (< clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(declare-const clk Real)(assert (<= 0 clk))(declare-const TM Real)(assert (< 0 TM))(assert  (>= clk TM))",
+
+						"guard": "(assert  true)",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

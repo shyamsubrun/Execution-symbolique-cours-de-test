@@ -1,0 +1,682 @@
+xfsp< executable , 1.0 >:
+
+// timed #prototype system< moc: and % system > atm_syst {
+header:
+	fqn_id = sys::atm_syst
+	description = "the result of the system compilation"
+	count = 8
+
+instance:
+	// The Parameters Machine Instance
+	timed #prototype instance< id:0, multiplicity: [ 0, 1 ] > inst::#PARAMETERS#;
+
+	// The System Machine Instance
+	timed #prototype instance< id:0, multiplicity: [ 1 ] > prot::atm_syst {
+		rid#runtime = run::pid_1:atm_syst;
+		@create{ |§|
+			$time := 0;
+			z := 0;
+			_clock_index_ := 0;
+		}
+		@start{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init atm_SM;
+		}
+	}
+
+executable:
+	timed #prototype executable< moc: and % system , id:0, instanciation: [ + ] > exec::#PARAMETERS# {
+	moe:
+	}
+
+	timed #prototype executable< moc: and % system , id:0, instanciation: [ + ] > exec::atm_syst {
+		weak#lifeline = true;
+	variable:
+		public static const< id:0, ptr:std > time< urational > inst::atm_syst.$time#initial '$time#initial' {
+			rid#container = run::pid_0:#PARAMETERS#;
+			value = 0;
+		}
+		public static const< id:1, ptr:std > time< urational > inst::atm_syst.$delta#initial '$delta#initial' {
+			rid#container = run::pid_0:#PARAMETERS#;
+			value = 0;
+		}
+
+		var< id:0, ptr:std > time< urational > inst::atm_syst.$time '$time' {
+			rid#container = run::pid_1:atm_syst;
+			value = 0;
+		}
+		var< id:1, ptr:std > time< urational > inst::atm_syst.z 'z' {
+			rid#container = run::pid_1:atm_syst;
+			value = 0;
+		}
+		var< id:2, ptr:std > uint inst::atm_syst._clock_index_ '_clock_index_' {
+			rid#container = run::pid_1:atm_syst;
+			value = 0;
+		}
+	alias:
+		public volatile var< id:0, ptr:std > clock< urational > alias::atm_syst.atm_SM.cl 'cl' {
+			target = public volatile var< id:0, ptr:std > clock< urational > inst::atm_syst.atm_SM.cl;
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = 0;
+		path#machine:
+			prot::atm_syst.atm_SM
+		}
+		inout parameter var< id:0, ptr:mix > clock< urational > inst::atm_syst.clock#reset#vector._clock_vector_[_clock_index_] '_clock_vector_[_clock_index_]' {
+			target = inout parameter var< id:0, ptr:std > vector< clock< urational > > inst::atm_syst.clock#reset#vector._clock_vector_;
+			value = _clock_index_;
+		}
+		inout parameter var< id:0, ptr:mix > clock< urational > inst::atm_syst.clock#update#vector._clock_vector_[_clock_index_] '_clock_vector_[_clock_index_]' {
+			target = inout parameter var< id:0, ptr:std > vector< clock< urational > > inst::atm_syst.clock#update#vector._clock_vector_;
+			value = _clock_index_;
+		}
+		inout parameter var< id:0, ptr:mix > clock< urational > inst::atm_syst.clock#update#vector._clock_vector_[_clock_index_] '_clock_vector_[_clock_index_]' {
+			target = inout parameter var< id:0, ptr:std > vector< clock< urational > > inst::atm_syst.clock#update#vector._clock_vector_;
+			value = _clock_index_;
+		}
+	time:
+		var< id:0, ptr:std > time< urational > inst::atm_syst.$time
+		var< id:1, ptr:std > time< urational > inst::atm_syst.z
+	model:
+		timed #model instance< id:0, multiplicity: [ 1 ], this > model::atm_syst.$this;
+		#model instance< id:1, multiplicity: [ + ] > model::atm_syst.atm_SM;
+	instance:
+		timed #static instance< id:0, multiplicity: [ 1 ], this > &exec::atm_syst prot::atm_syst.$this {
+			//model = model::atm_syst.$this;
+		}
+		#prototype instance< id:1, multiplicity: [ + ] > prot::atm_syst.atm_SM {
+			//model = model::atm_syst.atm_SM;
+			rid#runtime = run::pid_2:atm_syst.atm_SM;
+			@create{ |§|
+				cl := 0;
+				wtb := 5;
+				threshold := 10;
+				amount := 0;
+				x := 0;
+				auth_ok := false;
+			}
+		}
+	program:
+		macro routine< id:0 > routine::atm_syst.time#get {
+		returns:
+			return transient parameter var< id:0, ptr:std > time< urational > inst::atm_syst.time#get._time_ '_time_';
+		moe:
+			@run{ |§|
+				_time_ := $time;
+				return;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:1 > routine::atm_syst.delta#get {
+		returns:
+			return transient parameter var< id:0, ptr:std > time< urational > inst::atm_syst.delta#get._delta_ '_delta_';
+		moe:
+			@run{ |§|
+				_delta_ := z;
+				return;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:2 > routine::atm_syst.time#reset {
+		moe:
+			@run{
+				$time := 0;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:3 > routine::atm_syst.clock#reset {
+		parameter:
+			inout parameter var< id:0, ptr:std > clock< urational > inst::atm_syst.clock#reset._clock_ '_clock_';
+		moe:
+			@run{
+				_clock_ := 0;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:4 > routine::atm_syst.clock#update {
+		parameter:
+			inout parameter var< id:0, ptr:std > clock< urational > inst::atm_syst.clock#update._clock_ '_clock_';
+		moe:
+			@run{
+				_clock_ := (_clock_ + z);
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:5 > routine::atm_syst.clock#reset#vector {
+		parameter:
+			inout parameter var< id:0, ptr:std > vector< clock< urational > > inst::atm_syst.clock#reset#vector._clock_vector_ '_clock_vector_';
+		moe:
+			@run{
+				for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+				{
+					_clock_vector_[_clock_index_] := 0;
+				}
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:6 > routine::atm_syst.clock#update#vector {
+		parameter:
+			inout parameter var< id:0, ptr:std > vector< clock< urational > > inst::atm_syst.clock#update#vector._clock_vector_ '_clock_vector_';
+		moe:
+			@run{
+				for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+				{
+					_clock_vector_[_clock_index_] := (_clock_vector_[_clock_index_] + z);
+				}
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:7 > routine::atm_syst.time#update {
+		moe:
+			@run{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable atm_SM }
+				{
+					cl := (cl + z);
+				}
+			 }
+		opcode#family = basic;
+		}
+
+	moe:
+		@create{ |§|
+			$time := 0;
+			z := 0;
+			_clock_index_ := 0;
+		}
+		@init{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init atm_SM;
+		}
+		@final{
+			process#state#set $this final;
+			exit "FINALIZE";
+		}
+		@start{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init atm_SM;
+		}
+		@enable{
+			enable atm_SM;
+		}
+		@disable{
+			disable atm_SM;
+		}
+		@abort{
+			abort#set atm_SM;
+		}
+		@run{
+			{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable atm_SM }
+				{
+					cl := (cl + z);
+				}
+			}
+			schedule $self;
+		}
+		@schedule< final >{
+			run atm_SM;
+		}
+		@concurrency{ |i| }
+		opcode#family = basic | guard | input | output;
+	}
+
+	#prototype executable< moc: or % statemachine , id:1, instanciation: [ + ] > exec::atm_syst.atm_SM {
+		weak#lifeline = true;
+	variable:
+		public volatile var< id:0, ptr:std > clock< urational > inst::atm_syst.atm_SM.cl 'cl' {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = 0;
+		}
+		var< id:1, ptr:std > urational inst::atm_syst.atm_SM.wtb 'wtb' {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = 5;
+		}
+		var< id:2, ptr:std > urational inst::atm_syst.atm_SM.threshold 'threshold' {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = 10;
+		}
+		var< id:3, ptr:std > urational inst::atm_syst.atm_SM.amount 'amount' {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = 0;
+		}
+		var< id:4, ptr:std > urational inst::atm_syst.atm_SM.x 'x' {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = 0;
+		}
+		var< id:5, ptr:std > boolean inst::atm_syst.atm_SM.auth_ok 'auth_ok' {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			value = false;
+		}
+	port:
+		public input port< id:0 , route:0 > inst::atm_syst.atm_SM.Init {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			routing#input#data = routing< env , mid:1 > run::pid_2:atm_syst.atm_SM;
+		}
+		public input port< id:1 , route:1 > inst::atm_syst.atm_SM.Wdrl {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			routing#input#data = routing< env , mid:1 > run::pid_2:atm_syst.atm_SM;
+		parameter:
+			parameter var< id:0, ptr:std > urational $0;
+		}
+		public input port< id:2 , route:2 > inst::atm_syst.atm_SM.Auth {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			routing#input#data = routing< env , mid:1 > run::pid_2:atm_syst.atm_SM;
+		parameter:
+			parameter var< id:0, ptr:std > boolean $0;
+		}
+		public output port< id:0 , route:0 > inst::atm_syst.atm_SM.Debit {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			routing#output#data = routing< env , mid:1 > run::pid_2:atm_syst.atm_SM;
+		parameter:
+			parameter var< id:0, ptr:std > urational $0;
+		}
+		public output port< id:1 , route:1 > inst::atm_syst.atm_SM.Cash {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			routing#output#data = routing< env , mid:1 > run::pid_2:atm_syst.atm_SM;
+		}
+		public output port< id:2 , route:2 > inst::atm_syst.atm_SM.Abort {
+			rid#container = run::pid_2:atm_syst.atm_SM;
+			routing#output#data = routing< env , mid:1 > run::pid_2:atm_syst.atm_SM;
+		}
+	connector:/* < exec::atm_syst.atm_SM > */
+		connector< id:0 , mid:1 , env > inst::atm_syst.atm_SM._#connector_0 {
+			output {
+				prot::atm_syst.atm_SM.$this->Debit;
+				prot::atm_syst.atm_SM.$this->Cash;
+				prot::atm_syst.atm_SM.$this->Abort;
+			}
+			input {
+				prot::atm_syst.atm_SM.$this->Init;
+				prot::atm_syst.atm_SM.$this->Wdrl;
+				prot::atm_syst.atm_SM.$this->Auth;
+			}
+		}
+	router:
+		router prot::atm_syst.atm_SM.$this< exec::atm_syst.atm_SM > {
+		input:
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Init {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Wdrl {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Auth {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+		output:
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Debit {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Cash {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Abort {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+		}
+
+		routeur<null>
+		routeur<null>
+		routeur<null>
+		routeur<null>
+		routeur<null>
+		routeur<null>
+
+	router#model:
+		router prot::atm_syst.atm_SM.$this< exec::atm_syst.atm_SM > {
+		input:
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Init {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Wdrl {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Auth {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+		output:
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Debit {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Cash {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+			routing< env , mid:1 > inst::atm_syst.atm_SM.Abort {
+				connector = inst::atm_syst.atm_SM._#connector_0;
+			}
+		}
+
+	model:
+		#model instance< id:0, multiplicity: [ 1 ], this > model::atm_syst.atm_SM.$this;
+	instance:
+		#static instance< id:0, multiplicity: [ 1 ], this > &exec::atm_syst.atm_SM prot::atm_syst.atm_SM.$this {
+			//model = model::atm_syst.atm_SM.$this;
+		}
+		#prototype instance< id:1, multiplicity: [ + ] > prot::atm_syst.atm_SM.Idle {
+			rid#runtime = run::pid_3:atm_syst.atm_SM.Idle;
+		}
+		#prototype instance< id:2, multiplicity: [ + ] > prot::atm_syst.atm_SM.Ready {
+			rid#runtime = run::pid_4:atm_syst.atm_SM.Ready;
+		}
+		#prototype instance< id:3, multiplicity: [ + ] > prot::atm_syst.atm_SM.Decision {
+			rid#runtime = run::pid_5:atm_syst.atm_SM.Decision;
+		}
+		#prototype instance< id:4, multiplicity: [ + ] > prot::atm_syst.atm_SM.WaitingAuth {
+			rid#runtime = run::pid_6:atm_syst.atm_SM.WaitingAuth;
+		}
+		#prototype instance< id:5, multiplicity: [ + ] > prot::atm_syst.atm_SM.givecash {
+			rid#runtime = run::pid_7:atm_syst.atm_SM.givecash;
+		}
+		#prototype instance< id:6, multiplicity: [ + ] > prot::atm_syst.atm_SM.abortauth {
+			rid#runtime = run::pid_8:atm_syst.atm_SM.abortauth;
+		}
+	moe:
+		@create{ |§|
+			cl := 0;
+			wtb := 5;
+			threshold := 10;
+			amount := 0;
+			x := 0;
+			auth_ok := false;
+		}
+		@init{
+			init Idle;
+		}
+		@enable{
+			@comment "nop<enable> exec::atm_syst.atm_SM.Idle";
+		}
+		@disable{ |§|
+			disable#child;
+			disable#self;
+		}
+		@run{
+			schedule $self;
+		}
+		@schedule{
+			run Idle;
+		}
+		opcode#family = basic | guard | input | output;
+	}
+
+	#prototype executable< moc: start % state , id:2, instanciation: [ * ] > exec::atm_syst.atm_SM.Idle {
+	transition:
+		transition< id:0 > t_init --> Ready {
+		moe:
+			@run{
+				input Init;
+				{ |§|
+					disable#set Idle;
+					enable#set Ready;
+				}
+			}
+			opcode#family = input;
+			communication<final>{
+				input Init;
+			}
+			com#internal{
+				input Init;
+			}
+			com#input{
+				inst::atm_syst.atm_SM.Init
+			}
+			com#input_enabled{
+				inst::atm_syst.atm_SM.Init
+			}
+		}
+	moe:
+		@run{
+			invoke#transition Idle.t_init;
+		}
+		opcode#family = input;
+	}
+
+	#prototype executable< moc: simple % state , id:3, instanciation: [ * ] > exec::atm_syst.atm_SM.Ready {
+	transition:
+		transition< id:0 > t_receive --> Decision {
+		moe:
+			@run{
+				input Wdrl(x);
+				{ |§|
+					disable#set Ready;
+					enable#set Decision;
+				}
+			}
+			opcode#family = input;
+			communication<final>{
+				input Wdrl(x);
+			}
+			com#internal{
+				input Wdrl(x);
+			}
+			com#input{
+				inst::atm_syst.atm_SM.Wdrl
+			}
+			com#input_enabled{
+				inst::atm_syst.atm_SM.Wdrl
+			}
+		}
+	moe:
+		@run{
+			invoke#transition Ready.t_receive;
+		}
+		opcode#family = input;
+	}
+
+	#prototype executable< moc: simple % state , id:4, instanciation: [ * ] > exec::atm_syst.atm_SM.Decision {
+	transition:
+		transition< id:0 > t_small --> Ready {
+		moe:
+			@run{
+				{ |§|
+					guard (x < threshold);
+					output Abort;
+				}
+				{ |§|
+					disable#set Decision;
+					enable#set Ready;
+				}
+			}
+			opcode#family = guard | output;
+			communication<final>{
+				output Abort;
+			}
+			com#internal{
+				output Abort;
+			}
+			com#output{
+				inst::atm_syst.atm_SM.Abort
+			}
+		}
+		transition< id:1 > t_valid --> WaitingAuth {
+		moe:
+			@run{
+				{ |§|
+					guard (x >= threshold);
+					amount := x;
+					output Debit(x);
+				}
+				{ |§|
+					cl := 0;
+					disable#set Decision;
+					enable#set WaitingAuth;
+				}
+			}
+			opcode#family = basic | guard | output;
+			communication<final>{
+				output Debit(x);
+			}
+			com#internal{
+				output Debit(x);
+			}
+			com#output{
+				inst::atm_syst.atm_SM.Debit
+			}
+		}
+	moe:
+		@run{ |/\|
+			invoke#transition Decision.t_small;
+			invoke#transition Decision.t_valid;
+		}
+		opcode#family = basic | guard | output;
+	}
+
+	#prototype executable< moc: simple % state , id:5, instanciation: [ * ] > exec::atm_syst.atm_SM.WaitingAuth {
+	transition:
+		transition< id:0 > t_timeout --> Ready {
+		moe:
+			@run{
+				{ |§|
+					guard (cl >= wtb);
+					output Abort;
+				}
+				{ |§|
+					disable#set WaitingAuth;
+					enable#set Ready;
+				}
+			}
+			opcode#family = guard | output;
+			communication<final>{
+				output Abort;
+			}
+			com#internal{
+				output Abort;
+			}
+			com#output{
+				inst::atm_syst.atm_SM.Abort
+			}
+		}
+		transition< id:1 > t_auth_cash --> givecash {
+		moe:
+			@run{
+				input Auth(auth_ok);
+				{ |§|
+					guard (auth_ok == true);
+					disable#set WaitingAuth;
+					enable#set givecash;
+				}
+			}
+			opcode#family = guard | input;
+			communication<final>{
+				input Auth(auth_ok);
+			}
+			com#internal{
+				input Auth(auth_ok);
+			}
+			com#input{
+				inst::atm_syst.atm_SM.Auth
+			}
+			com#input_enabled{
+				inst::atm_syst.atm_SM.Auth
+			}
+		}
+		transition< id:2 > t_abort_auth --> abortauth {
+		moe:
+			@run{
+				input Auth(auth_ok);
+				{ |§|
+					guard (auth_ok == false);
+					disable#set WaitingAuth;
+					enable#set abortauth;
+				}
+			}
+			opcode#family = guard | input;
+			communication<final>{
+				input Auth(auth_ok);
+			}
+			com#internal{
+				input Auth(auth_ok);
+			}
+			com#input{
+				inst::atm_syst.atm_SM.Auth
+			}
+			com#input_enabled{
+				inst::atm_syst.atm_SM.Auth
+			}
+		}
+	moe:
+		@run{ |/\|
+			invoke#transition WaitingAuth.t_timeout;
+			invoke#transition WaitingAuth.t_auth_cash;
+			invoke#transition WaitingAuth.t_abort_auth;
+		}
+		opcode#family = guard | input | output;
+	}
+
+	#prototype executable< moc: simple % state , id:6, instanciation: [ * ] > exec::atm_syst.atm_SM.givecash {
+	transition:
+		transition< id:0 > t_cash --> Ready {
+		moe:
+			@run{
+				output Cash;
+				{ |§|
+					disable#set givecash;
+					enable#set Ready;
+				}
+			}
+			opcode#family = output;
+			communication<final>{
+				output Cash;
+			}
+			com#internal{
+				output Cash;
+			}
+			com#output{
+				inst::atm_syst.atm_SM.Cash
+			}
+		}
+	moe:
+		@run{
+			invoke#transition givecash.t_cash;
+		}
+		opcode#family = output;
+	}
+
+	#prototype executable< moc: simple % state , id:7, instanciation: [ * ] > exec::atm_syst.atm_SM.abortauth {
+	transition:
+		transition< id:0 > t_abort --> Ready {
+		moe:
+			@run{
+				output Abort;
+				{ |§|
+					disable#set abortauth;
+					enable#set Ready;
+				}
+			}
+			opcode#family = output;
+			communication<final>{
+				output Abort;
+			}
+			com#internal{
+				output Abort;
+			}
+			com#output{
+				inst::atm_syst.atm_SM.Abort
+			}
+		}
+	moe:
+		@run{
+			invoke#transition abortauth.t_abort;
+		}
+		opcode#family = output;
+	}
+
+// }

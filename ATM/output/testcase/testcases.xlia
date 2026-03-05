@@ -1,0 +1,283 @@
+@xlia< system , 1.0 >:
+
+timed system< and > Testcase_S {
+@composite:
+	statemachine Testcase_SM {
+	@property:
+		public input port Quiescence;
+		public output port Init;
+		public output port Wdrl(urational);
+		public output port Auth(boolean);
+		public input port Debit(urational);
+		public input port Cash;
+		public input port Abort;
+		var pos_rational TM;
+		var clock< urational > clk;
+		var boolean auth_ok_4;
+		var boolean auth_ok_4;
+		var urational $_1;
+		var urational x_2;
+		var time< urational > z_5;
+		var time< urational > z_4;
+		var time< urational > z_3;
+		var time< urational > z_2;
+		var time< urational > z_1;
+		var urational $_2;
+		var urational $_3;
+		var urational $_4;
+		var urational $_5;
+
+	@region:
+		state< start > ec_1 "ec1" {
+			transition tr_ec2_Init --> ec_2 {
+				tguard (clk < TM);
+				output Init;
+				clk := 0;
+			}
+			transition tr_FAILout_Debit --> FAIL_out_ec_1_Debit {
+				tguard (clk < TM);
+				input Debit($_2);
+			}
+			transition tr_FAILout_Cash --> FAIL_out_ec_1_Cash {
+				tguard (clk < TM);
+				input Cash;
+			}
+			transition tr_FAILout_Abort --> FAIL_out_ec_1_Abort {
+				tguard (clk < TM);
+				input Abort;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_1 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state ec_2 "ec2" {
+			transition tr_ec3_Wdrl --> ec_3 {
+				tguard (clk < TM);
+				guard (exists< auth_ok_4 : boolean , $_1 : urational >((auth_ok_4 == true) && ($_1 == x_2)) && (x_2 >= 10));
+				output Wdrl(x_2);
+				clk := 0;
+			}
+			transition tr_FAILout_Debit --> FAIL_out_ec_2_Debit {
+				tguard (clk < TM);
+				input Debit($_3);
+			}
+			transition tr_FAILout_Cash --> FAIL_out_ec_2_Cash {
+				tguard (clk < TM);
+				input Cash;
+			}
+			transition tr_FAILout_Abort --> FAIL_out_ec_2_Abort {
+				tguard (clk < TM);
+				input Abort;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_2 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state< terminal > FAIL_out_ec_1_Debit "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_1_Cash "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_1_Abort "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_1 "INCdur" {
+
+		}
+
+		state ec_3 "ec3" {
+			transition tr_ec5_Debit --> ec_5 {
+				tguard ((z_3 == clk) && (clk < TM));
+				input Debit($_1);
+				guard ($_1 == x_2);
+				clk := 0;
+			}
+			transition tr_FAILout_Debit --> FAIL_out_ec_3_5_Debit {
+				tguard (clk < TM);
+				input Debit($_1);
+				guard ($_1 != x_2);
+			}
+			transition tr_FAILout_Cash --> FAIL_out_ec_3_Cash {
+				tguard (clk < TM);
+				input Cash;
+			}
+			transition tr_FAILout_Abort --> FAIL_out_ec_3_Abort {
+				tguard (clk < TM);
+				input Abort;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_3 {
+				tguard ((z_3 == clk) && (clk >= TM));
+				input Quiescence;
+				guard exists< # : urational , $_1 : urational >(($_1 == x_2) && (z_3 < #));
+			}
+			transition tr_FAILdur_Quiescence --> FAIL_dur_ec_3 {
+				tguard ((z_3 == clk) && (clk >= TM));
+				input Quiescence;
+				guard forall< # : urational , $_1 : urational >(($_1 != x_2) || (z_3 >= #));
+			}
+		}
+
+		state< terminal > FAIL_out_ec_2_Debit "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_2_Cash "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_2_Abort "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_2 "INCdur" {
+
+		}
+
+		state ec_5 "ec5" {
+			transition tr_ec7_Auth --> ec_7 {
+				tguard (clk < TM);
+				guard (auth_ok_4 == true);
+				output Auth(auth_ok_4);
+				clk := 0;
+			}
+			transition tr_INCout_Abort --> INC_out_ec_5_6_Abort {
+				tguard ((z_4 == clk) && (clk < TM));
+				input Abort;
+				guard (z_4 >= 5);
+			}
+			transition tr_FAILout_Abort --> FAIL_out_ec_5_6_Abort {
+				tguard ((z_4 == clk) && (clk < TM));
+				input Abort;
+				guard (z_4 < 5);
+			}
+			transition tr_FAILout_Debit --> FAIL_out_ec_5_Debit {
+				tguard (clk < TM);
+				input Debit($_4);
+			}
+			transition tr_FAILout_Cash --> FAIL_out_ec_5_Cash {
+				tguard (clk < TM);
+				input Cash;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_5 {
+				tguard ((z_4 == clk) && (clk >= TM));
+				input Quiescence;
+				guard exists< # : urational >((z_4 < #) && (# >= 5));
+			}
+			transition tr_FAILdur_Quiescence --> FAIL_dur_ec_5 {
+				tguard ((z_4 == clk) && (clk >= TM));
+				input Quiescence;
+				guard forall< # : urational >((z_4 >= #) || (# < 5));
+			}
+		}
+
+		state< terminal > FAIL_out_ec_3_5_Debit "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_3_Cash "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_3_Abort "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_3 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_3 "FAILdur" {
+
+		}
+
+		state ec_7 "ec7" {
+			transition tr_PASS_Cash --> PASS_ec_9 {
+				tguard (clk < TM);
+				input Cash;
+			}
+			transition tr_FAILout_Debit --> FAIL_out_ec_7_Debit {
+				tguard (clk < TM);
+				input Debit($_5);
+			}
+			transition tr_FAILout_Abort --> FAIL_out_ec_7_Abort {
+				tguard (clk < TM);
+				input Abort;
+			}
+			transition tr_INCdur_Quiescence --> INC_dur_ec_7 {
+				tguard (clk >= TM);
+				input Quiescence;
+			}
+		}
+
+		state< terminal > INC_out_ec_5_6_Abort "INCout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_5_6_Abort "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_5_Debit "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_5_Cash "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_5 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_5 "FAILdur" {
+
+		}
+
+		state< final > PASS_ec_9 "PASS" {
+
+		}
+
+		state< terminal > FAIL_out_ec_7_Debit "FAILout" {
+
+		}
+
+		state< terminal > FAIL_out_ec_7_Abort "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_7 "INCdur" {
+
+		}
+
+	@com:
+		connector< env >  {
+			input Testcase_SM->Quiescence;
+		}
+		connector< env >  {
+			output Testcase_SM->Init;
+		}
+		connector< env >  {
+			output Testcase_SM->Wdrl;
+		}
+		connector< env >  {
+			output Testcase_SM->Auth;
+		}
+		connector< env >  {
+			input Testcase_SM->Debit;
+		}
+		connector< env >  {
+			input Testcase_SM->Cash;
+		}
+		connector< env >  {
+			input Testcase_SM->Abort;
+		}
+	}
+}

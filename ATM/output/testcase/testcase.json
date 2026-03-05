@@ -1,0 +1,531 @@
+{
+	"manifest": {
+		"version": 0.1,
+		"description": "Generated testcase definition in JSON Format",
+		"service": "Testcase Specification",
+		"generatedDate": "Wed Mar  4 16:12:31 2026"
+	},
+	"SUT": {
+		"output_ports": [
+			{
+				"name": "Debit",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "urational"
+					}
+				]
+			},
+			{
+				"name": "Cash"
+			},
+			{
+				"name": "Abort"
+			}
+		],
+		"input_ports": [
+			{
+				"name": "Init"
+			},
+			{
+				"name": "Wdrl",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "urational"
+					}
+				]
+			},
+			{
+				"name": "Auth",
+				"parameters": [
+					{
+						"name": "$0",
+						"type": "boolean"
+					}
+				]
+			}
+		],
+		"uncontrollable_input_ports": [
+		]
+	},
+
+	"TESTCASE": {
+		"variables": [
+			{
+				"name": "TM",
+				"type": "pos_rational"
+			},
+			{
+				"name": "clk",
+				"type": "clock< urational >"
+			},
+			{
+				"name": "auth_ok_4",
+				"type": "boolean"
+			},
+			{
+				"name": "auth_ok_4",
+				"type": "boolean"
+			},
+			{
+				"name": "$_1",
+				"type": "urational"
+			},
+			{
+				"name": "x_2",
+				"type": "urational"
+			},
+			{
+				"name": "z_5",
+				"type": "time< urational >"
+			},
+			{
+				"name": "z_4",
+				"type": "time< urational >"
+			},
+			{
+				"name": "z_3",
+				"type": "time< urational >"
+			},
+			{
+				"name": "z_2",
+				"type": "time< urational >"
+			},
+			{
+				"name": "z_1",
+				"type": "time< urational >"
+			},
+			{
+				"name": "$_2",
+				"type": "urational"
+			},
+			{
+				"name": "$_3",
+				"type": "urational"
+			},
+			{
+				"name": "$_4",
+				"type": "urational"
+			},
+			{
+				"name": "$_5",
+				"type": "urational"
+			}
+		],
+
+		"states": [
+			{
+				"name": "ec_1",
+				"sut_state": "ec_1",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec2_Init",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Init"
+						},
+						"next": "ec_2"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_2"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_2",
+				"sut_state": "ec_2",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec3_Wdrl",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "(exists< auth_ok_4 : boolean , $_1 : urational >((auth_ok_4 == true) && ($_1 == x_2)) && (x_2 >= 10))",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Wdrl",
+							"parameters": [
+								"x_2"
+							]
+						},
+						"next": "ec_3"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_3"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_3",
+				"sut_state": "ec_3",
+				"time_var": "z_3",
+				"transitions": [
+					{
+						"name": "tr_ec5_Debit",
+
+						"timed_guard": "((z_3 == clk) && (clk < TM))",
+
+						"guard": "($_1 == x_2)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"next": "ec_5"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "($_1 != x_2)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_1"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "((z_3 == clk) && (clk >= TM))",
+
+						"guard": "exists< # : urational , $_1 : urational >(($_1 == x_2) && (z_3 < #))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "((z_3 == clk) && (clk >= TM))",
+
+						"guard": "forall< # : urational , $_1 : urational >(($_1 != x_2) || (z_3 >= #))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_5",
+				"sut_state": "ec_5",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_ec7_Auth",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "(auth_ok_4 == true)",
+
+						"action": {
+							"nature": "STIMULATION",
+							"port": "Auth",
+							"parameters": [
+								"auth_ok_4"
+							]
+						},
+						"next": "ec_7"
+					},
+					{
+						"name": "tr_INCout_Abort",
+
+						"timed_guard": "((z_4 == clk) && (clk < TM))",
+
+						"guard": "(z_4 >= 5)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "INCONCLUSIVE_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "((z_4 == clk) && (clk < TM))",
+
+						"guard": "(z_4 < 5)",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_4"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Cash",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "((z_4 == clk) && (clk >= TM))",
+
+						"guard": "exists< # : urational >((z_4 < #) && (# >= 5))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					},
+					{
+						"name": "tr_FAILdur_Quiescence",
+
+						"timed_guard": "((z_4 == clk) && (clk >= TM))",
+
+						"guard": "forall< # : urational >((z_4 >= #) || (# < 5))",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "FAIL_DURATION"
+					}
+				]
+			},
+			{
+				"name": "ec_7",
+				"sut_state": "ec_7",
+				"time_var": "clk",
+				"transitions": [
+					{
+						"name": "tr_PASS_Cash",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Cash"
+						},
+						"verdict": "PASS"
+					},
+					{
+						"name": "tr_FAILout_Debit",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Debit",
+							"parameters": [
+								"$_5"
+							]
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_FAILout_Abort",
+
+						"timed_guard": "(clk < TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "OBSERVATION",
+							"port": "Abort"
+						},
+						"verdict": "FAIL_OUTPUT"
+					},
+					{
+						"name": "tr_INCdur_Quiescence",
+
+						"timed_guard": "(clk >= TM)",
+
+						"guard": "true",
+
+						"action": {
+							"nature": "QUIESCENCE",
+							"port": "Quiescence"
+						},
+						"verdict": "INCONCLUSIVE_DURATION"
+					}
+				]
+			}
+		]
+
+	}
+}

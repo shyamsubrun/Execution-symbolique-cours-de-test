@@ -1,0 +1,194 @@
+
+@startuml symbex_graph
+
+' // scale 600 width
+
+hide empty description
+
+skinparam linetype polyline
+' skinparam linetype ortho
+' left to right direction
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les noeuds/feuilles du graphes SymBex
+	BackgroundColor<< DefaultNode >> LightBlue
+
+	BackgroundColor<< RedondancyTargetSource >> Green
+	BackgroundColor<< RedondancyTargetNode >> GreenYellow
+
+	BackgroundColor<< PassedNode >> GreenYellow
+	BackgroundColor<< FailedNode >> Red
+	BackgroundColor<< InconclusiveNode >> Orange
+	BackgroundColor<< AbortedNode >> Orange
+	BackgroundColor<< WarningNode >> Orange
+	BackgroundColor<< ErrorNode >> Red
+	BackgroundColor<< AlertNode >> Red
+	BackgroundColor<< ExitNode >> Red
+
+	'Attribut pour les paths du graphes SymBex
+	BackgroundColor<< PassedPath >> LawnGreen
+	BackgroundColor<< FailedPath >> Red
+	BackgroundColor<< InconclusiveNodePath >> Orange
+	BackgroundColor<< AbortedPath >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+
+
+state "EC 20" as EC20 << DefaultNode >>
+
+EC20: < ev:1 , h:0 , w:1 > 
+EC20: atm_syst:Idle
+note left of EC20
+$time = 0
+	z = 0
+	_clock_index_ = 0
+	cl = 0
+	wtb = 5
+	threshold = 10
+	amount = 0
+	x = 0
+	auth_ok = false
+	
+end note
+
+EC20 -down-> EC21
+
+state "EC 21" as EC21 << PassedPath >>
+
+EC21: < ev:2 , h:1 , w:1 > 
+EC21: atm_syst:Idle
+
+EC21 -down-> EC22
+
+state "EC 22" as EC22 << PassedPath >>
+
+EC22: < ev:3 , h:2 , w:1 > 
+EC22: atm_syst:Ready
+note left of EC22
+$time = z_1
+	z = z_1
+	cl = z_1
+	
+end note
+EC22: ----
+EC22: tpid#1->Idle.t_init
+
+EC22 -down-> EC23
+
+state "EC 23" as EC23 << PassedPath >>
+
+EC23: < ev:4 , h:3 , w:1 > 
+EC23: atm_syst:Decision
+note left of EC23
+$time = (z_1 + z_2)
+	z = z_2
+	cl = (z_1 + z_2)
+	x = x_2
+	
+end note
+EC23: ----
+EC23: tpid#2->Ready.t_receive\nDEAD_BRANCH_PRUNED\nEC< Id:4 PE:4 H:4 W:1 Q:0 > pid_4:Ready
+
+EC23 -down-> EC24
+
+state "EC 24" as EC24 << PassedPath >>
+
+EC24: < ev:5 , h:4 , w:2 > 
+EC24: atm_syst:WaitingAuth
+note left of EC24
+PC: (($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3)
+	z = z_3
+	cl = 0
+	amount = x_2
+	
+end note
+EC24: ----
+EC24: tpid#3->Decision.t_valid\nDETERMINISTIC EC<7> , EC<8>
+
+EC24 -down-> EC25
+
+EC24 -down-> EC26
+
+EC24 -down-> EC28
+
+state "EC 25" as EC25 << DefaultNode >>
+
+EC25: < ev:0 , h:5 , w:2 > 
+EC25: atm_syst:Ready
+note left of EC25
+PC: (($_1 == x_2) && (x_2 >= 10) && (z_4 >= 5))
+	$time = (z_1 + z_2 + z_3 + z_4)
+	z = z_4
+	cl = z_4
+	
+end note
+
+state "EC 26" as EC26 << PassedPath >>
+
+EC26: < ev:6 , h:5 , w:3 > 
+EC26: atm_syst:givecash
+note left of EC26
+PC: ((auth_ok_4 == true) && ($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3 + z_4)
+	z = z_4
+	cl = z_4
+	auth_ok = auth_ok_4
+	
+end note
+EC26: ----
+EC26: tpid#4->WaitingAuth.t_auth_cash
+
+EC26 -down-> EC27
+
+state "EC 28" as EC28 << DefaultNode >>
+
+EC28: < ev:0 , h:5 , w:4 > 
+EC28: atm_syst:abortauth
+note left of EC28
+PC: ((auth_ok_4 == false) && ($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3 + z_4)
+	z = z_4
+	cl = z_4
+	auth_ok = auth_ok_4
+	
+end note
+
+state "EC 27" as EC27 << PassedPath >>
+
+EC27: < ev:0 , h:6 , w:3 > 
+EC27: atm_syst:Ready
+note left of EC27
+PC: ((auth_ok_4 == true) && ($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3 + z_4 + z_5)
+	z = z_5
+	cl = (z_4 + z_5)
+	
+end note
+EC27: ----
+EC27: tpid#5->givecash.t_cash
+@enduml

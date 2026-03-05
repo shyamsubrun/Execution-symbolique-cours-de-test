@@ -1,0 +1,37 @@
+ec( Id:0 , Pr:0 , Ev:0 , H:0 , W:1 , Q:0 ) {
+	ed(pid_3:Idle) {
+		exec_status = AEES_OK;
+		@init{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init atm_SM;
+		}
+		@schedule{
+			{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable atm_SM }
+				{
+					cl := (cl + z);
+				}
+			}
+			schedule $self;
+		}
+		rid = run::pid_1:atm_syst;
+
+	runtime#state:
+		<@rid#0 = STATE_UNDEFINED;		// run::#PARAMETERS#
+		<@rid#1 = STATE_RUNNING;		// run::atm_syst
+		<@rid#2 = STATE_DISABLED;		// run::atm_syst.atm_SM
+		<@rid#3 = STATE_DISABLED;		// run::atm_syst.atm_SM.Idle
+		<@rid#4 = STATE_DISABLED;		// run::atm_syst.atm_SM.Ready
+		<@rid#5 = STATE_DISABLED;		// run::atm_syst.atm_SM.Decision
+		<@rid#6 = STATE_DISABLED;		// run::atm_syst.atm_SM.WaitingAuth
+		<@rid#7 = STATE_DISABLED;		// run::atm_syst.atm_SM.givecash
+		<@rid#8 = STATE_DISABLED;		// run::atm_syst.atm_SM.abortauth
+
+	runtime:
+	}
+}

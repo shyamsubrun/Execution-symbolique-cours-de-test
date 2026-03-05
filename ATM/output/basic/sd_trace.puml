@@ -1,0 +1,116 @@
+
+@startuml
+
+hide unlinked
+skinparam note{
+	BackgroundColor White
+	BorderColor White
+}
+
+skinparam BackgroundColor transparent
+
+box "atm_syst" #transparent
+participant "atm_SM" as atm_SM
+end box
+
+== TRACE PATH 1 ec_6 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_timeout
+
+== TRACE PATH 2 ec_9 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_auth_cash
+hnote over of atm_syst #yellow : fired givecash.t_cash
+
+== TRACE PATH 3 ec_42 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_auth_cash
+
+== TRACE PATH 4 ec_8 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_abort_auth
+
+== TRACE PATH 5 ec_41 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+
+== TRACE PATH 6 ec_40 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+
+== TRACE PATH 7 ec_39 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+
+== TRACE PATH 8 ec_14 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_small
+
+== TRACE PATH 9 ec_16 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_timeout
+
+== TRACE PATH 10 ec_18 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_auth_cash
+hnote over of atm_syst #yellow : fired givecash.t_cash
+
+== TRACE PATH 11 ec_19 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_abort_auth
+
+== TRACE PATH 12 ec_25 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_timeout
+
+== TRACE PATH 13 ec_27 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_auth_cash
+hnote over of atm_syst #yellow : fired givecash.t_cash
+
+== TRACE PATH 14 ec_28 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_abort_auth
+
+== TRACE PATH 15 ec_34 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_timeout
+
+== TRACE PATH 16 ec_36 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_auth_cash
+hnote over of atm_syst #yellow : fired givecash.t_cash
+
+== TRACE PATH 17 ec_37 ==
+hnote over of atm_syst #yellow : fired Idle.t_init
+hnote over of atm_syst #yellow : fired Ready.t_receive
+hnote over of atm_syst #yellow : fired Decision.t_valid
+hnote over of atm_syst #yellow : fired WaitingAuth.t_abort_auth
+
+
+@enduml

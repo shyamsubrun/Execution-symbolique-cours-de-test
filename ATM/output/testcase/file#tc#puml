@@ -1,0 +1,380 @@
+
+@startuml
+
+	' // scale 600 width
+	
+	' allow_mixing
+	' !pragma teoz true
+	
+	skinparam componentstyle uml2
+	
+	hide empty description
+	
+	skinparam linetype polyline
+	' skinparam linetype ortho
+	' left to right direction
+	
+	!function $kw($key_word)
+	' // !return "**<color blue>" + $key_word + "</color>**"
+	!return "**" + $key_word + "**"
+	!endfunction
+	
+	!function $kop($key_operator)
+	' // !return "**<color blue>" + $key_operator + "</color>**"
+	!return "**" + $key_operator + "**"
+	!endfunction
+	
+	!function $ks($key_symbol)
+	' // !return "**<color blue>" + $key_symbol + "</color>**"
+	!return "**" + $key_symbol + "**"
+	!endfunction
+	
+	!function $param($p)
+	' // !return "**<color darkred>" + $p + "</color>**"
+	!return "**" + $p + "**"
+	!endfunction
+	
+	!$natural = "**<color darkred>&#9838;</color>**"
+	
+	!$tp_path = "#Green,thickness=2"
+	
+	<style>
+		note {
+			backgroundcolor white
+			shadowing 0
+			linecolor transparent
+			FontSize 35
+		}
+	</style>
+	
+	skinparam backgroundColor White
+	
+	skinparam arrow {
+		Thickness 3
+	}
+	
+	skinparam RoundCorner 0
+	
+	skinparam state {
+		StartColor Green
+		EndColor Red
+		'Attribut pour les transitions
+		ArrowColor Black
+		ArrowColor<< Else >> Orange
+		'Attribut par défaut pour les états
+		BorderColor Black
+		BorderThickness 3
+		BackgroundColor Wheat
+		'Attribut pour les états composites
+		BackgroundColor<< System            >> LightGrey
+		BackgroundColor<< Statemachine      >> GenericDisplay
+		BackgroundColor<< Machine           >> GenericDisplay
+		BackgroundColor<< Instance          >> GenericDisplay
+		BackgroundColor<< Composite         >> GenericDisplay
+		'Attribut pour les états simples
+		BackgroundColor<< simple_hierarchic >> PaleTurquoise
+		BackgroundColor<< simple            >> #E6E6E6
+		BackgroundColor<< start             >> #E6E6E6
+		BackgroundColor<< final             >> #E6E6E6 //#E6F4EA
+		BackgroundColor<< pass              >> GreenYellow
+		BackgroundColor<< sync              >> Aqua
+		'Attribut pour les pseudo-états
+		BackgroundColor<< pseudostate       >> Lavender
+		BackgroundColor<< initial           >> GreenYellow
+		BackgroundColor<< junction          >> #FFF7CC
+		BackgroundColor<< choice            >> Orange
+		BackgroundColor<< fork              >> #FFF7CC
+		BackgroundColor<< join              >> SpringGreen
+		BackgroundColor<< dhistory          >> SpringGreen
+		BackgroundColor<< shistory          >> SpringGreen
+		BackgroundColor<< return            >> OrangeRed
+		BackgroundColor<< terminal          >> #E6E6E6 // #F8E1E1
+		FontColor Black
+		FontName Times
+		FontSize 35
+	}
+
+state "System Testcase_S" as Testcase_S__931930299640 << System >> {
+	state "Testcase_SM" as Testcase_SM__2073311991848 << Composite >> {
+		state "ec1" as ec_1__2073309498328 << Start >>
+
+		ec_1__2073309498328--> ec_2__2073309499688
+		note on link #white
+			**tr_ec2_Init**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("output") Init $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_1__2073309498328--> FAIL_out_ec_1_Debit__2073304057240
+		note on link #white
+			**tr_FAILout_Debit**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Debit($_2) $ks(";")
+		end note
+
+		ec_1__2073309498328--> FAIL_out_ec_1_Cash__2073304058600
+		note on link #white
+			**tr_FAILout_Cash**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Cash $ks(";")
+		end note
+
+		ec_1__2073309498328--> FAIL_out_ec_1_Abort__2073304059960
+		note on link #white
+			**tr_FAILout_Abort**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Abort $ks(";")
+		end note
+
+		ec_1__2073309498328--> INC_dur_ec_1__2073304061320
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "ec2" as ec_2__2073309499688 << Simple >>
+
+		ec_2__2073309499688--> ec_3__2073304062680
+		note on link #white
+			**tr_ec3_Wdrl**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("guard") (exists< auth_ok_4 : boolean , 
+				$_1 : urational >((auth_ok_4 $kop("==") true)
+				 $kop("&&") ($_1 $kop("==") x_2))
+				 $kop("&&") (x_2 $kop(">=") 10)) $ks(";")
+			$kw("output") Wdrl(x_2) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_2__2073309499688--> FAIL_out_ec_2_Debit__2073309464904
+		note on link #white
+			**tr_FAILout_Debit**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Debit($_3) $ks(";")
+		end note
+
+		ec_2__2073309499688--> FAIL_out_ec_2_Cash__2073309466264
+		note on link #white
+			**tr_FAILout_Cash**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Cash $ks(";")
+		end note
+
+		ec_2__2073309499688--> FAIL_out_ec_2_Abort__2073310426552
+		note on link #white
+			**tr_FAILout_Abort**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Abort $ks(";")
+		end note
+
+		ec_2__2073309499688--> INC_dur_ec_2__2073310421112
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_1_Debit__2073304057240 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_1_Cash__2073304058600 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_1_Abort__2073304059960 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_1__2073304061320 << Terminal >>
+
+		state "ec3" as ec_3__2073304062680 << Simple >>
+
+		ec_3__2073304062680--> ec_5__2073310425192
+		note on link #white
+			**tr_ec5_Debit**
+			$kw("tguard") ((z_3 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Debit($_1) $ks(";")
+			$kw("guard") ($_1 $kop("==") x_2) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_3__2073304062680--> FAIL_out_ec_3_5_Debit__2073310417032
+		note on link #white
+			**tr_FAILout_Debit**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Debit($_1) $ks(";")
+			$kw("guard") ($_1 $kop("!=") x_2) $ks(";")
+		end note
+
+		ec_3__2073304062680--> FAIL_out_ec_3_Cash__2073310427912
+		note on link #white
+			**tr_FAILout_Cash**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Cash $ks(";")
+		end note
+
+		ec_3__2073304062680--> FAIL_out_ec_3_Abort__2073310418392
+		note on link #white
+			**tr_FAILout_Abort**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Abort $ks(";")
+		end note
+
+		ec_3__2073304062680--> INC_dur_ec_3__2073310422472
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") ((z_3 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") exists< # : urational , 
+				$_1 : urational >(($_1 $kop("==") x_2)
+				 $kop("&&") (z_3 $kop("<") #)) $ks(";")
+		end note
+
+		ec_3__2073304062680--> FAIL_dur_ec_3__2073310423832
+		note on link #white
+			**tr_FAILdur_Quiescence**
+			$kw("tguard") ((z_3 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") forall< # : urational , 
+				$_1 : urational >(($_1 $kop("!=") x_2)
+				 $kop("||") (z_3 $kop(">=") #)) $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_2_Debit__2073309464904 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_2_Cash__2073309466264 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_2_Abort__2073310426552 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_2__2073310421112 << Terminal >>
+
+		state "ec5" as ec_5__2073310425192 << Simple >>
+
+		ec_5__2073310425192--> ec_7__2073310430632
+		note on link #white
+			**tr_ec7_Auth**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("guard") (auth_ok_4 $kop("==") true) $ks(";")
+			$kw("output") Auth(auth_ok_4) $ks(";")
+			clk := 0 $ks(";")
+		end note
+
+		ec_5__2073310425192--> INC_out_ec_5_6_Abort__2073310429272
+		note on link #white
+			**tr_INCout_Abort**
+			$kw("tguard") ((z_4 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Abort $ks(";")
+			$kw("guard") (z_4 $kop(">=") 5) $ks(";")
+		end note
+
+		ec_5__2073310425192--> FAIL_out_ec_5_6_Abort__2073310419752
+		note on link #white
+			**tr_FAILout_Abort**
+			$kw("tguard") ((z_4 $kop("==") clk)
+				 $kop("&&") (clk $kop("<") TM)) $ks(";")
+			$kw("input") Abort $ks(";")
+			$kw("guard") (z_4 $kop("<") 5) $ks(";")
+		end note
+
+		ec_5__2073310425192--> FAIL_out_ec_5_Debit__2073311943512
+		note on link #white
+			**tr_FAILout_Debit**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Debit($_4) $ks(";")
+		end note
+
+		ec_5__2073310425192--> FAIL_out_ec_5_Cash__2073311940792
+		note on link #white
+			**tr_FAILout_Cash**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Cash $ks(";")
+		end note
+
+		ec_5__2073310425192--> INC_dur_ec_5__2073311950312
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") ((z_4 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") exists< # : urational >((z_4 $kop("<") #)
+				 $kop("&&") (# $kop(">=") 5)) $ks(";")
+		end note
+
+		ec_5__2073310425192--> FAIL_dur_ec_5__2073311944872
+		note on link #white
+			**tr_FAILdur_Quiescence**
+			$kw("tguard") ((z_4 $kop("==") clk)
+				 $kop("&&") (clk $kop(">=") TM)) $ks(";")
+			$kw("input") Quiescence $ks(";")
+			$kw("guard") forall< # : urational >((z_4 $kop(">=") #)
+				 $kop("||") (# $kop("<") 5)) $ks(";")
+		end note
+
+		state "FAILout" as FAIL_out_ec_3_5_Debit__2073310417032 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_3_Cash__2073310427912 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_3_Abort__2073310418392 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_3__2073310422472 << Terminal >>
+
+		state "FAILdur" as FAIL_dur_ec_3__2073310423832 << Terminal >>
+
+		state "ec7" as ec_7__2073310430632 << Simple >>
+
+		ec_7__2073310430632--> PASS_ec_9__2073311939432
+		note on link #white
+			**tr_PASS_Cash**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Cash $ks(";")
+		end note
+
+		ec_7__2073310430632--> FAIL_out_ec_7_Debit__2073311942152
+		note on link #white
+			**tr_FAILout_Debit**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Debit($_5) $ks(";")
+		end note
+
+		ec_7__2073310430632--> FAIL_out_ec_7_Abort__2073311946232
+		note on link #white
+			**tr_FAILout_Abort**
+			$kw("tguard") (clk $kop("<") TM) $ks(";")
+			$kw("input") Abort $ks(";")
+		end note
+
+		ec_7__2073310430632--> INC_dur_ec_7__2073311947592
+		note on link #white
+			**tr_INCdur_Quiescence**
+			$kw("tguard") (clk $kop(">=") TM) $ks(";")
+			$kw("input") Quiescence $ks(";")
+		end note
+
+		state "INCout" as INC_out_ec_5_6_Abort__2073310429272 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_5_6_Abort__2073310419752 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_5_Debit__2073311943512 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_5_Cash__2073311940792 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_5__2073311950312 << Terminal >>
+
+		state "FAILdur" as FAIL_dur_ec_5__2073311944872 << Terminal >>
+
+		state "PASS" as PASS_ec_9__2073311939432 << Final >>
+
+		state "FAILout" as FAIL_out_ec_7_Debit__2073311942152 << Terminal >>
+
+		state "FAILout" as FAIL_out_ec_7_Abort__2073311946232 << Terminal >>
+
+		state "INCdur" as INC_dur_ec_7__2073311947592 << Terminal >>
+
+	}
+
+}
+
+@enduml
+
+

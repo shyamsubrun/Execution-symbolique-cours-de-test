@@ -1,0 +1,178 @@
+
+@startuml
+
+	' // scale 600 width
+	
+	' allow_mixing
+	' !pragma teoz true
+	
+	skinparam componentstyle uml2
+	
+	hide empty description
+	
+	skinparam linetype polyline
+	' skinparam linetype ortho
+	' left to right direction
+	
+	!function $kw($key_word)
+	' // !return "**<color blue>" + $key_word + "</color>**"
+	!return "**" + $key_word + "**"
+	!endfunction
+	
+	!function $kop($key_operator)
+	' // !return "**<color blue>" + $key_operator + "</color>**"
+	!return "**" + $key_operator + "**"
+	!endfunction
+	
+	!function $ks($key_symbol)
+	' // !return "**<color blue>" + $key_symbol + "</color>**"
+	!return "**" + $key_symbol + "**"
+	!endfunction
+	
+	!function $param($p)
+	' // !return "**<color darkred>" + $p + "</color>**"
+	!return "**" + $p + "**"
+	!endfunction
+	
+	!$natural = "**<color darkred>&#9838;</color>**"
+	
+	!$tp_path = "#Green,thickness=2"
+	
+	<style>
+		note {
+			backgroundcolor white
+			shadowing 0
+			linecolor transparent
+			FontSize 35
+		}
+	</style>
+	
+	skinparam backgroundColor White
+	
+	skinparam arrow {
+		Thickness 3
+	}
+	
+	skinparam RoundCorner 0
+	
+	skinparam state {
+		StartColor Green
+		EndColor Red
+		'Attribut pour les transitions
+		ArrowColor Black
+		ArrowColor<< Else >> Orange
+		'Attribut par défaut pour les états
+		BorderColor Black
+		BorderThickness 3
+		BackgroundColor Wheat
+		'Attribut pour les états composites
+		BackgroundColor<< System            >> LightGrey
+		BackgroundColor<< Statemachine      >> GenericDisplay
+		BackgroundColor<< Machine           >> GenericDisplay
+		BackgroundColor<< Instance          >> GenericDisplay
+		BackgroundColor<< Composite         >> GenericDisplay
+		'Attribut pour les états simples
+		BackgroundColor<< simple_hierarchic >> PaleTurquoise
+		BackgroundColor<< simple            >> #E6E6E6
+		BackgroundColor<< start             >> #E6E6E6
+		BackgroundColor<< final             >> #E6E6E6 //#E6F4EA
+		BackgroundColor<< pass              >> GreenYellow
+		BackgroundColor<< sync              >> Aqua
+		'Attribut pour les pseudo-états
+		BackgroundColor<< pseudostate       >> Lavender
+		BackgroundColor<< initial           >> GreenYellow
+		BackgroundColor<< junction          >> #FFF7CC
+		BackgroundColor<< choice            >> Orange
+		BackgroundColor<< fork              >> #FFF7CC
+		BackgroundColor<< join              >> SpringGreen
+		BackgroundColor<< dhistory          >> SpringGreen
+		BackgroundColor<< shistory          >> SpringGreen
+		BackgroundColor<< return            >> OrangeRed
+		BackgroundColor<< terminal          >> #E6E6E6 // #F8E1E1
+		FontColor Black
+		FontName Times
+		FontSize 35
+	}
+
+state "System atm_syst" as atm_syst__2073303071608 << System >> {
+	state "atm_SM" as atm_SM__2073306653640 << Statemachine >> {
+		state "Idle" as Idle__2073306760232 << Start >>
+
+		Idle__2073306760232--> Ready__2073307932728
+		note on link #white
+			**t_init**
+			$kw("input") Init $ks(";")
+		end note
+
+		state "Ready" as Ready__2073307932728 << Simple >>
+
+		Ready__2073307932728--> Decision__2073307959288
+		note on link #white
+			**t_receive**
+			$kw("input") Wdrl(x) $ks(";")
+		end note
+
+		state "Decision" as Decision__2073307959288 << Simple >>
+
+		Decision__2073307959288--> Ready__2073307932728
+		note on link #white
+			**t_small**
+			$kw("guard") (x $kop("<") threshold) $ks(";")
+			$kw("output") Abort $ks(";")
+		end note
+
+		Decision__2073307959288--> WaitingAuth__2073307745656
+		note on link #white
+			**t_valid**
+			$kw("guard") (x $kop(">=") threshold) $ks(";")
+			amount := x $ks(";")
+			$kw("output") Debit(x) $ks(";")
+			cl := 0 $ks(";")
+		end note
+
+		state "WaitingAuth" as WaitingAuth__2073307745656 << Simple >>
+
+		WaitingAuth__2073307745656--> Ready__2073307932728
+		note on link #white
+			**t_timeout**
+			$kw("guard") (cl $kop(">=") wtb) $ks(";")
+			$kw("output") Abort $ks(";")
+		end note
+
+		WaitingAuth__2073307745656--> givecash__2073307922824
+		note on link #white
+			**t_auth_cash**
+			$kw("input") Auth(auth_ok) $ks(";")
+			$kw("guard") (auth_ok $kop("==") true) $ks(";")
+		end note
+
+		WaitingAuth__2073307745656--> abortauth__2073308554536
+		note on link #white
+			**t_abort_auth**
+			$kw("input") Auth(auth_ok) $ks(";")
+			$kw("guard") (auth_ok $kop("==") false) $ks(";")
+		end note
+
+		state "givecash" as givecash__2073307922824 << Simple >>
+
+		givecash__2073307922824--> Ready__2073307932728
+		note on link #white
+			**t_cash**
+			$kw("output") Cash $ks(";")
+		end note
+
+		state "abortauth" as abortauth__2073308554536 << Simple >>
+
+		abortauth__2073308554536--> Ready__2073307932728
+		note on link #white
+			**t_abort**
+			$kw("output") Abort $ks(";")
+		end note
+
+	}
+
+}
+
+@enduml
+
+

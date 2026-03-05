@@ -1,0 +1,163 @@
+digraph symbex_graph {
+EC29 [
+	label="ec_29< ev:1 , h:0 , w:1 >
+atm_syst:Idle
+
+$time = 0
+	z = 0
+	_clock_index_ = 0
+	cl = 0
+	wtb = 5
+	threshold = 10
+	amount = 0
+	x = 0
+	auth_ok = false
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC29 -> EC30 [
+	label=""
+]
+EC30 [
+	label="ec_30< ev:2 , h:1 , w:1 >
+atm_syst:Idle"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC30 -> EC31 [
+	label="fired atm_syst.t_init
+	INPUT atm_SM:Init
+	"
+]
+EC31 [
+	label="ec_31< ev:3 , h:2 , w:1 >
+atm_syst:Ready
+
+$time = z_1
+	z = z_1
+	cl = z_1
+	
+tpid#1->Idle.t_init"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC31 -> EC32 [
+	label="fired atm_syst.t_receive
+	INPUT atm_SM:Wdrl( x_2 )
+	"
+]
+EC32 [
+	label="ec_32< ev:4 , h:3 , w:1 >
+atm_syst:Decision
+
+$time = (z_1 + z_2)
+	z = z_2
+	cl = (z_1 + z_2)
+	x = x_2
+	
+tpid#2->Ready.t_receive\nDEAD_BRANCH_PRUNED\nEC< Id:4 PE:4 H:4 W:1 Q:0 > pid_4:Ready"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC32 -> EC33 [
+	label="fired atm_syst.t_valid
+	OUTPUT atm_SM:Debit( $_1 )
+	"
+]
+EC33 [
+	label="ec_33< ev:5 , h:4 , w:2 >
+atm_syst:WaitingAuth
+
+PC: (($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3)
+	z = z_3
+	cl = 0
+	amount = x_2
+	
+tpid#3->Decision.t_valid\nDETERMINISTIC EC<7> , EC<8>"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC33 -> EC34 [
+	label="fired atm_syst.t_timeout
+	OUTPUT atm_SM:Abort
+	"
+]
+EC33 -> EC35 [
+	label="fired atm_syst.t_auth_cash
+	INPUT atm_SM:Auth( auth_ok_4 )
+	"
+]
+EC33 -> EC37 [
+	label="fired atm_syst.t_abort_auth
+	INPUT atm_SM:Auth( auth_ok_4 )
+	"
+]
+EC34 [
+	label="ec_34< ev:0 , h:5 , w:2 >
+atm_syst:Ready
+
+PC: (($_1 == x_2) && (x_2 >= 10) && (z_4 >= 5))
+	$time = (z_1 + z_2 + z_3 + z_4)
+	z = z_4
+	cl = z_4
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC35 [
+	label="ec_35< ev:6 , h:5 , w:3 >
+atm_syst:givecash
+
+PC: ((auth_ok_4 == true) && ($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3 + z_4)
+	z = z_4
+	cl = z_4
+	auth_ok = auth_ok_4
+	
+tpid#4->WaitingAuth.t_auth_cash"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+EC35 -> EC36 [
+	label="fired atm_syst.t_cash
+	OUTPUT atm_SM:Cash
+	"
+]
+EC37 [
+	label="ec_37< ev:0 , h:5 , w:4 >
+atm_syst:abortauth
+
+PC: ((auth_ok_4 == false) && ($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3 + z_4)
+	z = z_4
+	cl = z_4
+	auth_ok = auth_ok_4
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC36 [
+	label="ec_36< ev:0 , h:6 , w:3 >
+atm_syst:Ready
+
+PC: ((auth_ok_4 == true) && ($_1 == x_2) && (x_2 >= 10))
+	$time = (z_1 + z_2 + z_3 + z_4 + z_5)
+	z = z_5
+	cl = (z_4 + z_5)
+	
+tpid#5->givecash.t_cash"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

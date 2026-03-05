@@ -146,6 +146,16 @@ Grâce à ce projet nous avons :
 - généré des **scénarios de test automatiquement**
 - analysé la **couverture des transitions**
 
+# GRAPH
+
+[atm_graph_ok.html](https://github.com/user-attachments/files/25768320/atm_graph_ok.html)
+
+[bank_graph.html](https://github.com/user-attachments/files/25768321/bank_graph.html)
+
+[bank_atm_graph.html](https://github.com/user-attachments/files/25768322/bank_atm_graph.html)
+
+
+
 Ce travail montre comment les techniques de **Model-Based Testing** peuvent être utilisées pour vérifier la fiabilité d'un système logiciel critique.
 
 ---

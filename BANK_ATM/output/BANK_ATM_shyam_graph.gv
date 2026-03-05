@@ -1,0 +1,130 @@
+digraph atm_bank_syst {
+compound = true;
+fontsize = 12
+	subgraph "cluster_spec::atm_bank_syst" {
+		label = "SYSTEM spec::atm_bank_syst"
+
+		subgraph "cluster_spec::atm_bank_syst.atm_SM" {
+			label = "atm_SM"
+			style=dashed;
+
+			"spec::atm_bank_syst.atm_SM"
+			[
+				label = "atm_SM"
+				shape=point, style=invis, color=white
+			];
+
+			"spec::atm_bank_syst.atm_SM.Idle"
+			[
+				label = "Idle"
+				shape=ellipse, style="bold,filled", fillcolor=green
+			];
+
+			"spec::atm_bank_syst.atm_SM.Idle" -> "spec::atm_bank_syst.atm_SM.Ready" [ label = "t_init" ];
+
+			"spec::atm_bank_syst.atm_SM.Ready"
+			[
+				label = "Ready"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.atm_SM.Ready" -> "spec::atm_bank_syst.atm_SM.Decision" [ label = "t_receive" ];
+
+			"spec::atm_bank_syst.atm_SM.Decision"
+			[
+				label = "Decision"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.atm_SM.Decision" -> "spec::atm_bank_syst.atm_SM.Ready" [ label = "t_small" ];
+
+			"spec::atm_bank_syst.atm_SM.Decision" -> "spec::atm_bank_syst.atm_SM.WaitingAuth" [ label = "t_valid" ];
+
+			"spec::atm_bank_syst.atm_SM.WaitingAuth"
+			[
+				label = "WaitingAuth"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.atm_SM.WaitingAuth" -> "spec::atm_bank_syst.atm_SM.Ready" [ label = "t_timeout" ];
+
+			"spec::atm_bank_syst.atm_SM.WaitingAuth" -> "spec::atm_bank_syst.atm_SM.Ready" [ label = "t_cash" ];
+		}
+
+		subgraph "cluster_spec::atm_bank_syst.bank_SM" {
+			label = "bank_SM"
+			style=dashed;
+
+			"spec::atm_bank_syst.bank_SM"
+			[
+				label = "bank_SM"
+				shape=point, style=invis, color=white
+			];
+
+			"spec::atm_bank_syst.bank_SM.InitState"
+			[
+				label = "InitState"
+				shape=ellipse, style="bold,filled", fillcolor=green
+			];
+
+			"spec::atm_bank_syst.bank_SM.InitState" -> "spec::atm_bank_syst.bank_SM.Idle" [ label = "t_init" ];
+
+			"spec::atm_bank_syst.bank_SM.Idle"
+			[
+				label = "Idle"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.bank_SM.Idle" -> "spec::atm_bank_syst.bank_SM.Idle" [ label = "t_new_day" ];
+
+			"spec::atm_bank_syst.bank_SM.Idle" -> "spec::atm_bank_syst.bank_SM.Locked" [ label = "t_lock_update" ];
+
+			"spec::atm_bank_syst.bank_SM.Idle" -> "spec::atm_bank_syst.bank_SM.Decision" [ label = "t_receive_unlocked" ];
+
+			"spec::atm_bank_syst.bank_SM.Idle" -> "spec::atm_bank_syst.bank_SM.Idle" [ label = "t_check" ];
+
+			"spec::atm_bank_syst.bank_SM.Idle" -> "spec::atm_bank_syst.bank_SM.Idle" [ label = "t_reply_check" ];
+
+			"spec::atm_bank_syst.bank_SM.Locked"
+			[
+				label = "Locked"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.bank_SM.Locked" -> "spec::atm_bank_syst.bank_SM.PrepareReply" [ label = "t_receive_locked" ];
+
+			"spec::atm_bank_syst.bank_SM.Locked" -> "spec::atm_bank_syst.bank_SM.Idle" [ label = "t_unlock" ];
+
+			"spec::atm_bank_syst.bank_SM.Decision"
+			[
+				label = "Decision"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.bank_SM.Decision" -> "spec::atm_bank_syst.bank_SM.PrepareReply" [ label = "t_small" ];
+
+			"spec::atm_bank_syst.bank_SM.Decision" -> "spec::atm_bank_syst.bank_SM.PrepareReply" [ label = "t_no_balance" ];
+
+			"spec::atm_bank_syst.bank_SM.Decision" -> "spec::atm_bank_syst.bank_SM.PrepareReply" [ label = "t_limit" ];
+
+			"spec::atm_bank_syst.bank_SM.Decision" -> "spec::atm_bank_syst.bank_SM.PrepareReply" [ label = "t_accept" ];
+
+			"spec::atm_bank_syst.bank_SM.PrepareReply"
+			[
+				label = "PrepareReply"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.bank_SM.PrepareReply" -> "spec::atm_bank_syst.bank_SM.ReplyState" [ label = "t_store" ];
+
+			"spec::atm_bank_syst.bank_SM.ReplyState"
+			[
+				label = "ReplyState"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::atm_bank_syst.bank_SM.ReplyState" -> "spec::atm_bank_syst.bank_SM.Idle" [ label = "t_send_reply" ];
+		}
+	}
+}
+

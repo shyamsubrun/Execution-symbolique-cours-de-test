@@ -1,0 +1,236 @@
+EC:<Id:0;Ev:1;H:0;W:1>{ SC: pid_3:InitState
+	ALIAS{
+		:ppid_-1:pid_0 = spec::BankSystem;
+		:ppid_-1:pid_1 = spec::BankSystem;
+			DATA{
+				:ppid_-1:pid_1:$time = spec::BankSystem.$time;
+				:ppid_-1:pid_1:z = spec::BankSystem.z;
+				:ppid_-1:pid_1:_clock_index_ = spec::BankSystem._clock_index_;
+			}
+		:ppid_1:pid_2 = spec::BankSystem.Bank_SM;
+			DATA{
+				:ppid_1:pid_2:balance = spec::BankSystem.Bank_SM.balance;
+				:ppid_1:pid_2:day1 = spec::BankSystem.Bank_SM.day1;
+				:ppid_1:pid_2:day2 = spec::BankSystem.Bank_SM.day2;
+				:ppid_1:pid_2:day3 = spec::BankSystem.Bank_SM.day3;
+				:ppid_1:pid_2:rolling_limit = spec::BankSystem.Bank_SM.rolling_limit;
+				:ppid_1:pid_2:locked = spec::BankSystem.Bank_SM.locked;
+				:ppid_1:pid_2:x = spec::BankSystem.Bank_SM.x;
+				:ppid_1:pid_2:approved = spec::BankSystem.Bank_SM.approved;
+				:ppid_1:pid_2:day_clock = spec::BankSystem.Bank_SM.day_clock;
+				:ppid_1:pid_2:reply_clock = spec::BankSystem.Bank_SM.reply_clock;
+				:ppid_1:pid_2:lock_clock = spec::BankSystem.Bank_SM.lock_clock;
+				:ppid_1:pid_2:lock_duration = spec::BankSystem.Bank_SM.lock_duration;
+			}
+			INTERFACE{
+				:ppid_1:pid_2:Debit = spec::BankSystem.Bank_SM.Debit;
+				:ppid_1:pid_2:Lock = spec::BankSystem.Bank_SM.Lock;
+				:ppid_1:pid_2:Check = spec::BankSystem.Bank_SM.Check;
+				:ppid_1:pid_2:Init = spec::BankSystem.Bank_SM.Init;
+				:ppid_1:pid_2:Reply = spec::BankSystem.Bank_SM.Reply;
+				:ppid_1:pid_2:Internal = spec::BankSystem.Bank_SM.Internal;
+			}
+		:ppid_2:pid_3 = spec::BankSystem.Bank_SM.InitState;
+		:ppid_2:pid_4 = spec::BankSystem.Bank_SM.Idle;
+		:ppid_2:pid_5 = spec::BankSystem.Bank_SM.Decision;
+		:ppid_2:pid_6 = spec::BankSystem.Bank_SM.ReplyState;
+	}
+	PC: true
+	PtC: true
+	DATA{
+		:pid_1:$time = 0;
+		:pid_1:z = 0;
+		:pid_1:_clock_index_ = 0;
+		:pid_2:balance = 1000;
+		:pid_2:day1 = 0;
+		:pid_2:day2 = 0;
+		:pid_2:day3 = 0;
+		:pid_2:rolling_limit = 500;
+		:pid_2:locked = false;
+		:pid_2:x = 0;
+		:pid_2:approved = false;
+		:pid_2:day_clock = 0;
+		:pid_2:reply_clock = 0;
+		:pid_2:lock_clock = 0;
+		:pid_2:lock_duration = 2;
+	}
+	EC:<Id:1;Ev:2;H:1;W:1>{ SC: pid_3:InitState
+		EC:<Id:2;Ev:3;H:2;W:1>{ SC: pid_4:Idle
+			EXE: { (:pid_2:Bank_SM , run) (:pid_3:InitState , run) 
+	(:pid_3:InitState , t_init) }
+			TRACE: { (:pid_1:BankSystem , ${ newfresh inst::BankSystem.z 
+	param::BankSystem.z_0 }) (:pid_3:InitState , ${ output#env 
+	inst::BankSystem.Bank_SM.Init } @ z_0) }
+			/*FLAGS{ COVERAGE-ELEMENT }*/
+			INFO{
+				<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#1->InitState.t_init" as trace="tpid#1->InitState.t_init">
+			}
+			DATA{
+				:pid_1:$time = z_0;
+				:pid_1:z = z_0;
+				:pid_2:day_clock = 0;
+				:pid_2:reply_clock = z_0;
+				:pid_2:lock_clock = z_0;
+			}
+			EC:<Id:7;Ev:8;H:3;W:5>{ SC: pid_5:Decision
+				EXE: { (:pid_2:Bank_SM , run) (:pid_4:Idle , run) (:pid_4:Idle , 
+	t_receive) }
+				TRACE: { (:pid_1:BankSystem , ${ newfresh inst::BankSystem.z 
+	param::BankSystem.z_1 }) (:pid_4:Idle , ${ input#env 
+	inst::BankSystem.Bank_SM.Debit param::BankSystem.Bank_SM.x_0 } @ (z_0 + z_1)) }
+				/*FLAGS{ COVERAGE-ELEMENT }*/
+				INFO{
+					<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#2->Idle.t_receive" as trace="tpid#2->Idle.t_receive">
+				}
+				DATA{
+					:pid_1:$time = (z_0 + z_1);
+					:pid_1:z = z_1;
+					:pid_2:x = x_0;
+					:pid_2:day_clock = z_1;
+					:pid_2:reply_clock = (z_0 + z_1);
+					:pid_2:lock_clock = (z_0 + z_1);
+				}
+				EC:<Id:32;Ev:9;H:4;W:25>{ SC: pid_6:ReplyState
+					EXE: { (:pid_2:Bank_SM , run) (:pid_5:Decision , run) 
+	(:pid_5:Decision , t_accept) }
+					TRACE: { (:pid_1:BankSystem , ${ newfresh inst::BankSystem.z 
+	param::BankSystem.z_6 }) (:pid_5:Decision , ${ output#env 
+	inst::BankSystem.Bank_SM.Internal } @ (z_0 + z_1 + z_6)) }
+					/*FLAGS{ COVERAGE-ELEMENT }*/
+					INFO{
+						<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#3->Decision.t_accept" as trace="tpid#3->Decision.t_accept">
+					}
+					PC: ((x_0 <= 500) && (x_0 <= 1000) && (x_0 >= 100))
+					DATA{
+						:pid_1:$time = (z_0 + z_1 + z_6);
+						:pid_1:z = z_6;
+						:pid_2:balance = ((- x_0) + 1000);
+						:pid_2:day1 = x_0;
+						:pid_2:approved = true;
+						:pid_2:day_clock = (z_1 + z_6);
+						:pid_2:reply_clock = (z_0 + z_1 + z_6);
+						:pid_2:lock_clock = (z_0 + z_1 + z_6);
+					}
+					EC:<Id:33;Ev:10;H:5;W:25>{ SC: pid_4:Idle
+						EXE: { (:pid_2:Bank_SM , run) (:pid_6:ReplyState , run) 
+	(:pid_6:ReplyState , t_send_reply) }
+						TRACE: { (:pid_1:BankSystem , ${ newfresh 
+	inst::BankSystem.z param::BankSystem.z_7 }) (:pid_6:ReplyState , ${ output#env 
+	inst::BankSystem.Bank_SM.Reply true } @ (z_0 + z_1 + z_6 + z_7)) }
+						PC: ((x_0 <= 500) && (x_0 <= 1000) && ((z_0 + z_1 + z_6 + z_7) >= 1) && (x_0 >= 100))
+						DATA{
+							:pid_1:$time = (z_0 + z_1 + z_6 + z_7);
+							:pid_1:z = z_7;
+							:pid_2:day_clock = (z_1 + z_6 + z_7);
+							:pid_2:reply_clock = 0;
+							:pid_2:lock_clock = (z_0 + z_1 + z_6 + z_7);
+						}
+						EC:<Id:38;Ev:11;H:6;W:29>{ SC: pid_5:Decision
+							EXE: { (:pid_2:Bank_SM , run) (:pid_4:Idle , run) 
+	(:pid_4:Idle , t_receive) }
+							TRACE: { (:pid_1:BankSystem , ${ newfresh 
+	inst::BankSystem.z param::BankSystem.z_8 }) (:pid_4:Idle , ${ input#env 
+	inst::BankSystem.Bank_SM.Debit param::BankSystem.Bank_SM.x_5 } @ (z_0 + z_1 + 
+	z_6 + z_7 + z_8)) }
+							/*FLAGS{ COVERAGE-ELEMENT }*/
+							INFO{
+								<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#4->Idle.t_receive" as trace="tpid#4->Idle.t_receive">
+							}
+							DATA{
+								:pid_1:$time = (z_0 + z_1 + z_6 + z_7 + z_8);
+								:pid_1:z = z_8;
+								:pid_2:x = x_5;
+								:pid_2:day_clock = (z_1 + z_6 + z_7 + z_8);
+								:pid_2:reply_clock = z_8;
+								:pid_2:lock_clock = (z_0 + z_1 + z_6 + z_7 + z_8);
+							}
+							EC:<Id:42;Ev:15;H:7;W:32>{ SC: pid_6:ReplyState
+								EXE: { (:pid_2:Bank_SM , run) (:pid_5:Decision , 
+	run) (:pid_5:Decision , t_accept) }
+								TRACE: { (:pid_1:BankSystem , ${ newfresh 
+	inst::BankSystem.z param::BankSystem.z_9 }) (:pid_5:Decision , ${ output#env 
+	inst::BankSystem.Bank_SM.Internal } @ (z_0 + z_1 + z_6 + z_7 + z_8 + z_9)) }
+								/*FLAGS{ COVERAGE-ELEMENT }*/
+								INFO{
+									<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#5->Decision.t_accept" as trace="tpid#5->Decision.t_accept">
+								}
+								PC: (((x_0 + x_5) <= 500) && ((x_0 + x_5) <= 1000) && (x_0 <= 500) && (x_0 <= 1000) 
+	&& ((z_0 + z_1 + z_6 + z_7) >= 1) && (x_0 >= 100) && (x_5 >= 100))
+								DATA{
+									:pid_1:$time = (z_0 + z_1 + z_6 + z_7 + z_8 + z_9);
+									:pid_1:z = z_9;
+									:pid_2:balance = ((- x_0) + (- x_5) + 1000);
+									:pid_2:day1 = (x_0 + x_5);
+									:pid_2:day_clock = (z_1 + z_6 + z_7 + z_8 + z_9);
+									:pid_2:reply_clock = (z_8 + z_9);
+									:pid_2:lock_clock = (z_0 + z_1 + z_6 + z_7 + z_8 + z_9);
+								}
+								EC:<Id:46;Ev:16;H:8;W:32>{ SC: pid_4:Idle
+									EXE: { (:pid_2:Bank_SM , run) 
+	(:pid_6:ReplyState , run) (:pid_6:ReplyState , t_send_reply) }
+									TRACE: { (:pid_1:BankSystem , ${ newfresh 
+	inst::BankSystem.z param::BankSystem.z_13 }) (:pid_6:ReplyState , ${ output#env 
+	inst::BankSystem.Bank_SM.Reply true } @ (z_0 + z_1 + z_13 + z_6 + z_7 + z_8 + 
+	z_9)) }
+									PC: (((x_0 + x_5) <= 500) && ((x_0 + x_5) <= 1000) && (x_0 <= 500) && (x_0 <= 1000) 
+	&& ((z_0 + z_1 + z_6 + z_7) >= 1) && ((z_13 + z_8 + z_9) >= 1) && (x_0 >= 100) 
+	&& (x_5 >= 100))
+									DATA{
+										:pid_1:$time = (z_0 + z_1 + z_13 + z_6 + z_7 + z_8 + z_9);
+										:pid_1:z = z_13;
+										:pid_2:day_clock = (z_1 + z_13 + z_6 + z_7 + z_8 + z_9);
+										:pid_2:reply_clock = 0;
+										:pid_2:lock_clock = (z_0 + z_1 + z_13 + z_6 + z_7 + z_8 + z_9);
+									}
+									EC:<Id:51;Ev:21;H:9;W:36>{ SC: pid_5:Decision
+										EXE: { (:pid_2:Bank_SM , run) 
+	(:pid_4:Idle , run) (:pid_4:Idle , t_receive) }
+										TRACE: { (:pid_1:BankSystem , ${ 
+	newfresh inst::BankSystem.z param::BankSystem.z_14 }) (:pid_4:Idle , ${ 
+	input#env inst::BankSystem.Bank_SM.Debit param::BankSystem.Bank_SM.x_6 } @ (z_0 
+	+ z_1 + z_13 + z_14 + z_6 + z_7 + z_8 + z_9)) }
+										/*FLAGS{ COVERAGE-ELEMENT }*/
+										INFO{
+											<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#6->Idle.t_receive" as trace="tpid#6->Idle.t_receive">
+										}
+										DATA{
+											:pid_1:$time = (z_0 + z_1 + z_13 + z_14 + z_6 + z_7 + z_8 + z_9);
+											:pid_1:z = z_14;
+											:pid_2:x = x_6;
+											:pid_2:day_clock = (z_1 + z_13 + z_14 + z_6 + z_7 + z_8 + z_9);
+											:pid_2:reply_clock = z_14;
+											:pid_2:lock_clock = (z_0 + z_1 + z_13 + z_14 + z_6 + z_7 + z_8 + z_9);
+										}
+										EC:<Id:75;Ev:0;H:10;W:55>{ SC: pid_6:ReplyState
+											EXE: { (:pid_2:Bank_SM , run) 
+	(:pid_5:Decision , run) (:pid_5:Decision , t_limit) }
+											TRACE: { (:pid_1:BankSystem , ${ 
+	newfresh inst::BankSystem.z param::BankSystem.z_19 }) (:pid_5:Decision , ${ 
+	output#env inst::BankSystem.Bank_SM.Internal } @ (z_0 + z_1 + z_13 + z_14 + z_19 
+	+ z_6 + z_7 + z_8 + z_9)) }
+											/*FLAGS{ COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED }*/
+											INFO{
+												<ID:"sew:/workflow.behavior#selection.behavior_coverage",kind="tpid#7->Decision.t_limit" as trace="tpid#7->Decision.t_limit">
+											}
+											PC: (((x_0 + x_5) <= 500) && ((x_0 + x_5) <= 1000) && ((x_0 + x_5 + x_6) <= 1000) && 
+	(x_0 <= 500) && (x_0 <= 1000) && ((x_0 + x_5 + x_6) > 500) && ((z_0 + z_1 + z_6 
+	+ z_7) >= 1) && ((z_13 + z_8 + z_9) >= 1) && (x_0 >= 100) && (x_5 >= 100))
+											DATA{
+												:pid_1:$time = (z_0 + z_1 + z_13 + z_14 + z_19 + z_6 + z_7 + z_8 + z_9);
+												:pid_1:z = z_19;
+												:pid_2:approved = false;
+												:pid_2:day_clock = (z_1 + z_13 + z_14 + z_19 + z_6 + z_7 + z_8 + z_9);
+												:pid_2:reply_clock = (z_14 + z_19);
+												:pid_2:lock_clock = (z_0 + z_1 + z_13 + z_14 + z_19 + z_6 + z_7 + z_8 + z_9);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

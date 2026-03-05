@@ -1,0 +1,328 @@
+@xlia< system , 1.0 >:
+
+timed system atm_bank_syst {
+
+@public:
+
+    port input  Wdrl(urational);
+    port input  Lock;
+    port input  Check;
+
+    port output Init;
+    port output Reply;
+    port output Cash;
+    port output Abort;
+
+@composite:
+
+
+///////////////////////////////////////////////////////
+//////////////////// ATM //////////////////////////////
+///////////////////////////////////////////////////////
+
+lifeline timed statemachine<or> atm_SM {
+
+@public:
+
+    port input  Init;
+    port input  Wdrl(urational);
+    port input  Auth(boolean);
+
+    port output Debit(urational);
+    port output Cash;
+    port output Abort;
+
+@private:
+
+    var clock cl;
+    var urational wtb = 5;
+    var urational threshold = 100;
+
+    var urational x = 0;
+    var boolean auth_ok = false;
+
+@region:
+
+
+state<start> Idle {
+
+    transition t_init --> Ready {
+        input Init;
+    }
+
+}
+
+
+state Ready {
+
+    transition t_receive --> Decision {
+        input Wdrl(x);
+    }
+
+}
+
+
+state Decision {
+
+    transition t_small --> Ready {
+
+        guard x < threshold;
+        output Abort;
+
+    }
+
+    transition t_valid --> WaitingAuth {
+
+        guard x >= threshold;
+        output Debit(x);
+        cl := 0;
+
+    }
+
+}
+
+
+state WaitingAuth {
+
+    transition t_receive_auth --> Authorized {
+
+        input Auth(auth_ok);
+
+    }
+
+    transition t_timeout --> Ready {
+
+        guard cl >= wtb;
+        output Abort;
+
+    }
+
+}
+
+
+state Authorized {
+
+    transition t_cash --> Ready {
+
+        output Cash;
+
+    }
+
+}
+
+}
+
+
+
+///////////////////////////////////////////////////////
+//////////////////// BANK /////////////////////////////
+///////////////////////////////////////////////////////
+
+lifeline timed statemachine<or> bank_SM {
+
+@public:
+
+    port output Init;
+    port input Debit(urational);
+    port output Auth(boolean);
+
+    port input Lock;
+    port input Check;
+
+    port output Reply;
+
+@private:
+
+    var urational balance = 1000;
+
+    var urational day1 = 0;
+    var urational day2 = 0;
+    var urational day3 = 0;
+
+    var urational rolling_limit = 500;
+
+    var urational x = 0;
+
+    var boolean approved = false;
+    var boolean reply_value = false;
+
+    var clock day_clock;
+    var clock reply_clock;
+
+@region:
+
+
+state<start> InitState {
+
+    transition t_init --> Idle {
+
+        output Init;
+        day_clock := 0;
+
+    }
+
+}
+
+
+state Idle {
+
+    transition t_new_day --> Idle {
+
+        guard day_clock >= 1;
+
+        day3 := day2;
+        day2 := day1;
+        day1 := 0;
+
+        day_clock := 0;
+
+    }
+
+    transition t_lock_update --> Locked {
+        input Lock;
+    }
+
+    transition t_receive_unlocked --> Decision {
+        input Debit(x);
+    }
+
+    transition t_check --> Idle {
+
+        input Check;
+        reply_clock := 0;
+
+    }
+
+    transition t_reply_check --> Idle {
+
+        guard reply_clock >= 1;
+        output Reply;
+
+    }
+
+}
+
+
+state Locked {
+
+    transition t_receive_locked --> PrepareReply {
+
+        input Debit(x);
+        approved := false;
+        reply_clock := 0;
+
+    }
+
+    transition t_unlock --> Idle {
+        guard true;
+    }
+
+}
+
+
+state Decision {
+
+    transition t_small --> PrepareReply {
+
+        guard x < 100;
+        approved := false;
+        reply_clock := 0;
+
+    }
+
+    transition t_no_balance --> PrepareReply {
+
+        guard x > balance;
+        approved := false;
+        reply_clock := 0;
+
+    }
+
+    transition t_limit --> PrepareReply {
+
+        guard x <= balance &&
+              (day1 + day2 + day3 + x) > rolling_limit;
+
+        approved := false;
+        reply_clock := 0;
+
+    }
+
+    transition t_accept --> PrepareReply {
+
+        guard x >= 100 &&
+              x <= balance &&
+              (day1 + day2 + day3 + x) <= rolling_limit;
+
+        balance := balance - x;
+        day1 := day1 + x;
+
+        approved := true;
+        reply_clock := 0;
+
+    }
+
+}
+
+
+state PrepareReply {
+
+    transition t_store --> ReplyState {
+
+        reply_value := approved;
+        reply_clock := 0;
+
+    }
+
+}
+
+
+state ReplyState {
+
+    transition t_send_reply --> Idle {
+
+        output Auth(reply_value);
+        reply_clock := 0;
+
+    }
+
+}
+
+}
+
+
+
+///////////////////////////////////////////////////////
+//////////////////// CONNECTION ///////////////////////
+///////////////////////////////////////////////////////
+
+@com:
+
+connect<env>{
+
+    input  Wdrl;
+    input  Lock;
+    input  Check;
+
+    output Init;
+    output Reply;
+    output Cash;
+    output Abort;
+
+}
+
+connect< fifo[*] >{
+
+    output atm_SM.Debit;
+    input  bank_SM.Debit;
+
+}
+
+connect< fifo[*] >{
+
+    output bank_SM.Auth;
+    input  atm_SM.Auth;
+
+}
+
+}

@@ -1,0 +1,291 @@
+
+@startuml
+
+	' // scale 600 width
+	
+	' allow_mixing
+	' !pragma teoz true
+	
+	skinparam componentstyle uml2
+	
+	hide empty description
+	
+	skinparam linetype polyline
+	' skinparam linetype ortho
+	' left to right direction
+	
+	!function $kw($key_word)
+	' // !return "**<color blue>" + $key_word + "</color>**"
+	!return "**" + $key_word + "**"
+	!endfunction
+	
+	!function $kop($key_operator)
+	' // !return "**<color blue>" + $key_operator + "</color>**"
+	!return "**" + $key_operator + "**"
+	!endfunction
+	
+	!function $ks($key_symbol)
+	' // !return "**<color blue>" + $key_symbol + "</color>**"
+	!return "**" + $key_symbol + "**"
+	!endfunction
+	
+	!function $param($p)
+	' // !return "**<color darkred>" + $p + "</color>**"
+	!return "**" + $p + "**"
+	!endfunction
+	
+	!$natural = "**<color darkred>&#9838;</color>**"
+	
+	!$tp_path = "#Green,thickness=2"
+	
+	<style>
+		note {
+			backgroundcolor white
+			shadowing 0
+			linecolor transparent
+			FontSize 35
+		}
+	</style>
+	
+	skinparam backgroundColor White
+	
+	skinparam arrow {
+		Thickness 3
+	}
+	
+	skinparam RoundCorner 0
+	
+	skinparam state {
+		StartColor Green
+		EndColor Red
+		'Attribut pour les transitions
+		ArrowColor Black
+		ArrowColor<< Else >> Orange
+		'Attribut par défaut pour les états
+		BorderColor Black
+		BorderThickness 3
+		BackgroundColor Wheat
+		'Attribut pour les états composites
+		BackgroundColor<< System            >> LightGrey
+		BackgroundColor<< Statemachine      >> GenericDisplay
+		BackgroundColor<< Machine           >> GenericDisplay
+		BackgroundColor<< Instance          >> GenericDisplay
+		BackgroundColor<< Composite         >> GenericDisplay
+		'Attribut pour les états simples
+		BackgroundColor<< simple_hierarchic >> PaleTurquoise
+		BackgroundColor<< simple            >> #E6E6E6
+		BackgroundColor<< start             >> #E6E6E6
+		BackgroundColor<< final             >> #E6E6E6 //#E6F4EA
+		BackgroundColor<< pass              >> GreenYellow
+		BackgroundColor<< sync              >> Aqua
+		'Attribut pour les pseudo-états
+		BackgroundColor<< pseudostate       >> Lavender
+		BackgroundColor<< initial           >> GreenYellow
+		BackgroundColor<< junction          >> #FFF7CC
+		BackgroundColor<< choice            >> Orange
+		BackgroundColor<< fork              >> #FFF7CC
+		BackgroundColor<< join              >> SpringGreen
+		BackgroundColor<< dhistory          >> SpringGreen
+		BackgroundColor<< shistory          >> SpringGreen
+		BackgroundColor<< return            >> OrangeRed
+		BackgroundColor<< terminal          >> #E6E6E6 // #F8E1E1
+		FontColor Black
+		FontName Times
+		FontSize 35
+	}
+
+state "System atm_bank_syst" as atm_bank_syst__2653813211176 << System >> {
+	state "atm_SM" as atm_SM__2653811998712 << Statemachine >> {
+		state "Idle" as Idle__2653813688312 << Start >>
+
+		Idle__2653813688312--> Ready__2653813395272
+		note on link #white
+			**t_init**
+			$kw("input") Init $ks(";")
+		end note
+
+		state "Ready" as Ready__2653813395272 << Simple >>
+
+		Ready__2653813395272--> Decision__2653813397656
+		note on link #white
+			**t_receive**
+			$kw("input") Wdrl(x) $ks(";")
+		end note
+
+		state "Decision" as Decision__2653813397656 << Simple >>
+
+		Decision__2653813397656--> Ready__2653813395272
+		note on link #white
+			**t_small**
+			$kw("guard") (x $kop("<") threshold) $ks(";")
+			$kw("output") Abort $ks(";")
+		end note
+
+		Decision__2653813397656--> WaitingAuth__2653815161112
+		note on link #white
+			**t_valid**
+			$kw("guard") (x $kop(">=") 0) $ks(";")
+			$kw("output") Debit(x) $ks(";")
+			cl := 0 $ks(";")
+		end note
+
+		state "WaitingAuth" as WaitingAuth__2653815161112 << Simple >>
+
+		WaitingAuth__2653815161112--> Ready__2653813395272
+		note on link #white
+			**t_timeout**
+			$kw("guard") (cl $kop(">=") wtb) $ks(";")
+			$kw("output") Abort $ks(";")
+		end note
+
+		WaitingAuth__2653815161112--> Ready__2653813395272
+		note on link #white
+			**t_cash**
+			$kw("input") Auth(auth_ok) $ks(";")
+			$kw("output") Cash $ks(";")
+		end note
+
+	}
+
+
+	note bottom of atm_SM__2653811998712 #white
+		**init** |§|
+		$time := $time#initial $ks(";")
+		z := $delta#initial $ks(";")
+	end note
+	--
+	state "bank_SM" as bank_SM__2653815123992 << Statemachine >> {
+		state "InitState" as InitState__2653816248808 << Start >>
+
+		InitState__2653816248808--> Idle__2653814076216
+		note on link #white
+			**t_init**
+			$kw("output") Init $ks(";")
+			day_clock := 0 $ks(";")
+		end note
+
+		state "Idle" as Idle__2653814076216 << Simple >>
+
+		Idle__2653814076216--> Idle__2653814076216
+		note on link #white
+			**t_new_day**
+			$kw("guard") (day_clock $kop(">=") 1) $ks(";")
+			day3 := day2 $ks(";")
+			day2 := day1 $ks(";")
+			day1 := 0 $ks(";")
+			day_clock := 0 $ks(";")
+		end note
+
+		Idle__2653814076216--> Locked__2653814080616
+		note on link #white
+			**t_lock_update**
+			$kw("input") Lock $ks(";")
+		end note
+
+		Idle__2653814076216--> Decision__2653816278712
+		note on link #white
+			**t_receive_unlocked**
+			$kw("input") Debit(x) $ks(";")
+		end note
+
+		Idle__2653814076216--> Idle__2653814076216
+		note on link #white
+			**t_check**
+			$kw("input") Check $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		Idle__2653814076216--> Idle__2653814076216
+		note on link #white
+			**t_reply_check**
+			$kw("guard") (reply_clock $kop(">=") 1) $ks(";")
+			$kw("output") Reply $ks(";")
+		end note
+
+		state "Locked" as Locked__2653814080616 << Simple >>
+
+		Locked__2653814080616--> PrepareReply__2653817279832
+		note on link #white
+			**t_receive_locked**
+			$kw("input") Debit(x) $ks(";")
+			approved := false $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		Locked__2653814080616--> Idle__2653814076216
+		note on link #white
+			**t_unlock**
+			$kw("guard") true $ks(";")
+		end note
+
+		state "Decision" as Decision__2653816278712 << Simple >>
+
+		Decision__2653816278712--> PrepareReply__2653817279832
+		note on link #white
+			**t_small**
+			$kw("guard") (x $kop("<") 100) $ks(";")
+			approved := false $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		Decision__2653816278712--> PrepareReply__2653817279832
+		note on link #white
+			**t_no_balance**
+			$kw("guard") (x $kop(">") balance) $ks(";")
+			approved := false $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		Decision__2653816278712--> PrepareReply__2653817279832
+		note on link #white
+			**t_limit**
+			$kw("guard") ((x $kop("<=") balance)
+				 $kop("&&") ((day1 $kop("+") day2 $kop("+") day3 $kop("+") x) $kop(">") rolling_limit)) $ks(";")
+			approved := false $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		Decision__2653816278712--> PrepareReply__2653817279832
+		note on link #white
+			**t_accept**
+			$kw("guard") ((x $kop(">=") 100)
+				 $kop("&&") (x $kop("<=") balance)
+				 $kop("&&") ((day1 $kop("+") day2 $kop("+") day3 $kop("+") x) $kop("<=") rolling_limit)) $ks(";")
+			balance := (balance $kop("+") ($kop("-") x)) $ks(";")
+			day1 := (day1 $kop("+") x) $ks(";")
+			approved := true $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		state "PrepareReply" as PrepareReply__2653817279832 << Simple >>
+
+		PrepareReply__2653817279832--> ReplyState__2653817281192
+		note on link #white
+			**t_store**
+			reply_value := approved $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		state "ReplyState" as ReplyState__2653817281192 << Simple >>
+
+		ReplyState__2653817281192--> Idle__2653814076216
+		note on link #white
+			**t_send_reply**
+			$kw("output") Auth(reply_value) $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+	}
+
+
+	note bottom of bank_SM__2653815123992 #white
+		**init** |§|
+		$time := $time#initial $ks(";")
+		z := $delta#initial $ks(";")
+	end note
+
+}
+
+@enduml
+
+

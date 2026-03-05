@@ -1,0 +1,590 @@
+EC:<Id:0;Ev:1;H:0;W:1>{ SC: ( pid_3:Idle , pid_8:InitState )
+	ALIAS{
+		:ppid_-1:pid_0 = spec::atm_bank_syst;
+		:ppid_-1:pid_1 = spec::atm_bank_syst;
+			BUFFER NUMBER = 2;
+			/*BUFFER{
+				:ppid_-1:pid_1:_#buffer_0 = spec::atm_bank_syst._#buffer_0;
+				:ppid_-1:pid_1:_#buffer_1 = spec::atm_bank_syst._#buffer_1;
+			}*/
+			DATA{
+				:ppid_-1:pid_1:$time = spec::atm_bank_syst.$time;
+				:ppid_-1:pid_1:z = spec::atm_bank_syst.z;
+				:ppid_-1:pid_1:_clock_index_ = spec::atm_bank_syst._clock_index_;
+			}
+			INTERFACE{
+				:ppid_-1:pid_1:Wdrl = spec::atm_bank_syst.Wdrl;
+				:ppid_-1:pid_1:Lock = spec::atm_bank_syst.Lock;
+				:ppid_-1:pid_1:Check = spec::atm_bank_syst.Check;
+				:ppid_-1:pid_1:Init = spec::atm_bank_syst.Init;
+				:ppid_-1:pid_1:Reply = spec::atm_bank_syst.Reply;
+				:ppid_-1:pid_1:Cash = spec::atm_bank_syst.Cash;
+				:ppid_-1:pid_1:Abort = spec::atm_bank_syst.Abort;
+			}
+		:ppid_1:pid_2 = spec::atm_bank_syst.atm_SM;
+			DATA{
+				:ppid_1:pid_2:$time = spec::atm_bank_syst.atm_SM.$time;
+				:ppid_1:pid_2:z = spec::atm_bank_syst.atm_SM.z;
+				:ppid_1:pid_2:_clock_index_ = spec::atm_bank_syst.atm_SM._clock_index_;
+				:ppid_1:pid_2:cl = spec::atm_bank_syst.atm_SM.cl;
+				:ppid_1:pid_2:wtb = spec::atm_bank_syst.atm_SM.wtb;
+				:ppid_1:pid_2:threshold = spec::atm_bank_syst.atm_SM.threshold;
+				:ppid_1:pid_2:x = spec::atm_bank_syst.atm_SM.x;
+				:ppid_1:pid_2:auth_ok = spec::atm_bank_syst.atm_SM.auth_ok;
+			}
+			INTERFACE{
+				:ppid_1:pid_2:Init = spec::atm_bank_syst.atm_SM.Init;
+				:ppid_1:pid_2:Wdrl = spec::atm_bank_syst.atm_SM.Wdrl;
+				:ppid_1:pid_2:Auth = spec::atm_bank_syst.atm_SM.Auth;
+				:ppid_1:pid_2:Debit = spec::atm_bank_syst.atm_SM.Debit;
+				:ppid_1:pid_2:Cash = spec::atm_bank_syst.atm_SM.Cash;
+				:ppid_1:pid_2:Abort = spec::atm_bank_syst.atm_SM.Abort;
+			}
+		:ppid_2:pid_3 = spec::atm_bank_syst.atm_SM.Idle;
+		:ppid_2:pid_4 = spec::atm_bank_syst.atm_SM.Ready;
+		:ppid_2:pid_5 = spec::atm_bank_syst.atm_SM.Decision;
+		:ppid_2:pid_6 = spec::atm_bank_syst.atm_SM.WaitingAuth;
+		:ppid_1:pid_7 = spec::atm_bank_syst.bank_SM;
+			DATA{
+				:ppid_1:pid_7:$time = spec::atm_bank_syst.bank_SM.$time;
+				:ppid_1:pid_7:z = spec::atm_bank_syst.bank_SM.z;
+				:ppid_1:pid_7:_clock_index_ = spec::atm_bank_syst.bank_SM._clock_index_;
+				:ppid_1:pid_7:balance = spec::atm_bank_syst.bank_SM.balance;
+				:ppid_1:pid_7:day1 = spec::atm_bank_syst.bank_SM.day1;
+				:ppid_1:pid_7:day2 = spec::atm_bank_syst.bank_SM.day2;
+				:ppid_1:pid_7:day3 = spec::atm_bank_syst.bank_SM.day3;
+				:ppid_1:pid_7:rolling_limit = spec::atm_bank_syst.bank_SM.rolling_limit;
+				:ppid_1:pid_7:x = spec::atm_bank_syst.bank_SM.x;
+				:ppid_1:pid_7:approved = spec::atm_bank_syst.bank_SM.approved;
+				:ppid_1:pid_7:reply_value = spec::atm_bank_syst.bank_SM.reply_value;
+				:ppid_1:pid_7:day_clock = spec::atm_bank_syst.bank_SM.day_clock;
+				:ppid_1:pid_7:reply_clock = spec::atm_bank_syst.bank_SM.reply_clock;
+			}
+			INTERFACE{
+				:ppid_1:pid_7:Debit = spec::atm_bank_syst.bank_SM.Debit;
+				:ppid_1:pid_7:Lock = spec::atm_bank_syst.bank_SM.Lock;
+				:ppid_1:pid_7:Check = spec::atm_bank_syst.bank_SM.Check;
+				:ppid_1:pid_7:Init = spec::atm_bank_syst.bank_SM.Init;
+				:ppid_1:pid_7:Auth = spec::atm_bank_syst.bank_SM.Auth;
+				:ppid_1:pid_7:Reply = spec::atm_bank_syst.bank_SM.Reply;
+			}
+		:ppid_7:pid_8 = spec::atm_bank_syst.bank_SM.InitState;
+		:ppid_7:pid_9 = spec::atm_bank_syst.bank_SM.Idle;
+		:ppid_7:pid_10 = spec::atm_bank_syst.bank_SM.Locked;
+		:ppid_7:pid_11 = spec::atm_bank_syst.bank_SM.Decision;
+		:ppid_7:pid_12 = spec::atm_bank_syst.bank_SM.PrepareReply;
+		:ppid_7:pid_13 = spec::atm_bank_syst.bank_SM.ReplyState;
+	}
+	PC: true
+	PtC: true
+	DATA{
+		:pid_1:$time = 0;
+		:pid_1:z = 0;
+		:pid_1:_clock_index_ = 0;
+		:pid_2:$time = 0;
+		:pid_2:z = 0;
+		:pid_2:_clock_index_ = 0;
+		:pid_2:cl = 0;
+		:pid_2:wtb = 5;
+		:pid_2:threshold = 100;
+		:pid_2:x = 0;
+		:pid_2:auth_ok = false;
+		:pid_7:$time = 0;
+		:pid_7:z = 0;
+		:pid_7:_clock_index_ = 0;
+		:pid_7:balance = 1000;
+		:pid_7:day1 = 0;
+		:pid_7:day2 = 0;
+		:pid_7:day3 = 0;
+		:pid_7:rolling_limit = 500;
+		:pid_7:x = 0;
+		:pid_7:approved = false;
+		:pid_7:reply_value = false;
+		:pid_7:day_clock = 0;
+		:pid_7:reply_clock = 0;
+	}
+	BUFFER{
+		atm_bank_syst._#buffer_0:<FIFO>#0{ }
+		atm_bank_syst._#buffer_1:<FIFO>#1{ }
+	}
+	EC:<Id:1;Ev:2;H:1;W:1>{ SC: ( pid_3:Idle , pid_8:InitState )
+		EC:<Id:2;Ev:0;H:2;W:1>{ SC: ( pid_4:Ready , pid_8:InitState )
+			EXE: { (:pid_2:atm_SM , run) (:pid_3:Idle , run) (:pid_3:Idle , 
+	t_init) }
+			TRACE: { (:pid_1:atm_bank_syst , ${ newfresh inst::atm_bank_syst.z 
+	param::atm_bank_syst.z_0 }) (:pid_2:atm_SM , ${ newfresh 
+	inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_0 }) (:pid_3:Idle , 
+	${ input#env inst::atm_bank_syst.atm_SM.Init } @ z_0) }
+			/*FLAGS{ COVERAGE-ELEMENT }*/
+			INFO{
+				<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.atm_SM.Idle.t_init">
+			}
+			DATA{
+				:pid_1:$time = z_0;
+				:pid_1:z = z_0;
+				:pid_2:$time = z_0;
+				:pid_2:z = z_0;
+				:pid_2:cl = z_0;
+			}
+		}
+		EC:<Id:3;Ev:3;H:2;W:2>{ SC: ( pid_3:Idle , pid_9:Idle )
+			EXE: { (:pid_7:bank_SM , run) (:pid_8:InitState , run) 
+	(:pid_8:InitState , t_init) }
+			TRACE: { (:pid_1:atm_bank_syst , ${ newfresh inst::atm_bank_syst.z 
+	param::atm_bank_syst.z_0 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_0 }) 
+	(:pid_8:InitState , ${ output#env inst::atm_bank_syst.bank_SM.Init } @ z_0) }
+			/*FLAGS{ COVERAGE-ELEMENT }*/
+			INFO{
+				<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.InitState.t_init">
+			}
+			DATA{
+				:pid_1:$time = z_0;
+				:pid_1:z = z_0;
+				:pid_7:$time = z_0;
+				:pid_7:z = z_0;
+				:pid_7:day_clock = 0;
+				:pid_7:reply_clock = z_0;
+			}
+			EC:<Id:4;Ev:4;H:3;W:2>{ SC: ( pid_4:Ready , pid_9:Idle )
+				EXE: { (:pid_2:atm_SM , run) (:pid_3:Idle , run) (:pid_3:Idle , 
+	t_init) }
+				TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_1 }) (:pid_2:atm_SM , ${ newfresh 
+	inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_1 }) (:pid_3:Idle , 
+	${ input#env inst::atm_bank_syst.atm_SM.Init } @ z_1) }
+				DATA{
+					:pid_1:$time = (z_0 + z_1);
+					:pid_1:z = z_1;
+					:pid_2:$time = z_1;
+					:pid_2:z = z_1;
+					:pid_2:cl = z_1;
+				}
+				EC:<Id:9;Ev:5;H:4;W:2>{ SC: ( pid_5:Decision , pid_9:Idle )
+					EXE: { (:pid_2:atm_SM , run) (:pid_4:Ready , run) 
+	(:pid_4:Ready , t_receive) }
+					TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_2 }) (:pid_2:atm_SM , ${ newfresh 
+	inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_2 }) (:pid_4:Ready , 
+	${ input#env inst::atm_bank_syst.atm_SM.Wdrl param::atm_bank_syst.atm_SM.x_0 } @ 
+	(z_1 + z_2)) }
+					/*FLAGS{ COVERAGE-ELEMENT }*/
+					INFO{
+						<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.atm_SM.Ready.t_receive">
+					}
+					DATA{
+						:pid_1:$time = (z_0 + z_1 + z_2);
+						:pid_1:z = z_2;
+						:pid_2:$time = (z_1 + z_2);
+						:pid_2:z = z_2;
+						:pid_2:cl = (z_1 + z_2);
+						:pid_2:x = x_0;
+					}
+					EC:<Id:14;Ev:0;H:5;W:2>{ SC: ( pid_4:Ready , pid_9:Idle )
+						EXE: { (:pid_2:atm_SM , run) (:pid_5:Decision , run) 
+	(:pid_5:Decision , t_small) }
+						TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_3 }) (:pid_2:atm_SM , ${ newfresh 
+	inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_3 }) (:pid_5:Decision 
+	, ${ output#env inst::atm_bank_syst.atm_SM.Abort } @ (z_1 + z_2 + z_3)) }
+						/*FLAGS{ COVERAGE-ELEMENT }*/
+						INFO{
+							<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.atm_SM.Decision.t_small">
+						}
+						PC: (x_0 < 100)
+						DATA{
+							:pid_1:$time = (z_0 + z_1 + z_2 + z_3);
+							:pid_1:z = z_3;
+							:pid_2:$time = (z_1 + z_2 + z_3);
+							:pid_2:z = z_3;
+							:pid_2:cl = (z_1 + z_2 + z_3);
+						}
+					}
+					EC:<Id:15;Ev:6;H:5;W:11>{ SC: ( pid_6:WaitingAuth , pid_9:Idle )
+						EXE: { (:pid_2:atm_SM , run) (:pid_5:Decision , run) 
+	(:pid_5:Decision , t_valid) }
+						TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_3 }) (:pid_2:atm_SM , ${ newfresh 
+	inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_3 }) (:pid_5:Decision 
+	, ${ output inst::atm_bank_syst.atm_SM.Debit param::atm_bank_syst.atm_SM.x_0 } @ 
+	(z_1 + z_2 + z_3)) }
+						/*FLAGS{ COVERAGE-ELEMENT }*/
+						INFO{
+							<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.atm_SM.Decision.t_valid">
+						}
+						PC: (x_0 >= 0)
+						DATA{
+							:pid_1:$time = (z_0 + z_1 + z_2 + z_3);
+							:pid_1:z = z_3;
+							:pid_2:$time = (z_1 + z_2 + z_3);
+							:pid_2:z = z_3;
+							:pid_2:cl = 0;
+						}
+						BUFFER{
+							atm_bank_syst._#buffer_0:<FIFO>#0{
+								:pid_2:Debit(param::atm_bank_syst.atm_SM.x_0);
+							}
+						}
+						EC:<Id:20;Ev:0;H:6;W:11>{ SC: ( pid_4:Ready , pid_9:Idle )
+							EXE: { (:pid_2:atm_SM , run) (:pid_6:WaitingAuth , 
+	run) (:pid_6:WaitingAuth , t_timeout) }
+							TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_4 }) (:pid_2:atm_SM , ${ newfresh 
+	inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_4 }) 
+	(:pid_6:WaitingAuth , ${ output#env inst::atm_bank_syst.atm_SM.Abort } @ (z_1 + 
+	z_2 + z_3 + z_4)) }
+							/*FLAGS{ COVERAGE-ELEMENT }*/
+							INFO{
+								<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.atm_SM.WaitingAuth.t_timeout">
+							}
+							PC: ((x_0 >= 0) && (z_4 >= 5))
+							DATA{
+								:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4);
+								:pid_1:z = z_4;
+								:pid_2:$time = (z_1 + z_2 + z_3 + z_4);
+								:pid_2:z = z_4;
+								:pid_2:cl = z_4;
+							}
+						}
+						EC:<Id:22;Ev:10;H:6;W:17>{ SC: ( pid_6:WaitingAuth , pid_10:Locked )
+							EXE: { (:pid_7:bank_SM , run) (:pid_9:Idle , run) 
+	(:pid_9:Idle , t_lock_update) }
+							TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_4 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_4 }) (:pid_9:Idle , 
+	${ input#env inst::atm_bank_syst.bank_SM.Lock } @ (z_0 + z_4)) }
+							DATA{
+								:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4);
+								:pid_1:z = z_4;
+								:pid_7:$time = (z_0 + z_4);
+								:pid_7:z = z_4;
+								:pid_7:day_clock = z_4;
+								:pid_7:reply_clock = (z_0 + z_4);
+							}
+							EC:<Id:36;Ev:11;H:7;W:27>{ SC: ( pid_6:WaitingAuth , pid_12:PrepareReply )
+								EXE: { (:pid_7:bank_SM , run) (:pid_10:Locked , 
+	run) (:pid_10:Locked , t_receive_locked) }
+								TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_8 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_8 }) 
+	(:pid_10:Locked , ${ input inst::atm_bank_syst.bank_SM.Debit 
+	param::atm_bank_syst.atm_SM.x_0 } @ (z_0 + z_4 + z_8)) }
+								/*FLAGS{ COVERAGE-ELEMENT }*/
+								INFO{
+									<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Locked.t_receive_locked">
+								}
+								DATA{
+									:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4 + z_8);
+									:pid_1:z = z_8;
+									:pid_7:$time = (z_0 + z_4 + z_8);
+									:pid_7:z = z_8;
+									:pid_7:x = x_0;
+									:pid_7:day_clock = (z_4 + z_8);
+									:pid_7:reply_clock = 0;
+								}
+								BUFFER{
+									atm_bank_syst._#buffer_0:<FIFO>#0{ }
+								}
+							}
+						}
+						EC:<Id:23;Ev:7;H:6;W:18>{ SC: ( pid_6:WaitingAuth , pid_11:Decision )
+							EXE: { (:pid_7:bank_SM , run) (:pid_9:Idle , run) 
+	(:pid_9:Idle , t_receive_unlocked) }
+							TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_4 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_4 }) (:pid_9:Idle , 
+	${ input inst::atm_bank_syst.bank_SM.Debit param::atm_bank_syst.atm_SM.x_0 } @ 
+	(z_0 + z_4)) }
+							/*FLAGS{ COVERAGE-ELEMENT }*/
+							INFO{
+								<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Idle.t_receive_unlocked">
+							}
+							DATA{
+								:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4);
+								:pid_1:z = z_4;
+								:pid_7:$time = (z_0 + z_4);
+								:pid_7:z = z_4;
+								:pid_7:x = x_0;
+								:pid_7:day_clock = z_4;
+								:pid_7:reply_clock = (z_0 + z_4);
+							}
+							BUFFER{
+								atm_bank_syst._#buffer_0:<FIFO>#0{ }
+							}
+							EC:<Id:27;Ev:8;H:7;W:21>{ SC: ( pid_6:WaitingAuth , pid_12:PrepareReply )
+								EXE: { (:pid_7:bank_SM , run) (:pid_11:Decision 
+	, run) (:pid_11:Decision , t_small) }
+								TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_5 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_5 }) }
+								/*FLAGS{ COVERAGE-ELEMENT }*/
+								INFO{
+									<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Decision.t_small">
+								}
+								PC: ((x_0 < 100) && (x_0 >= 0))
+								DATA{
+									:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4 + z_5);
+									:pid_1:z = z_5;
+									:pid_7:$time = (z_0 + z_4 + z_5);
+									:pid_7:z = z_5;
+									:pid_7:day_clock = (z_4 + z_5);
+									:pid_7:reply_clock = 0;
+								}
+								EC:<Id:32;Ev:0;H:8;W:25>{ SC: ( pid_6:WaitingAuth , pid_13:ReplyState )
+									EXE: { (:pid_7:bank_SM , run) 
+	(:pid_12:PrepareReply , run) (:pid_12:PrepareReply , t_store) }
+									TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_6 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_6 }) }
+									/*FLAGS{ COVERAGE-ELEMENT }*/
+									INFO{
+										<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.PrepareReply.t_store">
+									}
+									DATA{
+										:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4 + z_5 + z_6);
+										:pid_1:z = z_6;
+										:pid_7:$time = (z_0 + z_4 + z_5 + z_6);
+										:pid_7:z = z_6;
+										:pid_7:day_clock = (z_4 + z_5 + z_6);
+										:pid_7:reply_clock = 0;
+									}
+								}
+							}
+							EC:<Id:28;Ev:12;H:7;W:22>{ SC: ( pid_6:WaitingAuth , pid_12:PrepareReply )
+								EXE: { (:pid_7:bank_SM , run) (:pid_11:Decision 
+	, run) (:pid_11:Decision , t_no_balance) }
+								TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_5 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_5 }) }
+								/*FLAGS{ COVERAGE-ELEMENT }*/
+								INFO{
+									<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Decision.t_no_balance">
+								}
+								PC: ((x_0 > 1000) && (x_0 >= 0))
+								DATA{
+									:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4 + z_5);
+									:pid_1:z = z_5;
+									:pid_7:$time = (z_0 + z_4 + z_5);
+									:pid_7:z = z_5;
+									:pid_7:day_clock = (z_4 + z_5);
+									:pid_7:reply_clock = 0;
+								}
+								EC:<Id:41;Ev:13;H:8;W:30>{ SC: ( pid_6:WaitingAuth , pid_13:ReplyState )
+									EXE: { (:pid_7:bank_SM , run) 
+	(:pid_12:PrepareReply , run) (:pid_12:PrepareReply , t_store) }
+									TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_10 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_10 }) }
+									DATA{
+										:pid_1:$time = (z_0 + z_1 + z_10 + z_2 + z_3 + z_4 + z_5);
+										:pid_1:z = z_10;
+										:pid_7:$time = (z_0 + z_10 + z_4 + z_5);
+										:pid_7:z = z_10;
+										:pid_7:day_clock = (z_10 + z_4 + z_5);
+										:pid_7:reply_clock = 0;
+									}
+									EC:<Id:43;Ev:34;H:9;W:31>{ SC: ( pid_6:WaitingAuth , pid_9:Idle )
+										EXE: { (:pid_7:bank_SM , run) 
+	(:pid_13:ReplyState , run) (:pid_13:ReplyState , t_send_reply) }
+										TRACE: { (:pid_1:atm_bank_syst , ${ 
+	newfresh inst::atm_bank_syst.z param::atm_bank_syst.z_11 }) (:pid_7:bank_SM , ${ 
+	newfresh inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_11 }) 
+	(:pid_13:ReplyState , ${ output inst::atm_bank_syst.bank_SM.Auth false } @ (z_0 
+	+ z_10 + z_11 + z_4 + z_5)) }
+										/*FLAGS{ COVERAGE-ELEMENT }*/
+										INFO{
+											<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.ReplyState.t_send_reply">
+										}
+										DATA{
+											:pid_1:$time = (z_0 + z_1 + z_10 + z_11 + z_2 + z_3 + z_4 + z_5);
+											:pid_1:z = z_11;
+											:pid_7:$time = (z_0 + z_10 + z_11 + z_4 + z_5);
+											:pid_7:z = z_11;
+											:pid_7:day_clock = (z_10 + z_11 + z_4 + z_5);
+											:pid_7:reply_clock = 0;
+										}
+										BUFFER{
+											atm_bank_syst._#buffer_1:<FIFO>#1{
+												:pid_7:Auth(false);
+											}
+										}
+										EC:<Id:142;Ev:0;H:10;W:109>{ SC: ( pid_4:Ready , pid_9:Idle )
+											EXE: { (:pid_2:atm_SM , run) 
+	(:pid_6:WaitingAuth , run) (:pid_6:WaitingAuth , t_cash) }
+											TRACE: { (:pid_1:atm_bank_syst , ${ 
+	newfresh inst::atm_bank_syst.z param::atm_bank_syst.z_32 }) (:pid_2:atm_SM , ${ 
+	newfresh inst::atm_bank_syst.atm_SM.z param::atm_bank_syst.atm_SM.z_32 }) 
+	(:pid_6:WaitingAuth , ${ input inst::atm_bank_syst.atm_SM.Auth false } @ (z_1 + 
+	z_2 + z_3 + z_32)) (:pid_6:WaitingAuth , ${ output#env 
+	inst::atm_bank_syst.atm_SM.Cash } @ (z_1 + z_2 + z_3 + z_32)) }
+											/*FLAGS{ COVERAGE-ELEMENT }*/
+											INFO{
+												<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.atm_SM.WaitingAuth.t_cash">
+											}
+											DATA{
+												:pid_1:$time = (z_0 + z_1 + z_10 + z_11 + z_2 + z_3 + z_32 + z_4 + z_5);
+												:pid_1:z = z_32;
+												:pid_2:$time = (z_1 + z_2 + z_3 + z_32);
+												:pid_2:z = z_32;
+												:pid_2:cl = z_32;
+											}
+											BUFFER{
+												atm_bank_syst._#buffer_1:<FIFO>#1{ }
+											}
+										}
+									}
+								}
+							}
+							EC:<Id:29;Ev:14;H:7;W:23>{ SC: ( pid_6:WaitingAuth , pid_12:PrepareReply )
+								EXE: { (:pid_7:bank_SM , run) (:pid_11:Decision 
+	, run) (:pid_11:Decision , t_limit) }
+								TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_5 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_5 }) }
+								/*FLAGS{ COVERAGE-ELEMENT }*/
+								INFO{
+									<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Decision.t_limit">
+								}
+								PC: ((x_0 <= 1000) && (x_0 > 500) && (x_0 >= 0))
+								DATA{
+									:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4 + z_5);
+									:pid_1:z = z_5;
+									:pid_7:$time = (z_0 + z_4 + z_5);
+									:pid_7:z = z_5;
+									:pid_7:day_clock = (z_4 + z_5);
+									:pid_7:reply_clock = 0;
+								}
+							}
+							EC:<Id:30;Ev:15;H:7;W:24>{ SC: ( pid_6:WaitingAuth , pid_12:PrepareReply )
+								EXE: { (:pid_7:bank_SM , run) (:pid_11:Decision 
+	, run) (:pid_11:Decision , t_accept) }
+								TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_5 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_5 }) }
+								/*FLAGS{ COVERAGE-ELEMENT }*/
+								INFO{
+									<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Decision.t_accept">
+								}
+								PC: ((x_0 <= 500) && (x_0 <= 1000) && (x_0 >= 0) && (x_0 >= 100))
+								DATA{
+									:pid_1:$time = (z_0 + z_1 + z_2 + z_3 + z_4 + z_5);
+									:pid_1:z = z_5;
+									:pid_7:$time = (z_0 + z_4 + z_5);
+									:pid_7:z = z_5;
+									:pid_7:balance = ((- x_0) + 1000);
+									:pid_7:day1 = x_0;
+									:pid_7:approved = true;
+									:pid_7:day_clock = (z_4 + z_5);
+									:pid_7:reply_clock = 0;
+								}
+							}
+						}
+					}
+				}
+			}
+			EC:<Id:5;Ev:0;H:3;W:3>{ SC: ( pid_3:Idle , pid_9:Idle )
+				EXE: { (:pid_7:bank_SM , run) (:pid_9:Idle , run) (:pid_9:Idle , 
+	t_new_day) }
+				TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_1 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_1 }) }
+				/*FLAGS{ COVERAGE-ELEMENT }*/
+				INFO{
+					<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Idle.t_new_day">
+				}
+				PC: (z_1 >= 1)
+				DATA{
+					:pid_1:$time = (z_0 + z_1);
+					:pid_1:z = z_1;
+					:pid_7:$time = (z_0 + z_1);
+					:pid_7:z = z_1;
+					:pid_7:day1 = 0;
+					:pid_7:day2 = 0;
+					:pid_7:day3 = 0;
+					:pid_7:day_clock = 0;
+					:pid_7:reply_clock = (z_0 + z_1);
+				}
+			}
+			EC:<Id:6;Ev:9;H:3;W:4>{ SC: ( pid_3:Idle , pid_10:Locked )
+				EXE: { (:pid_7:bank_SM , run) (:pid_9:Idle , run) (:pid_9:Idle , 
+	t_lock_update) }
+				TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_1 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_1 }) (:pid_9:Idle , 
+	${ input#env inst::atm_bank_syst.bank_SM.Lock } @ (z_0 + z_1)) }
+				/*FLAGS{ COVERAGE-ELEMENT }*/
+				INFO{
+					<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Idle.t_lock_update">
+				}
+				DATA{
+					:pid_1:$time = (z_0 + z_1);
+					:pid_1:z = z_1;
+					:pid_7:$time = (z_0 + z_1);
+					:pid_7:z = z_1;
+					:pid_7:day_clock = z_1;
+					:pid_7:reply_clock = (z_0 + z_1);
+				}
+				EC:<Id:34;Ev:0;H:4;W:26>{ SC: ( pid_3:Idle , pid_9:Idle )
+					EXE: { (:pid_7:bank_SM , run) (:pid_10:Locked , run) 
+	(:pid_10:Locked , t_unlock) }
+					TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_7 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_7 }) }
+					/*FLAGS{ COVERAGE-ELEMENT }*/
+					INFO{
+						<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Locked.t_unlock">
+					}
+					DATA{
+						:pid_1:$time = (z_0 + z_1 + z_7);
+						:pid_1:z = z_7;
+						:pid_7:$time = (z_0 + z_1 + z_7);
+						:pid_7:z = z_7;
+						:pid_7:day_clock = (z_1 + z_7);
+						:pid_7:reply_clock = (z_0 + z_1 + z_7);
+					}
+				}
+			}
+			EC:<Id:7;Ev:0;H:3;W:5>{ SC: ( pid_3:Idle , pid_9:Idle )
+				EXE: { (:pid_7:bank_SM , run) (:pid_9:Idle , run) (:pid_9:Idle , 
+	t_check) }
+				TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_1 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_1 }) (:pid_9:Idle , 
+	${ input#env inst::atm_bank_syst.bank_SM.Check } @ (z_0 + z_1)) }
+				/*FLAGS{ COVERAGE-ELEMENT }*/
+				INFO{
+					<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Idle.t_check">
+				}
+				DATA{
+					:pid_1:$time = (z_0 + z_1);
+					:pid_1:z = z_1;
+					:pid_7:$time = (z_0 + z_1);
+					:pid_7:z = z_1;
+					:pid_7:day_clock = z_1;
+					:pid_7:reply_clock = 0;
+				}
+			}
+			EC:<Id:8;Ev:0;H:3;W:6>{ SC: ( pid_3:Idle , pid_9:Idle )
+				EXE: { (:pid_7:bank_SM , run) (:pid_9:Idle , run) (:pid_9:Idle , 
+	t_reply_check) }
+				TRACE: { (:pid_1:atm_bank_syst , ${ newfresh 
+	inst::atm_bank_syst.z param::atm_bank_syst.z_1 }) (:pid_7:bank_SM , ${ newfresh 
+	inst::atm_bank_syst.bank_SM.z param::atm_bank_syst.bank_SM.z_1 }) (:pid_9:Idle , 
+	${ output#env inst::atm_bank_syst.bank_SM.Reply } @ (z_0 + z_1)) }
+				/*FLAGS{ COVERAGE-ELEMENT }*/
+				INFO{
+					<ID:"sew:/workflow.transition#coverage.transition_coverage",kind="transition::atm_bank_syst.bank_SM.Idle.t_reply_check">
+				}
+				PC: ((z_0 + z_1) >= 1)
+				DATA{
+					:pid_1:$time = (z_0 + z_1);
+					:pid_1:z = z_1;
+					:pid_7:$time = (z_0 + z_1);
+					:pid_7:z = z_1;
+					:pid_7:day_clock = z_1;
+					:pid_7:reply_clock = (z_0 + z_1);
+				}
+			}
+		}
+	}
+}

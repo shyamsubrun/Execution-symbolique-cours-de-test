@@ -1,0 +1,225 @@
+
+@startuml
+
+	' // scale 600 width
+	
+	' allow_mixing
+	' !pragma teoz true
+	
+	skinparam componentstyle uml2
+	
+	hide empty description
+	
+	skinparam linetype polyline
+	' skinparam linetype ortho
+	' left to right direction
+	
+	!function $kw($key_word)
+	' // !return "**<color blue>" + $key_word + "</color>**"
+	!return "**" + $key_word + "**"
+	!endfunction
+	
+	!function $kop($key_operator)
+	' // !return "**<color blue>" + $key_operator + "</color>**"
+	!return "**" + $key_operator + "**"
+	!endfunction
+	
+	!function $ks($key_symbol)
+	' // !return "**<color blue>" + $key_symbol + "</color>**"
+	!return "**" + $key_symbol + "**"
+	!endfunction
+	
+	!function $param($p)
+	' // !return "**<color darkred>" + $p + "</color>**"
+	!return "**" + $p + "**"
+	!endfunction
+	
+	!$natural = "**<color darkred>&#9838;</color>**"
+	
+	!$tp_path = "#Green,thickness=2"
+	
+	<style>
+		note {
+			backgroundcolor white
+			shadowing 0
+			linecolor transparent
+			FontSize 35
+		}
+	</style>
+	
+	skinparam backgroundColor White
+	
+	skinparam arrow {
+		Thickness 3
+	}
+	
+	skinparam RoundCorner 0
+	
+	skinparam state {
+		StartColor Green
+		EndColor Red
+		'Attribut pour les transitions
+		ArrowColor Black
+		ArrowColor<< Else >> Orange
+		'Attribut par défaut pour les états
+		BorderColor Black
+		BorderThickness 3
+		BackgroundColor Wheat
+		'Attribut pour les états composites
+		BackgroundColor<< System            >> LightGrey
+		BackgroundColor<< Statemachine      >> GenericDisplay
+		BackgroundColor<< Machine           >> GenericDisplay
+		BackgroundColor<< Instance          >> GenericDisplay
+		BackgroundColor<< Composite         >> GenericDisplay
+		'Attribut pour les états simples
+		BackgroundColor<< simple_hierarchic >> PaleTurquoise
+		BackgroundColor<< simple            >> #E6E6E6
+		BackgroundColor<< start             >> #E6E6E6
+		BackgroundColor<< final             >> #E6E6E6 //#E6F4EA
+		BackgroundColor<< pass              >> GreenYellow
+		BackgroundColor<< sync              >> Aqua
+		'Attribut pour les pseudo-états
+		BackgroundColor<< pseudostate       >> Lavender
+		BackgroundColor<< initial           >> GreenYellow
+		BackgroundColor<< junction          >> #FFF7CC
+		BackgroundColor<< choice            >> Orange
+		BackgroundColor<< fork              >> #FFF7CC
+		BackgroundColor<< join              >> SpringGreen
+		BackgroundColor<< dhistory          >> SpringGreen
+		BackgroundColor<< shistory          >> SpringGreen
+		BackgroundColor<< return            >> OrangeRed
+		BackgroundColor<< terminal          >> #E6E6E6 // #F8E1E1
+		FontColor Black
+		FontName Times
+		FontSize 35
+	}
+
+state "System BankSystem" as BankSystem__1882086513560 << System >> {
+	state "Bank_SM" as Bank_SM__1882089601416 << Statemachine >> {
+		state "InitState" as InitState__1882089838312 << Start >>
+
+		InitState__1882089838312--> Idle__1882088313864
+		note on link #white
+			**t_init**
+			$kw("output") Init $ks(";")
+			day_clock := 0 $ks(";")
+		end note
+
+		state "Idle" as Idle__1882088313864 << Simple >>
+
+		Idle__1882088313864--> Idle__1882088313864
+		note on link #white
+			**t_new_day**
+			$kw("guard") (day_clock $kop(">=") 10) $ks(";")
+			$kw("output") Internal $ks(";")
+			day3 := day2 $ks(";")
+			day2 := day1 $ks(";")
+			day1 := 0 $ks(";")
+			day_clock := 0 $ks(";")
+		end note
+
+		Idle__1882088313864--> Idle__1882088313864
+		note on link #white
+			**t_lock_update**
+			$kw("input") Lock $ks(";")
+			locked := true $ks(";")
+			lock_clock := 0 $ks(";")
+		end note
+
+		Idle__1882088313864--> Idle__1882088313864
+		note on link #white
+			**t_unlock**
+			$kw("guard") ((locked $kop("==") true)
+				 $kop("&&") (lock_clock $kop(">=") lock_duration)) $ks(";")
+			$kw("output") Internal $ks(";")
+			locked := false $ks(";")
+		end note
+
+		Idle__1882088313864--> Idle__1882088313864
+		note on link #white
+			**t_check**
+			$kw("input") Check $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+		Idle__1882088313864--> Idle__1882088313864
+		note on link #white
+			**t_reply_check**
+			$kw("guard") (reply_clock $kop(">=") 1) $ks(";")
+			$kw("output") Reply(false) $ks(";")
+		end note
+
+		Idle__1882088313864--> Decision__1882088309736
+		note on link #white
+			**t_receive**
+			$kw("input") Debit(x) $ks(";")
+		end note
+
+		state "Decision" as Decision__1882088309736 << Simple >>
+
+		Decision__1882088309736--> ReplyState__1882092351784
+		note on link #white
+			**t_locked**
+			$kw("guard") (locked $kop("==") true) $ks(";")
+			$kw("output") Internal $ks(";")
+			approved := false $ks(";")
+		end note
+
+		Decision__1882088309736--> ReplyState__1882092351784
+		note on link #white
+			**t_small**
+			$kw("guard") ((locked $kop("==") false)
+				 $kop("&&") (x $kop("<") 100)) $ks(";")
+			$kw("output") Internal $ks(";")
+			approved := false $ks(";")
+		end note
+
+		Decision__1882088309736--> ReplyState__1882092351784
+		note on link #white
+			**t_no_balance**
+			$kw("guard") ((locked $kop("==") false)
+				 $kop("&&") (x $kop(">") balance)) $ks(";")
+			$kw("output") Internal $ks(";")
+			approved := false $ks(";")
+		end note
+
+		Decision__1882088309736--> ReplyState__1882092351784
+		note on link #white
+			**t_limit**
+			$kw("guard") ((locked $kop("==") false)
+				 $kop("&&") (x $kop("<=") balance)
+				 $kop("&&") ((day1 $kop("+") day2 $kop("+") day3 $kop("+") x) $kop(">") rolling_limit)) $ks(";")
+			$kw("output") Internal $ks(";")
+			approved := false $ks(";")
+		end note
+
+		Decision__1882088309736--> ReplyState__1882092351784
+		note on link #white
+			**t_accept**
+			$kw("guard") ((locked $kop("==") false)
+				 $kop("&&") (x $kop(">=") 100)
+				 $kop("&&") (x $kop("<=") balance)
+				 $kop("&&") ((day1 $kop("+") day2 $kop("+") day3 $kop("+") x) $kop("<=") rolling_limit)) $ks(";")
+			$kw("output") Internal $ks(";")
+			balance := (balance $kop("+") ($kop("-") x)) $ks(";")
+			day1 := (day1 $kop("+") x) $ks(";")
+			approved := true $ks(";")
+		end note
+
+		state "ReplyState" as ReplyState__1882092351784 << Simple >>
+
+		ReplyState__1882092351784--> Idle__1882088313864
+		note on link #white
+			**t_send_reply**
+			$kw("guard") (reply_clock $kop(">=") 1) $ks(";")
+			$kw("output") Reply(approved) $ks(";")
+			reply_clock := 0 $ks(";")
+		end note
+
+	}
+
+}
+
+@enduml
+
+

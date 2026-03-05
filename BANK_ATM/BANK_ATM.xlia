@@ -1,0 +1,210 @@
+@xlia< system , 1.0 >:
+
+timed system atm_bank_syst {
+
+@public:
+
+    port input  Wdrl(urational);
+    port input  Lock;
+    port input  Check;
+
+    port output Init;
+    port output Reply;
+    port output Cash(urational);
+    port output Abort;
+
+@composite:
+
+// ====================================================
+// ATM
+// ====================================================
+
+statemachine atm_SM {
+
+    @public:
+        port input  Init;
+        port input  Wdrl(urational);
+        port input  Auth_in(boolean);
+
+        port output Debit_out(urational);
+        port output Cash(urational);
+        port output Abort;
+
+    @private:
+        var urational amount;
+        var urational x;
+        var boolean ok;
+
+    @region:
+
+        state<start> Idle {
+            transition t_init --> Ready {
+                input Init;
+            }
+        }
+
+        state Ready {
+            transition t_receive --> Decision {
+                input Wdrl(x);
+            }
+        }
+
+        state Decision {
+
+            transition t_small --> Ready {
+                guard ( x < 10 );
+                output Abort;
+            }
+
+            transition t_valid --> WaitingAuth {
+                guard ( x >= 10 );
+                amount := x;
+                output Debit_out(x);
+            }
+        }
+
+        state WaitingAuth {
+
+            transition t_auth_ok --> Ready {
+                input Auth_in(ok);
+                guard ( ok == true );
+                output Cash(amount);
+            }
+
+            transition t_auth_reject --> Ready {
+                input Auth_in(ok);
+                guard ( ok == false );
+                output Abort;
+            }
+        }
+}
+
+// ====================================================
+// BANK
+// ====================================================
+
+statemachine bank_SM {
+
+    @public:
+        port output Init;
+        port input  Debit_in(urational);
+        port output Auth_out(boolean);
+        port input  Lock;
+        port input  Check;
+        port output Reply;
+
+    @private:
+        var urational balance = 1000;
+        var urational x;
+        var boolean decision;
+
+    @region:
+
+        state<start> InitState {
+            transition t_init --> Active {
+                output Init;
+            }
+        }
+
+        state Active {
+
+            transition t_receive --> Decision {
+                input Debit_in(x);
+            }
+        }
+
+        state Decision {
+
+            transition t_accept --> Active {
+                guard ( x <= balance );
+                balance := balance - x;
+                decision := true;
+                output Auth_out(decision);
+            }
+
+            transition t_reject --> Active {
+                guard ( x > balance );
+                decision := false;
+                output Auth_out(decision);
+            }
+        }
+}
+
+// ====================================================
+// FIFO DEBIT
+// ====================================================
+
+statemachine fifo_debit {
+
+    @public:
+        port input  Debit_out(urational);
+        port output Debit_in(urational);
+
+    @private:
+        var urational msg;
+
+    @region:
+
+        state<start> Empty {
+
+            transition t_store --> Full {
+                input Debit_out(msg);
+            }
+        }
+
+        state Full {
+
+            transition t_forward --> Empty {
+                output Debit_in(msg);
+            }
+        }
+}
+
+// ====================================================
+// FIFO AUTH
+// ====================================================
+
+statemachine fifo_auth {
+
+    @public:
+        port input  Auth_out(boolean);
+        port output Auth_in(boolean);
+
+    @private:
+        var boolean msg;
+
+    @region:
+
+        state<start> Empty {
+
+            transition t_store --> Full {
+                input Auth_out(msg);
+            }
+        }
+
+        state Full {
+
+            transition t_forward --> Empty {
+                output Auth_in(msg);
+            }
+        }
+}
+
+// ====================================================
+// CONNECTION
+// ====================================================
+
+@com:
+
+    connect<env>{
+        input   Wdrl;
+        input   Lock;
+        input   Check;
+
+        output  Init;
+        output  Reply;
+        output  Cash;
+        output  Abort;
+    }
+
+}

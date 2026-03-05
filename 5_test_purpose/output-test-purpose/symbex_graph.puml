@@ -1,0 +1,565 @@
+
+@startuml symbex_graph
+
+' // scale 600 width
+
+hide empty description
+
+skinparam linetype polyline
+' skinparam linetype ortho
+' left to right direction
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les noeuds/feuilles du graphes SymBex
+	BackgroundColor<< DefaultNode >> LightBlue
+
+	BackgroundColor<< RedondancyTargetSource >> Green
+	BackgroundColor<< RedondancyTargetNode >> GreenYellow
+
+	BackgroundColor<< PassedNode >> GreenYellow
+	BackgroundColor<< FailedNode >> Red
+	BackgroundColor<< InconclusiveNode >> Orange
+	BackgroundColor<< AbortedNode >> Orange
+	BackgroundColor<< WarningNode >> Orange
+	BackgroundColor<< ErrorNode >> Red
+	BackgroundColor<< AlertNode >> Red
+	BackgroundColor<< ExitNode >> Red
+
+	'Attribut pour les paths du graphes SymBex
+	BackgroundColor<< PassedPath >> LawnGreen
+	BackgroundColor<< FailedPath >> Red
+	BackgroundColor<< InconclusiveNodePath >> Orange
+	BackgroundColor<< AbortedPath >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+
+
+state "EC 0" as EC0 << DefaultNode >>
+
+EC0: < ev:1 , h:0 , w:1 > 
+EC0: HigherLower:Idle
+note left of EC0
+_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	n = n_0
+	p = p_0
+	x = x_0
+	rt = rt_0
+	gclock = 0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	
+end note
+
+EC0 -down-> EC1
+
+state "EC 1" as EC1 << DefaultNode >>
+
+EC1: < ev:2 , h:1 , w:1 > 
+EC1: HigherLower:Idle
+note left of EC1
+_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	n = n_0
+	p = p_0
+	x = x_0
+	rt = rt_0
+	gclock = 0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	
+end note
+
+EC1 -down-> EC2
+
+state "EC 2" as EC2 << PassedNode >>
+
+EC2: < ev:3 , h:2 , w:1 > 
+EC2: HigherLower:Play
+note left of EC2
+_time = _delay_0
+	_delay = _delay_0
+	_clock_index_ = 0
+	_time = _delay_0
+	_delay = _delay_0
+	_clock_index_ = 0
+	n = n_1
+	p = p_1
+	x = x_0
+	rt = rt_0
+	gclock = _delay_0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	
+end note
+EC2: ----
+EC2: tpid#1->Idle.t_input
+
+EC2 -down-> EC3
+
+state "EC 3" as EC3 << PassedNode >>
+
+EC3: < ev:4 , h:3 , w:1 > 
+EC3: HigherLower:Wait
+note left of EC3
+PC: ((n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1)
+	_delay = _delay_1
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1)
+	_delay = _delay_1
+	_clock_index_ = 0
+	n = n_1
+	p = p_1
+	x = x_0
+	rt = rt_0
+	gclock = 0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	
+end note
+EC3: ----
+EC3: tpid#2->Play.t_guess
+
+EC3 -down-> EC4
+
+EC3 -down-> EC5
+
+state "EC 4" as EC4 << PassedNode >>
+
+EC4: < ev:5 , h:4 , w:1 > 
+EC4: HigherLower:Check
+note left of EC4
+PC: ((_delay_2 < rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (rt_0 > 
+	0))
+	_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = _delay_2
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+EC4: ----
+EC4: tpid#3->Wait.t_msg
+
+EC4 -down-> EC6
+
+EC4 -down-> EC7
+
+EC4 -down-> EC8
+
+EC4 -down-> EC9
+
+EC4 -down-> EC10
+
+state "EC 5" as EC5 << DefaultNode >>
+
+EC5: < ev:0 , h:4 , w:2 > 
+EC5: HigherLower:Idle
+note left of EC5
+PC: ((_delay_2 < (rt_0 + 1)) && (n_1 < 100) && ((- n_1) <= 0) && (rt_0 <= 
+	_delay_2) && (p_1 > 0) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	n = n_1
+	p = p_1
+	x = x_0
+	rt = rt_0
+	gclock = _delay_2
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	
+end note
+
+state "EC 6" as EC6 << PassedNode >>
+
+EC6: < ev:6 , h:5 , w:1 > 
+EC6: HigherLower:Wait
+note left of EC6
+PC: ((yH_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && (_delay_2 < rt_0) && 
+	(n_1 < 100) && (x_1 < n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 
+	> 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+EC6: ----
+EC6: tpid#4->Check.t_higher
+
+EC6 -down-> EC11
+
+EC6 -down-> EC12
+
+state "EC 7" as EC7 << DefaultNode >>
+
+EC7: < ev:0 , h:5 , w:3 > 
+EC7: HigherLower:Wait
+note left of EC7
+PC: ((yL_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && (_delay_2 < rt_0) && 
+	(n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0) && (x_1 > 
+	n_1))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+
+state "EC 8" as EC8 << ExitNode >>
+
+EC8: < ev:0 , h:5 , w:4 > 
+EC8: <final>HigherLower:End
+note left of EC8
+PC: ((p_1 == 1) && (x_1 != n_1) && ((_delay_2 + _delay_3) < rt_0) && (_delay_2 < 
+	rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+EC8: ----
+EC8: FINALIZE
+EC8: STATEMENT-EXIT
+
+state "EC 9" as EC9 << ExitNode >>
+
+EC9: < ev:0 , h:5 , w:5 > 
+EC9: <final>HigherLower:End
+note left of EC9
+PC: ((x_1 == n_1) && (yBW_1 == (p_1 + 41)) && ((_delay_2 + _delay_3) < rt_0) && 
+	(_delay_2 < rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && 
+	(rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+EC9: ----
+EC9: FINALIZE
+EC9: STATEMENT-EXIT
+
+state "EC 10" as EC10 << ExitNode >>
+
+EC10: < ev:0 , h:5 , w:6 > 
+EC10: <final>HigherLower:End
+note left of EC10
+PC: ((p_1 == 1) && (x_1 == n_1) && (yBW_1 == 42) && ((_delay_2 + _delay_3) < 
+	rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && 
+	(rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+EC10: ----
+EC10: FINALIZE
+EC10: STATEMENT-EXIT
+
+state "EC 11" as EC11 << PassedNode >>
+
+EC11: < ev:7 , h:6 , w:1 > 
+EC11: HigherLower:Check
+note left of EC11
+PC: ((yH_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && ((_delay_2 + _delay_3 + 
+	_delay_4) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && ((- n_1) 
+	<= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	
+end note
+EC11: ----
+EC11: tpid#5->Wait.t_msg
+
+EC11 -down-> EC13
+
+EC11 -down-> EC14
+
+EC11 -down-> EC15
+
+EC11 -down-> EC16
+
+EC11 -down-> EC17
+
+state "EC 12" as EC12 << DefaultNode >>
+
+EC12: < ev:0 , h:6 , w:7 > 
+EC12: HigherLower:Idle
+note left of EC12
+PC: ((yH_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && ((_delay_2 + _delay_3 + 
+	_delay_4) < (rt_0 + 1)) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && 
+	((- n_1) <= 0) && (rt_0 <= (_delay_2 + _delay_3 + _delay_4)) && (p_1 > 0) && 
+	(p_1 > 1) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	
+end note
+
+state "EC 13" as EC13 << DefaultNode >>
+
+EC13: < ev:0 , h:7 , w:1 > 
+EC13: HigherLower:Wait
+note left of EC13
+PC: ((yH_1 == x_1) && (yH_2 == x_2) && ((_delay_2 + _delay_3) < rt_0) && 
+	((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + _delay_3 + _delay_4 + 
+	_delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && (x_2 < 
+	n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (p_1 > 2) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	
+end note
+
+state "EC 14" as EC14 << DefaultNode >>
+
+EC14: < ev:0 , h:7 , w:8 > 
+EC14: HigherLower:Wait
+note left of EC14
+PC: ((yH_1 == x_1) && (yL_2 == x_2) && ((_delay_2 + _delay_3) < rt_0) && 
+	((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + _delay_3 + _delay_4 + 
+	_delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && ((- n_1) 
+	<= 0) && (p_1 > 0) && (p_1 > 1) && (p_1 > 2) && (rt_0 > 0) && (x_2 > n_1))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	
+end note
+
+state "EC 15" as EC15 << ExitNode >>
+
+EC15: < ev:0 , h:7 , w:9 > 
+EC15: <final>HigherLower:End
+note left of EC15
+PC: ((p_1 == 2) && (yH_1 == x_1) && (x_2 != n_1) && ((_delay_2 + _delay_3) < 
+	rt_0) && ((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + _delay_3 + 
+	_delay_4 + _delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) 
+	&& ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	
+end note
+EC15: ----
+EC15: FINALIZE
+EC15: STATEMENT-EXIT
+
+state "EC 16" as EC16 << ExitNode >>
+
+EC16: < ev:0 , h:7 , w:10 > 
+EC16: <final>HigherLower:End
+note left of EC16
+PC: ((x_2 == n_1) && (yBW_2 == (p_1 + 40)) && (yH_1 == x_1) && ((_delay_2 + 
+	_delay_3) < rt_0) && ((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + 
+	_delay_3 + _delay_4 + _delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && 
+	(x_1 < n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (p_1 > 2) && (rt_0 > 
+	0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	
+end note
+EC16: ----
+EC16: FINALIZE
+EC16: STATEMENT-EXIT
+
+state "EC 17" as EC17 << PassedPath >>
+
+EC17: < ev:0 , h:7 , w:11 > 
+EC17: <final>HigherLower:End
+note left of EC17
+PC: ((p_1 == 2) && (x_2 == n_1) && (yBW_2 == 42) && (yH_1 == x_1) && ((_delay_2 
+	+ _delay_3) < rt_0) && ((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + 
+	_delay_3 + _delay_4 + _delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && 
+	(x_1 < n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0))
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	
+end note
+EC17: ----
+EC17: FINALIZE\ntpid#6->Check.t_bwin42
+EC17: STATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+@enduml

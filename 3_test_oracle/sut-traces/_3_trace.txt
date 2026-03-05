@@ -1,0 +1,5 @@
+#SUT TRACE 3
+
+delta = 115
+INPUT  Coin(3)
+delta = 2

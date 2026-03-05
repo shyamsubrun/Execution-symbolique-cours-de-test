@@ -1,0 +1,101 @@
+@startuml
+
+hide empty description
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les états composites
+	BackgroundColor<< System       >> Turquoise
+	BackgroundColor<< Statemachine >> DodgerBlue
+	BackgroundColor<< Machine      >> SpringGreen
+	BackgroundColor<< Instance     >> Orchid
+	BackgroundColor<< Composite    >> SpringGreen
+
+	'Attribut pour les états simples
+	BackgroundColor<< Simple >> PaleTurquoise
+	BackgroundColor<< Start  >> Green
+	BackgroundColor<< Final  >> Red
+	BackgroundColor<< Sync   >> Aqua
+
+	'Attribut pour les pseudo-états
+	BackgroundColor<< Pseudo   >> Lavender
+	BackgroundColor<< Initial  >> GreenYellow
+	BackgroundColor<< Junction >> GreenYellow
+	BackgroundColor<< Choice   >> Orange
+	BackgroundColor<< Fork     >> SpringGreen
+	BackgroundColor<< Junction >> SpringGreen
+	BackgroundColor<< DeepHistory    >> SpringGreen
+	BackgroundColor<< ShallowHistory >> SpringGreen
+	BackgroundColor<< Return   >>  OrangeRed
+	BackgroundColor<< Terminal >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+state "System CoffeeMachine" as CoffeeMachine__2246110195496 << System >> {
+	state "SM" as SM__2246113202008 << Statemachine >> {
+		state "startup" as startup__2246114457656 << Initial >>
+
+		startup__2246114457656--> idle__2246115038600
+		note on link #white
+			**tr_0:**
+			sum := 0;
+		end note
+
+		state "idle" as idle__2246115038600 << Simple >>
+
+		idle__2246115038600--> check__2246115040984
+		note on link #white
+			**tr_1:**
+			input Coin(c);
+			sum := (sum + c);
+			cl := 0;
+		end note
+
+		state "check" as check__2246115040984 << Simple >>
+
+		check__2246115040984--> idle__2246115038600
+		note on link #white
+			**tr_2:**
+			guard (sum < PRICE);
+			tguard (cl < 4);
+			output RestMon((PRICE + (- sum)));
+			cl := 0;
+		end note
+
+		check__2246115040984--> idle__2246115038600
+		note on link #white
+			**tr_3:**
+			guard (sum >= PRICE);
+			tguard (cl < 4);
+			output Coffee;
+			sum := 0;
+			cl := 0;
+		end note
+
+	}
+
+}
+@enduml
+

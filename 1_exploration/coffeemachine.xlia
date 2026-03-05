@@ -1,0 +1,52 @@
+@xlia< system , 1.0 >:
+
+system CoffeeMachine {
+	
+@composite: 
+	statemachine SM {
+	@public:
+		type COINT_T pos_integer;
+		
+		port input Coin( COINT_T );
+  		port output RestMon( pos_integer );
+  		port output Coffee;
+  	@private:
+		var pos_integer PRICE;
+ 		var COINT_T c;	
+ 		var uinteger sum;
+ 				  		
+	@region:
+		state<initial> startup { 
+			transition tr_0 --> idle { 
+				sum = 0;
+			}
+		}
+	    state idle {
+			transition  tr_1 --> check { 
+				input Coin( c );
+				sum = sum + c;
+			}					
+		}
+		state check {
+			transition tr_2 --> idle {
+				guard( sum < PRICE );
+				output RestMon( PRICE - sum );
+			}
+			transition tr_3 --> idle {
+				guard( sum >= PRICE );
+				output Coffee;
+				sum = 0;
+			}
+		}
+  	}
+  	
+@com:
+	connect< env >{
+		 input SM->Coin;
+  		 output SM->RestMon;
+  		 output SM->Coffee;
+	}
+
+}
+
+

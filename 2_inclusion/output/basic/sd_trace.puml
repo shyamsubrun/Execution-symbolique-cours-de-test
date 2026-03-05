@@ -1,0 +1,32 @@
+@startuml
+
+skinparam note{
+	BackgroundColor White
+	BorderColor White
+}
+
+skinparam BackgroundColor transparent
+
+box "CoffeeMachine" #transparent
+participant "SM" as SM
+end box
+
+== TRACE PATH 1 ec_9 ==
+-[#black]> SM : Coin(1)
+<[#black]- SM : RestMon(2)
+-[#black]> SM : Coin(1)
+<[#black]- SM : RestMon(1)
+-[#black]> SM : Coin(1)
+
+== TRACE PATH 2 ec_8 ==
+-[#black]> SM : Coin(1)
+<[#black]- SM : RestMon(1)
+-[#black]> SM : Coin(1)
+<[#black]- SM : Coffee
+
+== TRACE PATH 3 ec_5 ==
+-[#black]> SM : Coin(1)
+<[#black]- SM : Coffee
+
+
+@enduml

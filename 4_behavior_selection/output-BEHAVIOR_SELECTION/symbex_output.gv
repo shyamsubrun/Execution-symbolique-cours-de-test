@@ -1,0 +1,699 @@
+digraph fscn {
+EC1 [
+	label="ec_1< ev:1 , h:0 , w:1 >
+( Alice:a0 , Bob:b0 )
+
+Timeout = 3
+	Interval = 5
+	Unit = 1
+	$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	seq = seq_0
+	n = n_0
+	aclk = 0
+	localPC = true
+	timeEmit = timeEmit_0
+	localTime = 0
+	$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	p = p_0
+	bclk = 0
+	localPC = true
+	timeEmit = timeEmit_0
+	localTime = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label=""
+]
+EC2 [
+	label="ec_2< ev:2 , h:1 , w:1 >
+( Alice:a0 , Bob:b0 )
+
+$delay = $delay_0
+	localTime = $delay_0
+	$delay = $delay_0
+	localTime = $delay_0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired Alice.a0_snd
+	output Alice:Ping( seq_0 , ($delay_0 + $delay_1) )
+	"
+]
+EC3 [
+	label="ec_3< ev:3 , h:2 , w:1 >
+( Alice:a1 , Bob:b0 )
+
+PC: ($delay_1 <= 3)
+	$time = $delay_1
+	$delay = $delay_1
+	aclk = $delay_1
+	localPC = ($delay_1 <= 3)
+	localTime = ($delay_0 + $delay_1)
+	
+tpid#1->a0.a0_snd"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC3 -> EC5 [
+	label="fired Bob.b0_rcv
+	input Bob:Ping( seq_0 , ($delay_0 + $delay_1) )
+	"
+]
+EC5 [
+	label="ec_5< ev:5 , h:3 , w:2 >
+( Alice:a1 , Bob:b1 )
+
+PC: ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && ($delay_1 <= 3))
+	$time = $delay_2
+	$delay = $delay_2
+	p = seq_0
+	localPC = (($delay_0 + $delay_1) <= ($delay_0 + $delay_2))
+	timeEmit = ($delay_0 + $delay_1)
+	localTime = ($delay_0 + $delay_2)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC5 -> EC9 [
+	label="fired Bob.b1_snd
+	output Bob:Pong( seq_0 , ($delay_0 + $delay_2 + $delay_4) )
+	"
+]
+EC9 [
+	label="ec_9< ev:6 , h:4 , w:4 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && ($delay_1 <= 3) && 
+	($delay_4 <= 1))
+	$time = ($delay_2 + $delay_4)
+	$delay = $delay_4
+	bclk = $delay_4
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && ($delay_4 <= 1))
+	localTime = ($delay_0 + $delay_2 + $delay_4)
+	
+tpid#2->b1.b1_snd"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC9 -> EC11 [
+	label="fired Alice.a1_warning
+	OUTPUT Alice:Warning
+	"
+]
+EC11 [
+	label="ec_11< ev:8 , h:5 , w:5 >
+( Alice:a0 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_0 + $delay_1) <= ($delay_0 + 
+	$delay_2)) && ($delay_1 <= 3) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_5)
+	$delay = $delay_5
+	seq = (seq_0 + 1)
+	aclk = 0
+	localPC = ((($delay_1 + $delay_5) == 3) && ($delay_1 <= 3))
+	localTime = ($delay_0 + $delay_1 + $delay_5)
+	
+tpid#3->a1.a1_warning"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC11 -> EC13 [
+	label="fired Alice.a0_rcv_ignore
+	input Alice:Pong( seq_0 , ($delay_0 + $delay_2 + $delay_4) )
+	"
+]
+EC13 [
+	label="ec_13< ev:9 , h:6 , w:5 >
+( Alice:a0 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_0 + $delay_1) <= ($delay_0 + 
+	$delay_2)) && (($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + 
+	$delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_7 <= 3) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_5 + $delay_7)
+	$delay = $delay_7
+	n = seq_0
+	aclk = $delay_7
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_7 <= 
+	3))
+	timeEmit = ($delay_0 + $delay_2 + $delay_4)
+	localTime = ($delay_0 + $delay_1 + $delay_5 + $delay_7)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC13 -> EC15 [
+	label="fired Alice.a0_snd
+	output Alice:Ping( (seq_0 + 1) , ($delay_0 + $delay_1 + $delay_5 + $delay_7 + 
+	$delay_8) )
+	"
+]
+EC15 [
+	label="ec_15< ev:10 , h:7 , w:5 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_0 + $delay_1) <= ($delay_0 + 
+	$delay_2)) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_2 + $delay_4) 
+	<= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_7 
+	<= 3) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_5 + $delay_7 + $delay_8)
+	$delay = $delay_8
+	aclk = ($delay_7 + $delay_8)
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8) <= 3) && 
+	(($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7))
+	 && ($delay_1 <= 3) && ($delay_7 <= 3))
+	localTime = ($delay_0 + $delay_1 + $delay_5 + $delay_7 + $delay_8)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC15 -> EC16 [
+	label="fired Alice.a1_warning
+	OUTPUT Alice:Warning
+	"
+]
+EC16 [
+	label="ec_16< ev:11 , h:8 , w:5 >
+( Alice:a0 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && 
+	(($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_7 + $delay_8) <= 3) 
+	&& (($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + 
+	$delay_7)) && ($delay_1 <= 3) && ($delay_7 <= 3) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	$delay = $delay_9
+	seq = (seq_0 + 2)
+	aclk = 0
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 
+	3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_7 <= 
+	3))
+	localTime = ($delay_0 + $delay_1 + $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC16 -> EC18 [
+	label="fired Alice.a0_snd
+	output Alice:Ping( (seq_0 + 2) , ($delay_0 + $delay_1 + $delay_10 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9) )
+	"
+]
+EC18 [
+	label="ec_18< ev:12 , h:9 , w:5 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && 
+	(($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_7 + $delay_8) <= 3) 
+	&& (($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + 
+	$delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 3) && ($delay_7 <= 3) && 
+	($delay_4 <= 1))
+	$time = ($delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	$delay = $delay_10
+	aclk = $delay_10
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 
+	3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 
+	3) && ($delay_7 <= 3))
+	localTime = ($delay_0 + $delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 + 
+	$delay_9)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC18 -> EC21 [
+	label="fired Bob.b0_rcv
+	input Bob:Ping( (seq_0 + 1) , ($delay_0 + $delay_1 + $delay_5 + $delay_7 + 
+	$delay_8) )
+	"
+]
+EC21 [
+	label="ec_21< ev:14 , h:10 , w:9 >
+( Alice:a1 , Bob:b1 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && 
+	(($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + 
+	$delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) 
+	&& (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 
+	3) && ($delay_7 <= 3) && ($delay_4 <= 1))
+	$time = ($delay_11 + $delay_2 + $delay_4)
+	$delay = $delay_11
+	p = (seq_0 + 1)
+	bclk = 0
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + 
+	$delay_1 + $delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + 
+	$delay_4)) && ($delay_4 <= 1))
+	timeEmit = ($delay_0 + $delay_1 + $delay_5 + $delay_7 + $delay_8)
+	localTime = ($delay_0 + $delay_11 + $delay_2 + $delay_4)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC21 -> EC26 [
+	label="fired Bob.b1_snd
+	output Bob:Pong( (seq_0 + 1) , ($delay_0 + $delay_11 + $delay_13 + $delay_2 + 
+	$delay_4) )
+	"
+]
+EC26 [
+	label="ec_26< ev:17 , h:11 , w:12 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && 
+	(($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + 
+	$delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) 
+	&& (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 
+	3) && ($delay_7 <= 3) && ($delay_13 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_11 + $delay_13 + $delay_2 + $delay_4)
+	$delay = $delay_13
+	bclk = $delay_13
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + 
+	$delay_1 + $delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + 
+	$delay_4)) && ($delay_13 <= 1) && ($delay_4 <= 1))
+	localTime = ($delay_0 + $delay_11 + $delay_13 + $delay_2 + $delay_4)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC26 -> EC32 [
+	label="fired Alice.a1_rcv_ignore
+	input Alice:Pong( (seq_0 + 1) , ($delay_0 + $delay_11 + $delay_13 + $delay_2 + 
+	$delay_4) )
+	"
+]
+EC32 [
+	label="ec_32< ev:18 , h:12 , w:12 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && 
+	(($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + 
+	$delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) 
+	&& (($delay_10 + $delay_16) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 
+	+ $delay_11 + $delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + 
+	$delay_10 + $delay_16 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && 
+	(($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7))
+	 && ($delay_1 <= 3) && ($delay_10 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) 
+	&& ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_10 + $delay_16 + $delay_5 + $delay_7 + $delay_8 + 
+	$delay_9)
+	$delay = $delay_16
+	n = (seq_0 + 1)
+	aclk = ($delay_10 + $delay_16)
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 
+	3) && (($delay_10 + $delay_16) <= 3) && (($delay_7 + $delay_8) <= 3) && 
+	(($delay_0 + $delay_11 + $delay_13 + $delay_2 + $delay_4) <= ($delay_0 + 
+	$delay_1 + $delay_10 + $delay_16 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) 
+	&& (($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + 
+	$delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 3) && ($delay_7 <= 3))
+	timeEmit = ($delay_0 + $delay_11 + $delay_13 + $delay_2 + $delay_4)
+	localTime = ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_5 + $delay_7 + 
+	$delay_8 + $delay_9)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC32 -> EC36 [
+	label="fired Bob.b0_rcv
+	input Bob:Ping( (seq_0 + 2) , ($delay_0 + $delay_1 + $delay_10 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9) )
+	"
+]
+EC36 [
+	label="ec_36< ev:20 , h:13 , w:18 >
+( Alice:a1 , Bob:b1 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && 
+	(($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + 
+	$delay_10 + $delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 
+	+ $delay_13 + $delay_17 + $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + 
+	$delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) 
+	&& (($delay_10 + $delay_16) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 
+	+ $delay_11 + $delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + 
+	$delay_10 + $delay_16 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && 
+	(($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7))
+	 && ($delay_1 <= 3) && ($delay_10 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) 
+	&& ($delay_4 <= 1))
+	$time = ($delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_4)
+	$delay = $delay_17
+	p = (seq_0 + 2)
+	bclk = 0
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + 
+	$delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 + 
+	$delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_4)) && (($delay_0 + 
+	$delay_1 + $delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + 
+	$delay_4)) && ($delay_13 <= 1) && ($delay_4 <= 1))
+	timeEmit = ($delay_0 + $delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 + 
+	$delay_9)
+	localTime = ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_4)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC36 -> EC39 [
+	label="fired Alice.a1_warning
+	OUTPUT Alice:Warning
+	"
+]
+EC39 [
+	label="ec_39< ev:21 , h:14 , w:18 >
+( Alice:a0 , Bob:b1 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 
+	+ $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + 
+	$delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + 
+	$delay_16) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_5 + $delay_7 + 
+	$delay_8 + $delay_9)
+	$delay = $delay_19
+	seq = (seq_0 + 3)
+	aclk = 0
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) 
+	== 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_10 + $delay_16) <= 
+	3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + $delay_13 + 
+	$delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_5 
+	+ $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 
+	3) && ($delay_7 <= 3))
+	localTime = ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_5 
+	+ $delay_7 + $delay_8 + $delay_9)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC39 -> EC42 [
+	label="fired Bob.b1_snd
+	output Bob:Pong( (seq_0 + 2) , ($delay_0 + $delay_11 + $delay_13 + $delay_17 + 
+	$delay_2 + $delay_20 + $delay_4) )
+	"
+]
+EC42 [
+	label="ec_42< ev:23 , h:15 , w:21 >
+( Alice:a0 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 
+	+ $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + 
+	$delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + 
+	$delay_16) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) && ($delay_20 <= 1) && 
+	($delay_4 <= 1))
+	$time = ($delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_4)
+	$delay = $delay_20
+	bclk = $delay_20
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + 
+	$delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 + 
+	$delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_4)) && (($delay_0 + 
+	$delay_1 + $delay_5 + $delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + 
+	$delay_4)) && ($delay_13 <= 1) && ($delay_20 <= 1) && ($delay_4 <= 1))
+	localTime = ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 
+	+ $delay_4)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC42 -> EC47 [
+	label="fired Alice.a0_snd
+	output Alice:Ping( (seq_0 + 3) , ($delay_0 + $delay_1 + $delay_10 + $delay_16 + 
+	$delay_19 + $delay_22 + $delay_5 + $delay_7 + $delay_8 + $delay_9) )
+	"
+]
+EC47 [
+	label="ec_47< ev:24 , h:16 , w:24 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 
+	+ $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + 
+	$delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + 
+	$delay_16) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_22 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) && 
+	($delay_20 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9)
+	$delay = $delay_22
+	aclk = $delay_22
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) 
+	== 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_10 + $delay_16) <= 
+	3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + $delay_13 + 
+	$delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_5 
+	+ $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 
+	3) && ($delay_22 <= 3) && ($delay_7 <= 3))
+	localTime = ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC47 -> EC48 [
+	label="fired Alice.a1_rcv_ignore
+	input Alice:Pong( (seq_0 + 2) , ($delay_0 + $delay_11 + $delay_13 + $delay_17 + 
+	$delay_2 + $delay_20 + $delay_4) )
+	"
+]
+EC48 [
+	label="ec_48< ev:25 , h:17 , w:24 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + 
+	$delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 
+	+ $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + 
+	$delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + 
+	$delay_16) <= 3) && (($delay_22 + $delay_23) <= 3) && (($delay_7 + $delay_8) <= 
+	3) && (($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + 
+	$delay_22 + $delay_23 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && 
+	(($delay_0 + $delay_11 + $delay_13 + $delay_2 + $delay_4) <= ($delay_0 + 
+	$delay_1 + $delay_10 + $delay_16 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) 
+	&& (($delay_0 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + 
+	$delay_7)) && ($delay_1 <= 3) && ($delay_10 <= 3) && ($delay_22 <= 3) && 
+	($delay_7 <= 3) && ($delay_13 <= 1) && ($delay_20 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 + 
+	$delay_5 + $delay_7 + $delay_8 + $delay_9)
+	$delay = $delay_23
+	n = (seq_0 + 2)
+	aclk = ($delay_22 + $delay_23)
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) 
+	== 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_10 + $delay_16) <= 
+	3) && (($delay_22 + $delay_23) <= 3) && (($delay_7 + $delay_8) <= 3) && 
+	(($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_4)
+	 <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + 
+	$delay_23 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + 
+	$delay_11 + $delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 
+	+ $delay_16 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + 
+	$delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && 
+	($delay_1 <= 3) && ($delay_10 <= 3) && ($delay_22 <= 3) && ($delay_7 <= 3))
+	timeEmit = ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 
+	+ $delay_4)
+	localTime = ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 
+	+ $delay_23 + $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC48 -> EC52 [
+	label="fired Bob.b0_rcv
+	input Bob:Ping( (seq_0 + 3) , ($delay_0 + $delay_1 + $delay_10 + $delay_16 + 
+	$delay_19 + $delay_22 + $delay_5 + $delay_7 + $delay_8 + $delay_9) )
+	"
+]
+EC52 [
+	label="ec_52< ev:28 , h:18 , w:27 >
+( Alice:a1 , Bob:b1 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_16 + 
+	$delay_19 + $delay_22 + $delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 
+	+ $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_24 + 
+	$delay_4)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 
+	+ $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + 
+	$delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + $delay_8) <= 
+	($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + $delay_16) <= 3) 
+	&& (($delay_22 + $delay_23) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 
+	+ $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_22 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) && 
+	($delay_20 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_24 + 
+	$delay_4)
+	$delay = $delay_24
+	p = (seq_0 + 3)
+	bclk = 0
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + 
+	$delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_5 + $delay_7 + 
+	$delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 
+	+ $delay_20 + $delay_24 + $delay_4)) && (($delay_0 + $delay_1 + $delay_10 + 
+	$delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 
+	+ $delay_17 + $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + $delay_5 + 
+	$delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) && 
+	($delay_13 <= 1) && ($delay_20 <= 1) && ($delay_4 <= 1))
+	timeEmit = ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	localTime = ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 
+	+ $delay_24 + $delay_4)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC52 -> EC60 [
+	label="fired Bob.b1_snd
+	output Bob:Pong( (seq_0 + 3) , ($delay_0 + $delay_11 + $delay_13 + $delay_17 + 
+	$delay_2 + $delay_20 + $delay_24 + $delay_27 + $delay_4) )
+	"
+]
+EC60 [
+	label="ec_60< ev:30 , h:19 , w:32 >
+( Alice:a1 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_16 + 
+	$delay_19 + $delay_22 + $delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 
+	+ $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_24 + 
+	$delay_4)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 
+	+ $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + 
+	$delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + $delay_8) <= 
+	($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + $delay_16) <= 3) 
+	&& (($delay_22 + $delay_23) <= 3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 
+	+ $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_22 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) && 
+	($delay_20 <= 1) && ($delay_27 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_24 + 
+	$delay_27 + $delay_4)
+	$delay = $delay_27
+	bclk = $delay_27
+	localPC = ((($delay_0 + $delay_1) <= ($delay_0 + $delay_2)) && (($delay_0 + 
+	$delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_5 + $delay_7 + 
+	$delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 
+	+ $delay_20 + $delay_24 + $delay_4)) && (($delay_0 + $delay_1 + $delay_10 + 
+	$delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 + $delay_11 + $delay_13 
+	+ $delay_17 + $delay_2 + $delay_4)) && (($delay_0 + $delay_1 + $delay_5 + 
+	$delay_7 + $delay_8) <= ($delay_0 + $delay_11 + $delay_2 + $delay_4)) && 
+	($delay_13 <= 1) && ($delay_20 <= 1) && ($delay_27 <= 1) && ($delay_4 <= 1))
+	localTime = ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 
+	+ $delay_24 + $delay_27 + $delay_4)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC60 -> EC63 [
+	label="fired Alice.a1_rcv
+	input Alice:Pong( (seq_0 + 3) , ($delay_0 + $delay_11 + $delay_13 + $delay_17 + 
+	$delay_2 + $delay_20 + $delay_24 + $delay_27 + $delay_4) )
+	"
+]
+EC63 [
+	label="ec_63< ev:0 , h:20 , w:32 >
+( Alice:a2 , Bob:b0 )
+
+PC: ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) == 3) 
+	&& (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_0 + $delay_1) <= 
+	($delay_0 + $delay_2)) && (($delay_0 + $delay_1 + $delay_10 + $delay_16 + 
+	$delay_19 + $delay_22 + $delay_5 + $delay_7 + $delay_8 + $delay_9) <= ($delay_0 
+	+ $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_24 + 
+	$delay_4)) && (($delay_0 + $delay_1 + $delay_10 + $delay_5 + $delay_7 + $delay_8 
+	+ $delay_9) <= ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + 
+	$delay_4)) && (($delay_0 + $delay_1 + $delay_5 + $delay_7 + $delay_8) <= 
+	($delay_0 + $delay_11 + $delay_2 + $delay_4)) && (($delay_10 + $delay_16) <= 3) 
+	&& (($delay_22 + $delay_23) <= 3) && (($delay_22 + $delay_23 + $delay_29) <= 3) 
+	&& (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + $delay_13 + 
+	$delay_17 + $delay_2 + $delay_20 + $delay_24 + $delay_27 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 
+	+ $delay_29 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + 
+	$delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_22 <= 3) && ($delay_7 <= 3) && ($delay_13 <= 1) && 
+	($delay_20 <= 1) && ($delay_27 <= 1) && ($delay_4 <= 1))
+	$time = ($delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 + 
+	$delay_29 + $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	$delay = $delay_29
+	n = (seq_0 + 3)
+	aclk = 0
+	localPC = ((($delay_1 + $delay_5) == 3) && (($delay_10 + $delay_16 + $delay_19) 
+	== 3) && (($delay_7 + $delay_8 + $delay_9) == 3) && (($delay_10 + $delay_16) <= 
+	3) && (($delay_22 + $delay_23) <= 3) && (($delay_22 + $delay_23 + $delay_29) <= 
+	3) && (($delay_7 + $delay_8) <= 3) && (($delay_0 + $delay_11 + $delay_13 + 
+	$delay_17 + $delay_2 + $delay_20 + $delay_24 + $delay_27 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 
+	+ $delay_29 + $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + 
+	$delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 + $delay_4) <= 
+	($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 + $delay_23 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_11 + 
+	$delay_13 + $delay_2 + $delay_4) <= ($delay_0 + $delay_1 + $delay_10 + $delay_16 
+	+ $delay_5 + $delay_7 + $delay_8 + $delay_9)) && (($delay_0 + $delay_2 + 
+	$delay_4) <= ($delay_0 + $delay_1 + $delay_5 + $delay_7)) && ($delay_1 <= 3) && 
+	($delay_10 <= 3) && ($delay_22 <= 3) && ($delay_7 <= 3))
+	timeEmit = ($delay_0 + $delay_11 + $delay_13 + $delay_17 + $delay_2 + $delay_20 
+	+ $delay_24 + $delay_27 + $delay_4)
+	localTime = ($delay_0 + $delay_1 + $delay_10 + $delay_16 + $delay_19 + $delay_22 
+	+ $delay_23 + $delay_29 + $delay_5 + $delay_7 + $delay_8 + $delay_9)
+	
+tpid#4->a1.a1_rcv"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

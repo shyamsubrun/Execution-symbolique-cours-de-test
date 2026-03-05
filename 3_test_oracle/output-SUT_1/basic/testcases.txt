@@ -1,0 +1,6 @@
+TRACE PATH 1 ec_5
+	delta = 115
+	INPUT  SM:Coin(3)
+	delta = 2
+	OUTPUT SM:Coffee
+

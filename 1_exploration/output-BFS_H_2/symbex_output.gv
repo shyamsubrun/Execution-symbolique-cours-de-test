@@ -1,0 +1,75 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+CoffeeMachine:startup
+
+PRICE = PRICE_0
+	c = c_0
+	sum = sum_0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label="fired CoffeeMachine.tr_0
+	"
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+CoffeeMachine:idle
+
+sum = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_1 )
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+CoffeeMachine:check
+
+c = c_1
+	sum = c_1
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired CoffeeMachine.tr_2
+	OUTPUT SM:RestMon( (PRICE_0 + (- c_1)) )
+	"
+]
+EC2 -> EC4 [
+	label="fired CoffeeMachine.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC3 [
+	label="ec_3< ev:0 , h:3 , w:1 >
+CoffeeMachine:idle
+
+PC: (c_1 < PRICE_0)
+	"
+	color=orange
+	shape=ellipse
+	style=filled
+]
+EC4 [
+	label="ec_4< ev:0 , h:3 , w:2 >
+CoffeeMachine:idle
+
+PC: (c_1 >= PRICE_0)
+	sum = 0
+	"
+	color=orange
+	shape=ellipse
+	style=filled
+]
+}

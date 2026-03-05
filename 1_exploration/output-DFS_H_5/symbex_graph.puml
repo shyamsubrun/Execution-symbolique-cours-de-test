@@ -1,0 +1,245 @@
+
+@startuml symbex_graph
+
+' // scale 600 width
+
+hide empty description
+
+skinparam linetype polyline
+' skinparam linetype ortho
+' left to right direction
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les noeuds/feuilles du graphes SymBex
+	BackgroundColor<< DefaultNode >> LightBlue
+
+	BackgroundColor<< RedondancyTargetSource >> Green
+	BackgroundColor<< RedondancyTargetNode >> GreenYellow
+
+	BackgroundColor<< PassedNode >> GreenYellow
+	BackgroundColor<< FailedNode >> Red
+	BackgroundColor<< InconclusiveNode >> Orange
+	BackgroundColor<< AbortedNode >> Orange
+	BackgroundColor<< WarningNode >> Orange
+	BackgroundColor<< ErrorNode >> Red
+	BackgroundColor<< AlertNode >> Red
+	BackgroundColor<< ExitNode >> Red
+
+	'Attribut pour les paths du graphes SymBex
+	BackgroundColor<< PassedPath >> LawnGreen
+	BackgroundColor<< FailedPath >> Red
+	BackgroundColor<< InconclusiveNodePath >> Orange
+	BackgroundColor<< AbortedPath >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+
+
+state "EC 0" as EC0 << DefaultNode >>
+
+EC0: < ev:1 , h:0 , w:1 > 
+EC0: CoffeeMachine:startup
+note left of EC0
+PRICE = PRICE_0
+	c = c_0
+	sum = sum_0
+	
+end note
+
+EC0 -down-> EC1
+
+state "EC 1" as EC1 << DefaultNode >>
+
+EC1: < ev:2 , h:1 , w:1 > 
+EC1: CoffeeMachine:idle
+note left of EC1
+sum = 0
+	
+end note
+
+EC1 -down-> EC2
+
+state "EC 2" as EC2 << DefaultNode >>
+
+EC2: < ev:3 , h:2 , w:1 > 
+EC2: CoffeeMachine:check
+note left of EC2
+c = c_1
+	sum = c_1
+	
+end note
+
+EC2 -down-> EC3
+
+EC2 -down-> EC4
+
+state "EC 3" as EC3 << DefaultNode >>
+
+EC3: < ev:4 , h:3 , w:1 > 
+EC3: CoffeeMachine:idle
+note left of EC3
+PC: (c_1 < PRICE_0)
+	
+end note
+
+EC3 -down-> EC5
+
+state "EC 4" as EC4 << DefaultNode >>
+
+EC4: < ev:8 , h:3 , w:2 > 
+EC4: CoffeeMachine:idle
+note left of EC4
+PC: (c_1 >= PRICE_0)
+	sum = 0
+	
+end note
+
+EC4 -down-> EC10
+
+state "EC 5" as EC5 << DefaultNode >>
+
+EC5: < ev:5 , h:4 , w:1 > 
+EC5: CoffeeMachine:check
+note left of EC5
+PC: (c_1 < PRICE_0)
+	c = c_2
+	sum = (c_1 + c_2)
+	
+end note
+
+EC5 -down-> EC6
+
+EC5 -down-> EC7
+
+state "EC 10" as EC10 << DefaultNode >>
+
+EC10: < ev:9 , h:4 , w:2 > 
+EC10: CoffeeMachine:check
+note left of EC10
+PC: (c_1 >= PRICE_0)
+	c = c_5
+	sum = c_5
+	
+end note
+
+EC10 -down-> EC11
+
+EC10 -down-> EC12
+
+state "EC 6" as EC6 << DefaultNode >>
+
+EC6: < ev:6 , h:5 , w:1 > 
+EC6: CoffeeMachine:idle
+note left of EC6
+PC: (((c_1 + c_2) < PRICE_0) && (c_1 < PRICE_0))
+	
+end note
+
+EC6 -down-> EC8
+
+state "EC 7" as EC7 << DefaultNode >>
+
+EC7: < ev:7 , h:5 , w:3 > 
+EC7: CoffeeMachine:idle
+note left of EC7
+PC: ((c_1 < PRICE_0) && ((c_1 + c_2) >= PRICE_0))
+	sum = 0
+	
+end note
+
+EC7 -down-> EC9
+
+state "EC 11" as EC11 << DefaultNode >>
+
+EC11: < ev:10 , h:5 , w:2 > 
+EC11: CoffeeMachine:idle
+note left of EC11
+PC: ((c_5 < PRICE_0) && (c_1 >= PRICE_0))
+	
+end note
+
+EC11 -down-> EC13
+
+state "EC 12" as EC12 << DefaultNode >>
+
+EC12: < ev:11 , h:5 , w:4 > 
+EC12: CoffeeMachine:idle
+note left of EC12
+PC: ((c_1 >= PRICE_0) && (c_5 >= PRICE_0))
+	sum = 0
+	
+end note
+
+EC12 -down-> EC14
+
+state "EC 8" as EC8 << WarningNode >>
+
+EC8: < ev:0 , h:6 , w:1 > 
+EC8: CoffeeMachine:check
+note left of EC8
+PC: (((c_1 + c_2) < PRICE_0) && (c_1 < PRICE_0))
+	c = c_3
+	sum = (c_1 + c_2 + c_3)
+	
+end note
+EC8: REACHED-NODE-HEIGHT-LIMIT
+
+state "EC 9" as EC9 << WarningNode >>
+
+EC9: < ev:0 , h:6 , w:3 > 
+EC9: CoffeeMachine:check
+note left of EC9
+PC: ((c_1 < PRICE_0) && ((c_1 + c_2) >= PRICE_0))
+	c = c_4
+	sum = c_4
+	
+end note
+EC9: REACHED-NODE-HEIGHT-LIMIT
+
+state "EC 13" as EC13 << WarningNode >>
+
+EC13: < ev:0 , h:6 , w:2 > 
+EC13: CoffeeMachine:check
+note left of EC13
+PC: ((c_5 < PRICE_0) && (c_1 >= PRICE_0))
+	c = c_6
+	sum = (c_5 + c_6)
+	
+end note
+EC13: REACHED-NODE-HEIGHT-LIMIT
+
+state "EC 14" as EC14 << WarningNode >>
+
+EC14: < ev:0 , h:6 , w:4 > 
+EC14: CoffeeMachine:check
+note left of EC14
+PC: ((c_1 >= PRICE_0) && (c_5 >= PRICE_0))
+	c = c_7
+	sum = c_7
+	
+end note
+EC14: REACHED-NODE-HEIGHT-LIMIT
+@enduml

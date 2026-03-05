@@ -1,0 +1,140 @@
+@xlia< system , 1.0 >:
+
+timed system GameHigherLower {
+ 	
+@composite: 
+	lifeline timed statemachine  HigherLower {
+
+	@public:
+		port input Input( integer n, urational p );
+		port input Message( integer x );
+
+		port output Guess;
+		port output Higher( integer x );
+		port output Lower( integer x );
+
+		port output BWin( integer k );
+		port output BLose;
+
+		port output Timeout;
+
+  	@private:
+		var integer n;
+		var integer p;
+		
+		var integer x;
+		
+		var time urational rt;
+ 		var clock urational gclock;
+ 		 		
+ 		var integer yH;
+ 		var integer yL;
+ 		var integer yBW;
+ 
+	@region:
+		state< start > Idle { 
+			transition t_input --> Play { 
+				input Input( n, p );
+			}
+		}//Idle
+		
+	    state Play {
+			transition t_guess --> Wait {
+				output Guess;
+				guard( (0 <= n < 100) && (p > 0) && (rt > 0) );
+				gclock = 0;
+			}
+		}//Play
+		
+		state Wait {
+			transition t_msg --> Check { 
+				input Message( x );
+				guard( gclock < rt );
+				p = p - 1;
+			}
+			transition t_timeout --> Idle { 
+				output Timeout; //( $delta );
+				guard( rt <= gclock < rt + 1 );
+			}
+		}//Wait
+		
+		state Check {
+			@enable{
+				newfresh(yH);
+				newfresh(yL);
+				newfresh(yBW);	
+			}
+			transition t_higher --> Wait {
+				output Higher( yH );
+				guard( yH == x );
+				guard( (x < n) && (p > 0) && (gclock < rt) );
+			}
+			transition t_lower --> Wait { 
+				output Lower( yL );
+				guard( yL == x );
+				guard( (x > n) && (p > 0) && (gclock < rt) );
+			}
+			transition t_blose --> End {
+				output BLose;
+				guard( (p == 0) && (x != n) && (gclock < rt) );
+			}
+			transition t_bwin --> End {
+				output BWin( yBW );
+				guard( yBW == 42 + p );
+				guard( (p > 0) && (x == n) && (gclock < rt) );
+			}
+			transition t_bwin42 --> End {
+				output BWin( yBW );
+				guard( yBW == 42 );
+				guard( (p == 0) && (x == n) && (gclock < rt) );
+			}
+		}//Check
+		
+		state< final > End;
+  	}
+  		
+@com:
+	connect< env >{
+		input HigherLower->Input;
+	}
+	connect< env >{
+		input HigherLower->Message;
+	}
+	connect< env >{
+		output HigherLower->Guess;
+		output HigherLower->Timeout;
+	}
+	connect< env >{
+		output HigherLower->Higher;
+		output HigherLower->Lower;
+	}
+	connect< env >{
+		output HigherLower->BWin;
+		output HigherLower->BLose;
+	}
+}
+
+
+
+/**
+ * Symbex Workflow
+ * NODE#LABEL format details
+ * %1% --> node#id
+ * %2% --> node#header
+ * %3% --> node#data
+ * %4% --> node#info
+ * %5% --> node#trace#run
+ * %6% --> node#trace#io
+ */
+
+/**
+ * Symbex Workflow
+ * NODE#DATA format details
+ * %1% --> ec#id
+ * %2% --> ec#assign
+ * %3% --> ec#path#condition
+ * %4% --> ec#path#timed#condition
+ * %5% --> ec#node#condition
+ * %6% --> ec#node#timed#condition
+ * %7% --> ec#node#buffer
+ */

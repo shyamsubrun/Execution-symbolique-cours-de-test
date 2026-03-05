@@ -1,0 +1,575 @@
+digraph fscn {
+EC1 [
+	label="ec_1< ev:1 , h:0 , w:1 > HigherLower:Idle
+##
+
+##
+_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	n = n_0
+	p = p_0
+	x = x_0
+	rt = rt_0
+	gclock = 0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label=""
+]
+EC2 [
+	label="ec_2< ev:2 , h:1 , w:1 > HigherLower:Idle
+##
+
+##
+_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	_time = 0
+	_delay = 0
+	_clock_index_ = 0
+	n = n_0
+	p = p_0
+	x = x_0
+	rt = rt_0
+	gclock = 0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired t_input
+	INPUT Input( n_1 , p_1 )
+	"
+]
+EC3 [
+	label="ec_3< ev:3 , h:2 , w:1 > HigherLower:Play
+##
+
+##
+_time = _delay_0
+	_delay = _delay_0
+	_clock_index_ = 0
+	_time = _delay_0
+	_delay = _delay_0
+	_clock_index_ = 0
+	n = n_1
+	p = p_1
+	x = x_0
+	rt = rt_0
+	gclock = _delay_0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	##
+	tpid#1->Idle.t_input"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC3 -> EC4 [
+	label="fired t_guess
+	OUTPUT Guess
+	"
+]
+EC4 [
+	label="ec_4< ev:4 , h:3 , w:1 > HigherLower:Wait
+##
+PC: ((n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1)
+	_delay = _delay_1
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1)
+	_delay = _delay_1
+	_clock_index_ = 0
+	n = n_1
+	p = p_1
+	x = x_0
+	rt = rt_0
+	gclock = 0
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	##
+	tpid#2->Play.t_guess"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC4 -> EC5 [
+	label="fired t_msg
+	INPUT Message( x_1 )
+	"
+]
+EC4 -> EC6 [
+	label="fired t_timeout
+	OUTPUT Timeout
+	"
+]
+EC5 [
+	label="ec_5< ev:5 , h:4 , w:1 > HigherLower:Check
+##
+PC: ((_delay_2 < rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (rt_0 > 
+	0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = _delay_2
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##
+	tpid#3->Wait.t_msg"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC5 -> EC7 [
+	label="fired t_higher
+	OUTPUT Higher( yH_1 )
+	"
+]
+EC5 -> EC8 [
+	label="fired t_lower
+	OUTPUT Lower( yL_1 )
+	"
+]
+EC5 -> EC9 [
+	label="fired t_blose
+	OUTPUT BLose
+	"
+]
+EC5 -> EC10 [
+	label="fired t_bwin
+	OUTPUT BWin( yBW_1 )
+	"
+]
+EC5 -> EC11 [
+	label="fired t_bwin42
+	OUTPUT BWin( yBW_1 )
+	"
+]
+EC6 [
+	label="ec_6< ev:0 , h:4 , w:2 > HigherLower:Idle
+##
+PC: ((_delay_2 < (rt_0 + 1)) && (n_1 < 100) && ((- n_1) <= 0) && (rt_0 <= 
+	_delay_2) && (p_1 > 0) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2)
+	_delay = _delay_2
+	_clock_index_ = 0
+	n = n_1
+	p = p_1
+	x = x_0
+	rt = rt_0
+	gclock = _delay_2
+	yH = yH_0
+	yL = yL_0
+	yBW = yBW_0
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC7 [
+	label="ec_7< ev:6 , h:5 , w:1 > HigherLower:Wait
+##
+PC: ((yH_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && (_delay_2 < rt_0) && 
+	(n_1 < 100) && (x_1 < n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 
+	> 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##
+	tpid#4->Check.t_higher"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC7 -> EC12 [
+	label="fired t_msg
+	INPUT Message( x_2 )
+	"
+]
+EC7 -> EC13 [
+	label="fired t_timeout
+	OUTPUT Timeout
+	"
+]
+EC8 [
+	label="ec_8< ev:0 , h:5 , w:3 > HigherLower:Wait
+##
+PC: ((yL_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && (_delay_2 < rt_0) && 
+	(n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0) && (x_1 > 
+	n_1))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC9 [
+	label="ec_9< ev:0 , h:5 , w:4 > <final>HigherLower:End\nSTATEMENT-EXIT
+##
+PC: ((p_1 == 1) && (x_1 != n_1) && ((_delay_2 + _delay_3) < rt_0) && (_delay_2 < 
+	rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##
+	FINALIZE"
+	color=orange
+	shape=tripleoctagon
+	style=filled
+]
+EC10 [
+	label="ec_10< ev:0 , h:5 , w:5 > <final>HigherLower:End\nSTATEMENT-EXIT
+##
+PC: ((x_1 == n_1) && (yBW_1 == (p_1 + 41)) && ((_delay_2 + _delay_3) < rt_0) && 
+	(_delay_2 < rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && 
+	(rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##
+	FINALIZE"
+	color=orange
+	shape=tripleoctagon
+	style=filled
+]
+EC11 [
+	label="ec_11< ev:0 , h:5 , w:6 > <final>HigherLower:End\nSTATEMENT-EXIT
+##
+PC: ((p_1 == 1) && (x_1 == n_1) && (yBW_1 == 42) && ((_delay_2 + _delay_3) < 
+	rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && ((- n_1) <= 0) && (p_1 > 0) && 
+	(rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3)
+	_delay = _delay_3
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##
+	FINALIZE"
+	color=orange
+	shape=tripleoctagon
+	style=filled
+]
+EC12 [
+	label="ec_12< ev:7 , h:6 , w:1 > HigherLower:Check
+##
+PC: ((yH_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && ((_delay_2 + _delay_3 + 
+	_delay_4) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && ((- n_1) 
+	<= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	##
+	tpid#5->Wait.t_msg"
+	color=yellow
+	shape=ellipse
+	style=filled
+]
+EC12 -> EC14 [
+	label="fired t_higher
+	OUTPUT Higher( yH_2 )
+	"
+]
+EC12 -> EC15 [
+	label="fired t_lower
+	OUTPUT Lower( yL_2 )
+	"
+]
+EC12 -> EC16 [
+	label="fired t_blose
+	OUTPUT BLose
+	"
+]
+EC12 -> EC17 [
+	label="fired t_bwin
+	OUTPUT BWin( yBW_2 )
+	"
+]
+EC12 -> EC18 [
+	label="fired t_bwin42
+	OUTPUT BWin( yBW_2 )
+	"
+]
+EC13 [
+	label="ec_13< ev:0 , h:6 , w:7 > HigherLower:Idle
+##
+PC: ((yH_1 == x_1) && ((_delay_2 + _delay_3) < rt_0) && ((_delay_2 + _delay_3 + 
+	_delay_4) < (rt_0 + 1)) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && 
+	((- n_1) <= 0) && (rt_0 <= (_delay_2 + _delay_3 + _delay_4)) && (p_1 > 0) && 
+	(p_1 > 1) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4)
+	_delay = _delay_4
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -1)
+	x = x_1
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4)
+	yH = yH_1
+	yL = yL_1
+	yBW = yBW_1
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC14 [
+	label="ec_14< ev:0 , h:7 , w:1 > HigherLower:Wait
+##
+PC: ((yH_1 == x_1) && (yH_2 == x_2) && ((_delay_2 + _delay_3) < rt_0) && 
+	((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + _delay_3 + _delay_4 + 
+	_delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && (x_2 < 
+	n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (p_1 > 2) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC15 [
+	label="ec_15< ev:0 , h:7 , w:8 > HigherLower:Wait
+##
+PC: ((yH_1 == x_1) && (yL_2 == x_2) && ((_delay_2 + _delay_3) < rt_0) && 
+	((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + _delay_3 + _delay_4 + 
+	_delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) && ((- n_1) 
+	<= 0) && (p_1 > 0) && (p_1 > 1) && (p_1 > 2) && (rt_0 > 0) && (x_2 > n_1))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	##"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC16 [
+	label="ec_16< ev:0 , h:7 , w:9 > <final>HigherLower:End\nSTATEMENT-EXIT
+##
+PC: ((p_1 == 2) && (yH_1 == x_1) && (x_2 != n_1) && ((_delay_2 + _delay_3) < 
+	rt_0) && ((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + _delay_3 + 
+	_delay_4 + _delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && (x_1 < n_1) 
+	&& ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	##
+	FINALIZE"
+	color=orange
+	shape=tripleoctagon
+	style=filled
+]
+EC17 [
+	label="ec_17< ev:0 , h:7 , w:10 > <final>HigherLower:End\nSTATEMENT-EXIT
+##
+PC: ((x_2 == n_1) && (yBW_2 == (p_1 + 40)) && (yH_1 == x_1) && ((_delay_2 + 
+	_delay_3) < rt_0) && ((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + 
+	_delay_3 + _delay_4 + _delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && 
+	(x_1 < n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (p_1 > 2) && (rt_0 > 
+	0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	##
+	FINALIZE"
+	color=orange
+	shape=tripleoctagon
+	style=filled
+]
+EC18 [
+	label="ec_18< ev:0 , h:7 , w:11 > <final>HigherLower:End\nSTATEMENT-EXIT & COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED
+##
+PC: ((p_1 == 2) && (x_2 == n_1) && (yBW_2 == 42) && (yH_1 == x_1) && ((_delay_2 
+	+ _delay_3) < rt_0) && ((_delay_2 + _delay_3 + _delay_4) < rt_0) && ((_delay_2 + 
+	_delay_3 + _delay_4 + _delay_5) < rt_0) && (_delay_2 < rt_0) && (n_1 < 100) && 
+	(x_1 < n_1) && ((- n_1) <= 0) && (p_1 > 0) && (p_1 > 1) && (rt_0 > 0))
+	
+##
+_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	_time = (_delay_0 + _delay_1 + _delay_2 + _delay_3 + _delay_4 + _delay_5)
+	_delay = _delay_5
+	_clock_index_ = 0
+	n = n_1
+	p = (p_1 + -2)
+	x = x_2
+	rt = rt_0
+	gclock = (_delay_2 + _delay_3 + _delay_4 + _delay_5)
+	yH = yH_2
+	yL = yL_2
+	yBW = yBW_2
+	##
+	FINALIZE\ntpid#6->Check.t_bwin42"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

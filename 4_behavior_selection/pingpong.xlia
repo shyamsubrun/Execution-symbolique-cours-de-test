@@ -1,0 +1,197 @@
+@xlia< system , 1.0 >:
+
+system PingPong {
+	
+@public:
+ 	var urational Timeout=3;
+	var urational Interval=5;	
+	var urational Unit=1;
+//	var urational Timeout;
+//	var urational Interval;	
+//	var urational Unit;
+		
+//	type INFO_KIND enum { INIT , TERMIN, REACH_K, REACH_TAU }
+
+@composite: 
+	lifeline timed statemachine< or >  Alice {
+
+	@public:
+
+		port output Ping( integer value, urational localTS );
+		port input Pong( integer value, urational localTS );
+		port output Warning;
+		buffer fifo<*> bufferNode;
+
+  	@private:
+		var integer seq;
+		var integer n; // received sequence number
+ 		var clock urational aclk; 
+ 		
+ 		// INSTRUMENTATION
+		var boolean localPC = true;
+		var time< urational > timeEmit;
+		var clock urational localTime = 0;
+
+ 	@macro:
+		// macro for data guard
+		macro routine Guard( boolean localCondition ) {
+			guard( localCondition );
+			
+			localPC = localPC && localCondition;
+		}
+			  		
+	@region:
+		state< start > a0 { 
+			transition a0_rcv_ignore --> a0 { 
+				Guard( aclk <= Timeout );
+				input Pong( n, timeEmit );
+				Guard( timeEmit <= localTime );
+				// Guard( localTime - timeEmit <= 1 );
+			}
+			transition a0_snd --> a1 { 
+				Guard( aclk <= Timeout );
+				output Ping( seq, localTime );
+			}
+		}//a0
+	    state a1 {
+			transition a1_rcv_ignore --> a1 {
+				Guard( aclk <= Timeout );
+				input Pong( n, timeEmit );
+				Guard( timeEmit <= localTime );
+				// Guard( localTime - timeEmit <= 1 );
+				Guard( n < seq );
+				/*guard(size(bufferNode)==0);*/
+			}
+			transition a1_rcv --> a2 {
+				Guard( aclk <= Timeout );
+				input Pong( n, timeEmit );
+				Guard( timeEmit <= localTime );
+				// Guard( localTime - timeEmit <= 1 );
+				Guard( n == seq );
+				aclk := 0;
+				/*guard(size(bufferNode)==0);*/
+			}
+			transition a1_warning --> a0 {
+				Guard( aclk == Timeout );
+				output Warning;
+				seq++;
+				aclk := 0;
+				/*guard(size(bufferNode)==0);*/
+			}
+		}//a1
+		state a2 {
+			transition a2_rcv_ignore --> a2 { 
+				Guard( aclk <= Interval );
+				input Pong( n, timeEmit );
+				Guard( timeEmit <= localTime );
+				// Guard( localTime - timeEmit <= 1 );
+			}
+			transition a2_new_interval --> a0 {
+				Guard( aclk == Interval );
+				seq++;
+				aclk := 0;
+			}
+		}//a2
+	@moe:	
+//		@irun{
+//			Guard( $delta>0 );
+//		}
+	
+		@init{
+			newfresh($delta);
+			localTime := localTime + $delta;
+//			Guard( $delta>0 );
+		}
+  	}
+
+	lifeline timed statemachine< or >  Bob {
+
+	@public:
+		port output Pong( integer, urational );
+		port input Ping( integer, urational );
+		buffer fifo<*> bufferNode;
+
+  	@private:
+		var integer p;// received sequence number
+ 		var clock urational bclk; 
+ 		
+ 		// INSTRUMENTATION
+		var boolean localPC = true;
+		var time< urational > timeEmit;
+		var clock urational localTime = 0;
+
+ 	@macro:
+		// macro for data guard
+		macro routine Guard( boolean localCondition ) {
+			guard( localCondition );
+			
+			localPC = localPC && localCondition;
+		}
+			  		
+	@region:
+		state< start > b0 { 
+			transition b0_rcv --> b1 { 
+				input Ping( p, timeEmit );
+				Guard( timeEmit <= localTime );
+				// Guard( localTime - timeEmit <= 1 );
+				bclk := 0;
+			}
+		}//b0
+	    state b1 {
+	    	transition b1_rcv_loop --> b1 { 
+				Guard( bclk <= Unit );
+				input Ping( p, timeEmit );
+				Guard( timeEmit <= localTime );
+				// Guard( localTime - timeEmit <= 1 );
+			}
+			transition b1_snd --> b0 {
+				Guard( bclk <= Unit );
+				output Pong( p, localTime );
+			}
+		}//b1
+	@moe:	
+//		@run{
+//			Guard( $delta>0 );
+//		}
+	
+		@init{
+			newfresh($delta);
+			localTime := localTime + $delta;
+//			Guard( $delta>0 );
+		}
+  	}
+@moe:
+	@schedule
+	{|i| run Alice; run Bob; }
+	
+@com:
+	connect< env >{
+		output Alice->Warning;
+
+	}
+	connect< buffer< Bob.bufferNode > >{
+		output Alice->Ping;
+		input Bob->Ping;
+	}
+	/* Node Bob */
+	connect< buffer< Alice.bufferNode > >{
+		output Bob->Pong;
+		input Alice->Pong;
+	}
+//	// Connection between nodes in the network (multicast connection)
+//	/* Node Alice */
+//	connect< multicast >{
+//		output Alice->Ping;
+//		
+//		input< buffer< Bob.bufferNode > > Bob->Ping;
+//	
+//	}
+//	/* Node Bob */
+//	connect< multicast >{
+//		output Bob->Pong;
+//	
+//		input< buffer< Alice.bufferNode > > Alice->Pong;
+//	}
+
+
+}

@@ -1,0 +1,72 @@
+digraph fscn {
+EC1 [
+	label="ec_1< ev:1 , h:0 , w:1 >
+SM:startup
+
+$time = 0
+	$delay = 0
+	_clock_index_ = 0
+	PRICE = PRICE_0
+	c = c_0
+	sum = sum_0
+	cl = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired SM.tr_0
+	"
+]
+EC2 [
+	label="ec_2< ev:2 , h:1 , w:1 >
+SM:idle
+
+sum = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired SM.tr_1
+	INPUT SM:Coin( c_1 )
+	"
+]
+EC3 [
+	label="ec_3< ev:3 , h:2 , w:1 >
+SM:check
+
+PC: (c_1 == 3)
+	PtC: ($delay_0 == 115)
+	$time = 115
+	$delay = $delay_0
+	c = c_1
+	sum = c_1
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC3 -> EC5 [
+	label="fired SM.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC5 [
+	label="ec_5< ev:5 , h:3 , w:2 >
+SM:idle
+
+PC: ((c_1 == 3) && (c_1 >= PRICE_0))
+	PtC: (($delay_0 == 115) && ($delay_1 == 2) && ($delay_1 < 4))
+	$time = 117
+	$delay = $delay_1
+	sum = 0
+	
+OFFLINE_TEST_PASS"
+	color=lawngreen
+	shape=tripleoctagon
+	style=filled
+]
+}

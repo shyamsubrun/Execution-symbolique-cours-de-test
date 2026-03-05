@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.efm.execution.launchconfiguration.sew_type">
+    <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${project}"/>
+    <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+        <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+        <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_LIFELINES_TRACE_ENABLED_PRINTING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_EXTERNAL_INPUT_COM_SELECTION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_EXTERNAL_OUTPUT_COM_SELECTION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_INPUT_COM_SELECTION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_INTERNAL_OUTPUT_COM_SELECTION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_IOUTPUT_COM_SELECTION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_STATE_SELECTION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_TRANSITION_SELECTION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ALL_VARIABLE_SELECTION" value="false"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST" value="//See full grammar of [Trace Specification] at the end of this generated file&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ELIMINATION_REDUNDANCE" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ENABLED_GENERATION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_ENABLED_NUMERIZATION" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_FILE_NAME" value="testcases.txt"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_FOLDER_NAME" value="basic"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST" value="execution#context#id = 'ec_%1%'&#10;testcase#header = 'TRACE PATH %1% %2%\n'&#10;step#header = 'step %1% --&gt; %2%\n'&#10;comment = '\t// %1%\n'&#10;path#condition = '\tPC: %1%\n'&#10;path#timed#condition = '\tPtC: %1%\n'&#10;node#condition = '\tNC: %1%\n'&#10;node#timed#condition = '\tNtC: %1%\n'&#10;time = '\tdelta = %4%\n'&#10;assign = '\t%3% = %4%\n'&#10;newfresh = '\tnewfresh(%2%:%3%) &lt;- %4%\n'&#10;input#env = '\tINPUT  %2%:%3%%4%\n'&#10;input#rdv = '\tinput  %2%:%3%%4%\n'&#10;input = '\tinput  %2%:%3%%4%\n'&#10;output#env = '\tOUTPUT %2%:%3%%4%\n'&#10;output#rdv = '\toutput %2%:%3%%4%\n'&#10;output = '\toutput %2%:%3%%4%\n'&#10;routine = '\tinvoke %2%:%3%\n'&#10;transition = '\tfired %1%:%3%\n'&#10;machine = '\trun %2%:%3%\n'&#10;value#parameter#begin = &quot;(&quot;&#10;value#parameter#separator = &quot; , &quot;&#10;value#parameter#end = &quot;)&quot;&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_INITIAL_VALUES_ENABLED_PRINTING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BASIC_TRACE_TIME_SELECTION" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST" value="//Sequence of elements characterizing the desired behavior.&#10;"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_BEGIN_STEP" value="0"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_HEURISTIC" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_HIT_CONSECUTIVE" value="false"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT" value="1"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_HIT_LUCKY" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_HIT_MAX" value="false"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT" value="1"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT" value="6"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_SLICE" value="true"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT" value="-1"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_SCHEDULER_ORDERED" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_SEARCH_SCOPE_LOCALLY" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_SLICE" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_BEHAVIOR_SELECTION_HOJ_STOP" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_CONSOLE_LOG_VERBOSE_LEVEL" value="MINIMUM"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_DEVELOPER_TUNING_DEBUG_FILENAME" value="symbex.dbg"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_DEVELOPER_TUNING_DEBUG_LEVEL" value="ZERO"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_DEVELOPER_TUNING_LOG_FILENAME" value="symbex.log"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_DEVELOPER_TUNING" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_FIRST_COMPILED_MODEL_TEXTUAL_GENERATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_FIRST_PARSED_MODEL_GRAPHVIZ_GENERATION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_FIRST_PARSED_MODEL_TEXTUAL_GENERATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_TEXTUAL_GENERATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_REDUNDANCY_DETECTION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_REDUNDANCY_TRIVIAL_LOOP_DETECTION" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_REFERENCE_COUNTING" value="false"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC" value="node = '\nEC%1% [%2%%3%\n]'&#10;node#label = '\n\tlabel=&quot;%2%%3%%4%&quot;'&#10;node#header = 'ec_%1%&lt; ev:%2% , h:%3% , w:%4% &gt;\n%6%'&#10;node#data = '\n\n%3%%4%%5%%6%%2%%7%'&#10;lifeline#state = '%2%:%4%'&#10;path#condition = 'PC: %1%'&#10;path#timed#condition = 'PtC: %1%'&#10;node#condition = 'NC: %1%'&#10;node#timed#condition = 'NtC: %1%'&#10;assign = '%3% = %4%'&#10;newfresh = 'newfresh(%2%:%3%) &lt;- %4%'&#10;input#env = 'INPUT %2%:%3%%4%'&#10;input#rdv = 'input %2%:%3%%4%'&#10;input = 'input %2%:%3%%4%'&#10;output#env = 'OUTPUT %2%:%3%%4%'&#10;output#rdv = 'output %2%:%3%%4%'&#10;output = 'output %2%:%3%%4%'&#10;routine = 'invoke %2%:%3%'&#10;transition = 'fired %1%.%3%'&#10;machine = 'run %2%:%3%'&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_TEXTUAL_GENERATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_ACTIVITY" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_ALL_PROCESS_STAGE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_BUFFER" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_BYTECODE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_COMPILING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_COMPUTING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_CONFIGURING" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_CONNEXION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_DATA" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_EXECUTABLE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_EXTENSION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_FILTERING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_FULLY_QUALIFIED_NAME_ID" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_GOD_MODE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_LOADING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_MACHINE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_NAME_ID" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_NOTHING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PARSING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PORT" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_POST_FILTERING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_POST_PROCESSING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PRE_FILTERING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PRE_PROCESSING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PROCESSING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PROFILING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_PROGRAM" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_QUALIFIED_NAME_ID" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_QUEUE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_REDUNDANCE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_REPORTING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_ROUTINE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_SIGNAL" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_SOLVING" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_STATEMACHINE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_STATEMENT" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_STATEMENT_ASSIGNMENT" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_STATEMENT_COMMUNICATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_STATEMENT_TEST_DECISION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_TIME" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_TRACE" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_TRANSITION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_ENABLED_TRACE_VARIABLE" value="false"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC" value="node = '\nEC%1% [%2%%3%\n]'&#10;node#label = '\n\tlabel=&quot;%2%%3%%4%&quot;'&#10;node#header = 'ec_%1%&lt; ev:%2% , h:%3% , w:%4% &gt;\n%6%'&#10;node#data = '\n\n%3%%4%%5%%6%%2%%7%'&#10;lifeline#state = '%2%:%4%'&#10;path#condition = 'PC: %1%'&#10;path#timed#condition = 'PtC: %1%'&#10;node#condition = 'NC: %1%'&#10;node#timed#condition = 'NtC: %1%'&#10;assign = '%3% = %4%'&#10;newfresh = 'newfresh(%2%:%3%) &lt;- %4%'&#10;input#env = 'INPUT %2%:%3%%4%'&#10;input#rdv = 'input %2%:%3%%4%'&#10;input = 'input %2%:%3%%4%'&#10;output#env = 'OUTPUT %2%:%3%%4%'&#10;output#rdv = 'output %2%:%3%%4%'&#10;output = 'output %2%:%3%%4%'&#10;routine = 'invoke %2%:%3%'&#10;transition = 'fired %1%.%3%'&#10;machine = 'run %2%:%3%'&#10;"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC" value="//See full grammar of [Trace Specification] at the end of this generated file&#10;transition = '[*]'&#10;com = '[*]'&#10;variable = '[*]'&#10;path#condition = '[*]'&#10;path#timed#condition = '[*]'&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_HIT_FOLDING" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_INFERENCE_ANALYSIS_ELEMENT_NAME_LIST" value="//Sequence of elements characterizing the desired behavior.&#10;"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_INFERENCE_OUTPUT_FILE_NAME" value="acslSpec.c"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_INFERENCE_SELECTION_HOJ_JUMP_HEIGHT" value="3"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_LAUNCH_AVM_LOCATION" value="..\bin\diversity.exe"/>
+    <listAttribute key="org.eclipse.efm.execution.core.ATTR_LAUNCH_AVM_LOCATION_HISTORY"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_LAUNCH_AVM_LOCATION_USED_DEFAULT" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER" value="false"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_OPAQUE_MODULE_TEXTUAL_CONFIGURATION" value="// a sample of incubation worker workflow textual configuration&#10;//incubation#worker  new_incubation_worker {&#10;//&#9;property [&#10;//&#9;&#9;attribute#bool = true&#10;//&#9;&#9;attribute#integert = 42&#10;//&#9;&#9;attribute#string = &quot;string value&quot;&#10;//&#9;] // end property&#10;//} // end new_incubation_worker&#10;"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_REDUNDANCY_COMPARER_OPERATION" value="INCLUSION"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_REDUNDANCY_PATH_SCOPE" value="CURRENT"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC" value="//See full grammar of [Trace Specification] at the end of this generated file&#10;transition = '[*]'&#10;com = '[*]'&#10;variable = '[*]'&#10;path#condition = '[*]'&#10;path#timed#condition = '[*]'&#10;"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_ANALYZE_STRATEGY" value="WEIGHT_BFS"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE" value="Transition Coverage"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_MODEL_FILE_LOCATION" value="${workspace_loc}/1_exploration/coffeemachine.xlia"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_PROJECT_LOCATION" value="${workspace_loc}/1_exploration"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_PROJECT_NAME" value="1_exploration"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_STOP_CRITERIA_EVALS" value="-1"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_STOP_CRITERIA_HEIGHT" value="-1"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_STOP_CRITERIA_NODE" value="-1"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_STOP_CRITERIA_STEPS" value="1000"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT" value="-1"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_SPECIFICATION_STOP_CRITERIA_WIDTH" value="-1"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SYMBEX_OPTION_CONSTRAINT_SOLVER" value="CVC4"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_SYMBEX_OPTION_TEXTUAL_CONFIGURATION" value="name_id_separator = &quot;_&quot;   // default &quot;#&quot;&#10;newfresh_param_name_pid = false&#10;pretty_printer_var_name = true   // default false&#10;time_name_id = '$time'&#10;time_initial_value = 0&#10;delta_name_id = '$delay'&#10;delta_initial_value = 0&#10;node_condition_enabled = false   // default false&#10;separation_of_pc_disjunction = false&#10;check_pathcondition_satisfiability = true&#10;//strongly_check_pathcondition_satisfiability = true&#10;constraint_solver = 'CVC4'  // Z3&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_SYMBEX_OUTPUT_GRAPHVIZ_ENABLED_MODIFIED_DATA_SELECTION" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TEST_OFFLINE_CONTROLLABLE_TRACE" value="input#env = '[*]'&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION" value="false"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TEST_OFFLINE_OBSERVABLE_TRACE" value="//[*] , use for ANY element w.r.t. the kind&#10;//com_element_id ::= &lt;port_name_id&gt; | &lt;signal_name_id&gt;&#10;input#env = '[*]'&#10;output#env = '[*]'&#10;"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TEST_PURPOSE_FILE_LOCATION" value="&lt;test-purpose-file-path&gt;"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRACE_EXTENSION_EVALUATION_STEPS" value="-1"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TRACE_EXTENSION_OBJECTIVE" value="//See full grammar of [Trace Specification] at the end of this generated file&#10;output#env = '[*]'&#10;"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TRACE_FILE_LOCATION" value="&lt;merge-trace-file-path&gt;"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_BEGIN_STEP" value="0"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_COUNT_LIMIT" value="8"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_HEURISTIC" value="SMART"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_SIZE_LIMIT" value="8"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HEURISTIC" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HEURISTIC_START" value="BASIC"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HEURISTIC_TRIALS" value="-1"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HIT_OTHER_COUNT" value="1"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HIT_OTHER_RANDOM" value="false"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HIT_STRONGLY_COUNT" value="1"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HIT_STRONGLY_RANDOM" value="false"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HIT_WEAKLY_COUNT" value="1"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_HIT_WEAKLY_RANDOM" value="false"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_LOOKAHEAD_DEPTH" value="7"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH" value="42"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_MINIMIZE" value="true"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_OBJECTIVE_RATE" value="100"/>
+    <intAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_OBJECTIVE_REST" value="0"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_SCOPE" value="DETAILS"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_SELECTION" value="transition = 'CoffeeMachine.SM.startup.tr_0'&#10;transition = 'CoffeeMachine.SM.idle.tr_1'&#10;transition = 'CoffeeMachine.SM.check.tr_2'&#10;transition = 'CoffeeMachine.SM.check.tr_3'&#10;"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_SLICE" value="true"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TRANSITION_COVERAGE_STOP" value="true"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_ADAPTATION_MODULE_NAME" value="TTCN_Adaptation"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_ADAPTATION_UTILS_IMPL" value="&#9;// A testcase could just call the function below, when it needs to wait for a timeout.&#13;&#10;&#9;// In case the user wants he can activated altsteps in 'f_start()' to catch events&#13;&#10;&#9;// during this time period&#13;&#10;&#9;function f_waitForTimeout(float p_duration) {&#13;&#10;&#9;&#9;timer t;&#13;&#10;&#9;&#9;t.start(p_duration);&#13;&#10;&#9;&#9;t.timeout;&#13;&#10;&#9;}"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_CONTROL_MODULE_NAME" value="TTCN_ControlPart"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_DECLARATIONS_MODULE_NAME" value="TTCN_Declarations"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_ENABLED_CUSTOMIZATION" value="false"/>
+    <booleanAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_ENABLED_GENERATION" value="false"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_FOLDER_NAME" value="TTCN"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TEMPLATES_MODULE_NAME" value="TTCN_Templates"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_ENDING_WRAPPER" value="&#9;&#9;f_end();"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_MODULE_NAME" value="TTCN_TestsAndControl"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_RECEIVING_IMPL" value="&#9;function %1%_receive( template %5% pdu ) runs on runsOn_%3% {&#13;&#10;&#9;&#9;%7%.receive( %5% );&#13;&#10;&#9;}"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_RECEIVING_WRAPPER" value="&#9;&#9;%7%_receive( %8% );"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_SENDING_IMPL" value="&#9;function %1%_send( template %5% pdu ) runs on runsOn_%3% {&#13;&#10;&#9;&#9;%7%.send( %5% );&#13;&#10;&#9;}"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_SENDING_WRAPPER" value="&#9;&#9;%7%_send( %8% );"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_STARTING_ENDING_IMPL" value="&#9;function f_start() runs on runsOn_%1% { }&#13;&#10;&#9;function f_end() runs on runsOn_%1% { }"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_TTCN_TESTCASES_STARTING_WRAPPER" value="&#9;&#9;f_start();"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_WORKSPACE_DEBUG_FOLDER_NAME" value="debug"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_WORKSPACE_LOG_FOLDER_NAME" value="log"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_WORKSPACE_OUTPUT_FOLDER_NAME" value="output-TRANSITION_COVERAGE"/>
+    <stringAttribute key="org.eclipse.efm.execution.core.ATTR_WORKSPACE_ROOT_LOCATION" value="${workspace_loc}/1_exploration"/>
+</launchConfiguration>

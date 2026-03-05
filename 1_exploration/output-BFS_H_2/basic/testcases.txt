@@ -1,0 +1,8 @@
+TRACE PATH 1 ec_3
+	INPUT  SM:Coin(1)
+	OUTPUT SM:RestMon(1)
+
+TRACE PATH 2 ec_4
+	INPUT  SM:Coin(1)
+	OUTPUT SM:Coffee
+

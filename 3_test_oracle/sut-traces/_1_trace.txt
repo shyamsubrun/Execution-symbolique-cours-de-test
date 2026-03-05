@@ -1,0 +1,6 @@
+#SUT TRACE 1
+
+delta = 115
+INPUT  Coin(3)
+delta = 2
+OUTPUT Coffee

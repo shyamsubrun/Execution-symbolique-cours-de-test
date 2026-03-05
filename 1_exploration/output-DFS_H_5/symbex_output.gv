@@ -1,0 +1,239 @@
+digraph symbex_graph {
+EC0 [
+	label="ec_0< ev:1 , h:0 , w:1 >
+CoffeeMachine:startup
+
+PRICE = PRICE_0
+	c = c_0
+	sum = sum_0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC0 -> EC1 [
+	label="fired CoffeeMachine.tr_0
+	"
+]
+EC1 [
+	label="ec_1< ev:2 , h:1 , w:1 >
+CoffeeMachine:idle
+
+sum = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_1 )
+	"
+]
+EC2 [
+	label="ec_2< ev:3 , h:2 , w:1 >
+CoffeeMachine:check
+
+c = c_1
+	sum = c_1
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired CoffeeMachine.tr_2
+	OUTPUT SM:RestMon( (PRICE_0 + (- c_1)) )
+	"
+]
+EC2 -> EC4 [
+	label="fired CoffeeMachine.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC3 [
+	label="ec_3< ev:4 , h:3 , w:1 >
+CoffeeMachine:idle
+
+PC: (c_1 < PRICE_0)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC3 -> EC5 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_2 )
+	"
+]
+EC4 [
+	label="ec_4< ev:8 , h:3 , w:2 >
+CoffeeMachine:idle
+
+PC: (c_1 >= PRICE_0)
+	sum = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC4 -> EC10 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_5 )
+	"
+]
+EC5 [
+	label="ec_5< ev:5 , h:4 , w:1 >
+CoffeeMachine:check
+
+PC: (c_1 < PRICE_0)
+	c = c_2
+	sum = (c_1 + c_2)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC5 -> EC6 [
+	label="fired CoffeeMachine.tr_2
+	OUTPUT SM:RestMon( (PRICE_0 + (- c_1) + (- c_2)) )
+	"
+]
+EC5 -> EC7 [
+	label="fired CoffeeMachine.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC10 [
+	label="ec_10< ev:9 , h:4 , w:2 >
+CoffeeMachine:check
+
+PC: (c_1 >= PRICE_0)
+	c = c_5
+	sum = c_5
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC10 -> EC11 [
+	label="fired CoffeeMachine.tr_2
+	OUTPUT SM:RestMon( (PRICE_0 + (- c_5)) )
+	"
+]
+EC10 -> EC12 [
+	label="fired CoffeeMachine.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC6 [
+	label="ec_6< ev:6 , h:5 , w:1 >
+CoffeeMachine:idle
+
+PC: (((c_1 + c_2) < PRICE_0) && (c_1 < PRICE_0))
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC6 -> EC8 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_3 )
+	"
+]
+EC7 [
+	label="ec_7< ev:7 , h:5 , w:3 >
+CoffeeMachine:idle
+
+PC: ((c_1 < PRICE_0) && ((c_1 + c_2) >= PRICE_0))
+	sum = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC7 -> EC9 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_4 )
+	"
+]
+EC11 [
+	label="ec_11< ev:10 , h:5 , w:2 >
+CoffeeMachine:idle
+
+PC: ((c_5 < PRICE_0) && (c_1 >= PRICE_0))
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC11 -> EC13 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_6 )
+	"
+]
+EC12 [
+	label="ec_12< ev:11 , h:5 , w:4 >
+CoffeeMachine:idle
+
+PC: ((c_1 >= PRICE_0) && (c_5 >= PRICE_0))
+	sum = 0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC12 -> EC14 [
+	label="fired CoffeeMachine.tr_1
+	INPUT SM:Coin( c_7 )
+	"
+]
+EC8 [
+	label="ec_8< ev:0 , h:6 , w:1 >
+CoffeeMachine:check
+
+PC: (((c_1 + c_2) < PRICE_0) && (c_1 < PRICE_0))
+	c = c_3
+	sum = (c_1 + c_2 + c_3)
+	"
+	color=orange
+	shape=ellipse
+	style=filled
+]
+EC9 [
+	label="ec_9< ev:0 , h:6 , w:3 >
+CoffeeMachine:check
+
+PC: ((c_1 < PRICE_0) && ((c_1 + c_2) >= PRICE_0))
+	c = c_4
+	sum = c_4
+	"
+	color=orange
+	shape=ellipse
+	style=filled
+]
+EC13 [
+	label="ec_13< ev:0 , h:6 , w:2 >
+CoffeeMachine:check
+
+PC: ((c_5 < PRICE_0) && (c_1 >= PRICE_0))
+	c = c_6
+	sum = (c_5 + c_6)
+	"
+	color=orange
+	shape=ellipse
+	style=filled
+]
+EC14 [
+	label="ec_14< ev:0 , h:6 , w:4 >
+CoffeeMachine:check
+
+PC: ((c_1 >= PRICE_0) && (c_5 >= PRICE_0))
+	c = c_7
+	sum = c_7
+	"
+	color=orange
+	shape=ellipse
+	style=filled
+]
+}

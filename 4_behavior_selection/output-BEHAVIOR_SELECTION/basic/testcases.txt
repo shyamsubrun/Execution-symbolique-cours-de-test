@@ -1,0 +1,61 @@
+TRACE PATH 1 ec_63
+	delta = 0
+	delta = 0
+	eval  pid_2
+	delta = 0
+	output Alice:Ping(0 , 0)
+	eval  pid_6
+	delta = 0
+	input  Bob:Ping(0 , 0)
+	eval  pid_6
+	delta = 0
+	output Bob:Pong(0 , 0)
+	eval  pid_2
+	delta = 3
+	OUTPUT Alice:Warning
+	eval  pid_2
+	delta = 0
+	input  Alice:Pong(0 , 0)
+	eval  pid_2
+	delta = 0
+	output Alice:Ping(1 , 3)
+	eval  pid_2
+	delta = 3
+	OUTPUT Alice:Warning
+	eval  pid_2
+	delta = 0
+	output Alice:Ping(2 , 6)
+	eval  pid_6
+	delta = 3
+	input  Bob:Ping(1 , 3)
+	eval  pid_6
+	delta = 0
+	output Bob:Pong(1 , 3)
+	eval  pid_2
+	delta = 0
+	input  Alice:Pong(1 , 3)
+	eval  pid_6
+	delta = 3
+	input  Bob:Ping(2 , 6)
+	eval  pid_2
+	delta = 3
+	OUTPUT Alice:Warning
+	eval  pid_6
+	delta = 0
+	output Bob:Pong(2 , 6)
+	eval  pid_2
+	delta = 0
+	output Alice:Ping(3 , 9)
+	eval  pid_2
+	delta = 0
+	input  Alice:Pong(2 , 6)
+	eval  pid_6
+	delta = 3
+	input  Bob:Ping(3 , 9)
+	eval  pid_6
+	delta = 0
+	output Bob:Pong(3 , 9)
+	eval  pid_2
+	delta = 0
+	input  Alice:Pong(3 , 9)
+

@@ -1,0 +1,80 @@
+digraph PingPong {
+compound = true;
+fontsize = 12
+	subgraph "cluster_spec::PingPong" {
+		label = "SYSTEM spec::PingPong"
+
+		subgraph "cluster_spec::PingPong.Alice" {
+			label = "Alice"
+			style=dashed;
+
+			"spec::PingPong.Alice"
+			[
+				label = "Alice"
+				shape=point, style=invisible, color=white
+			];
+
+			"spec::PingPong.Alice.a0"
+			[
+				label = "a0"
+				shape=ellipse, style="bold,filled", fillcolor=green
+			];
+
+			"spec::PingPong.Alice.a0" -> "spec::PingPong.Alice.a0" [ label = "a0_rcv_ignore" ];
+
+			"spec::PingPong.Alice.a0" -> "spec::PingPong.Alice.a1" [ label = "a0_snd" ];
+
+			"spec::PingPong.Alice.a1"
+			[
+				label = "a1"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::PingPong.Alice.a1" -> "spec::PingPong.Alice.a1" [ label = "a1_rcv_ignore" ];
+
+			"spec::PingPong.Alice.a1" -> "spec::PingPong.Alice.a2" [ label = "a1_rcv" ];
+
+			"spec::PingPong.Alice.a1" -> "spec::PingPong.Alice.a0" [ label = "a1_warning" ];
+
+			"spec::PingPong.Alice.a2"
+			[
+				label = "a2"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::PingPong.Alice.a2" -> "spec::PingPong.Alice.a2" [ label = "a2_rcv_ignore" ];
+
+			"spec::PingPong.Alice.a2" -> "spec::PingPong.Alice.a0" [ label = "a2_new_interval" ];
+		}
+
+		subgraph "cluster_spec::PingPong.Bob" {
+			label = "Bob"
+			style=dashed;
+
+			"spec::PingPong.Bob"
+			[
+				label = "Bob"
+				shape=point, style=invisible, color=white
+			];
+
+			"spec::PingPong.Bob.b0"
+			[
+				label = "b0"
+				shape=ellipse, style="bold,filled", fillcolor=green
+			];
+
+			"spec::PingPong.Bob.b0" -> "spec::PingPong.Bob.b1" [ label = "b0_rcv" ];
+
+			"spec::PingPong.Bob.b1"
+			[
+				label = "b1"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::PingPong.Bob.b1" -> "spec::PingPong.Bob.b1" [ label = "b1_rcv_loop" ];
+
+			"spec::PingPong.Bob.b1" -> "spec::PingPong.Bob.b0" [ label = "b1_snd" ];
+		}
+	}
+}
+

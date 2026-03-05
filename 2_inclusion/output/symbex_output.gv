@@ -1,0 +1,143 @@
+digraph fscn {
+EC1 [
+	label="ec_1< ev:1 , h:0 , w:1 >
+SM:startup
+
+PRICE = PRICE_0
+	c = c_0
+	sum = sum_0
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC1 -> EC2 [
+	label="fired SM.tr_0
+	"
+]
+EC2 [
+	label="ec_2< ev:2 , h:1 , w:1 >
+SM:idle\nREDUNDANCY-TARGET
+
+sum = 0
+	"
+	color=greenyellow
+	shape=septagon
+	style=filled
+]
+EC2 -> EC3 [
+	label="fired SM.tr_1
+	INPUT SM:Coin( c_1 )
+	"
+]
+EC3 [
+	label="ec_3< ev:3 , h:2 , w:1 >
+SM:check
+
+c = c_1
+	sum = c_1
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC3 -> EC4 [
+	label="fired SM.tr_2
+	OUTPUT SM:RestMon( (PRICE_0 + (- c_1)) )
+	"
+]
+EC3 -> EC5 [
+	label="fired SM.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC4 [
+	label="ec_4< ev:4 , h:3 , w:1 >
+SM:idle
+
+PC: (c_1 < PRICE_0)
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC4 -> EC6 [
+	label="fired SM.tr_1
+	INPUT SM:Coin( c_2 )
+	"
+]
+EC5 [
+	label="ec_5< ev:0 , h:3 , w:2 >
+SM:idle\nREDUNDANCY-LEAF
+
+PC: (c_1 >= PRICE_0)
+	sum = 0
+	
+Id:2, Ev:2, H:1, W:1"
+	color=green
+	shape=cds
+	style=filled
+]
+EC6 [
+	label="ec_6< ev:5 , h:4 , w:1 >
+SM:check\nREDUNDANCY-TARGET
+
+PC: (c_1 < PRICE_0)
+	c = c_2
+	sum = (c_1 + c_2)
+	"
+	color=greenyellow
+	shape=septagon
+	style=filled
+]
+EC6 -> EC7 [
+	label="fired SM.tr_2
+	OUTPUT SM:RestMon( (PRICE_0 + (- c_1) + (- c_2)) )
+	"
+]
+EC6 -> EC8 [
+	label="fired SM.tr_3
+	OUTPUT SM:Coffee
+	"
+]
+EC7 [
+	label="ec_7< ev:6 , h:5 , w:1 >
+SM:idle
+
+PC: (((c_1 + c_2) < PRICE_0) && (c_1 < PRICE_0))
+	"
+	color=lightblue
+	shape=ellipse
+	style=filled
+]
+EC7 -> EC9 [
+	label="fired SM.tr_1
+	INPUT SM:Coin( c_3 )
+	"
+]
+EC8 [
+	label="ec_8< ev:0 , h:5 , w:3 >
+SM:idle\nREDUNDANCY-LEAF
+
+PC: ((c_1 < PRICE_0) && ((c_1 + c_2) >= PRICE_0))
+	sum = 0
+	
+Id:2, Ev:2, H:1, W:1"
+	color=green
+	shape=cds
+	style=filled
+]
+EC9 [
+	label="ec_9< ev:0 , h:6 , w:1 >
+SM:check\nREDUNDANCY-LEAF
+
+PC: (((c_1 + c_2) < PRICE_0) && (c_1 < PRICE_0))
+	c = c_3
+	sum = (c_1 + c_2 + c_3)
+	
+Id:6, Ev:5, H:4, W:1"
+	color=green
+	shape=cds
+	style=filled
+]
+}

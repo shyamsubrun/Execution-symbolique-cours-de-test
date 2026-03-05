@@ -1,0 +1,13 @@
+#SUT TRACE 4
+
+delay = 115
+INPUT  Coin( 2 )
+delay = 2
+OUTPUT RestMon( 2 )
+delay = 115
+INPUT Coin( 1 )
+delay = 2
+OUTPUT RestMon( 2 )
+delay = 142
+INPUT Coin( 2 )
+delay = 256

@@ -1,0 +1,45 @@
+digraph CoffeeMachine {
+compound = true;
+fontsize = 12
+	subgraph "cluster_spec::CoffeeMachine" {
+		label = "SYSTEM spec::CoffeeMachine"
+
+		subgraph "cluster_spec::CoffeeMachine.SM" {
+			label = "SM"
+			style=dashed;
+
+			"spec::CoffeeMachine.SM"
+			[
+				label = "SM"
+				shape=point, style=invis, color=white
+			];
+
+			"spec::CoffeeMachine.SM.startup"
+			[
+				label = "startup"
+				shape=oval, style="filled", fillcolor=green
+			];
+
+			"spec::CoffeeMachine.SM.startup" -> "spec::CoffeeMachine.SM.idle" [ label = "tr_0" ];
+
+			"spec::CoffeeMachine.SM.idle"
+			[
+				label = "idle"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::CoffeeMachine.SM.idle" -> "spec::CoffeeMachine.SM.check" [ label = "tr_1" ];
+
+			"spec::CoffeeMachine.SM.check"
+			[
+				label = "check"
+				shape=ellipse, style="bold,filled", color=skyblue
+			];
+
+			"spec::CoffeeMachine.SM.check" -> "spec::CoffeeMachine.SM.idle" [ label = "tr_2" ];
+
+			"spec::CoffeeMachine.SM.check" -> "spec::CoffeeMachine.SM.idle" [ label = "tr_3" ];
+		}
+	}
+}
+

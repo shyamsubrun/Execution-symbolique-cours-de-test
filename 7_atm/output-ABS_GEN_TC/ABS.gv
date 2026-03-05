@@ -1,0 +1,37 @@
+digraph MySys {
+compound = true;
+fontsize = 12
+ subgraph "cluster_spec::MySys" {
+  label = "SYSTEM spec::MySys"
+
+  subgraph "cluster_spec::MySys.ABS" {
+   label = "ABS"
+   style=dashed;
+
+   "spec::MySys.ABS"
+   [
+    label = "ABS"
+    shape=point, style=invisible, color=white
+   ];
+
+   "spec::MySys.ABS.Ready"
+   [
+    label = "Ready"
+    shape=ellipse, style="bold,filled", fillcolor=green
+   ];
+
+   "spec::MySys.ABS.Ready" -> "spec::MySys.ABS.Compute" [ label = "t_value" ];
+
+   "spec::MySys.ABS.Compute"
+   [
+    label = "Compute"
+    shape=ellipse, style="bold,filled", color=skyblue
+   ];
+
+   "spec::MySys.ABS.Compute" -> "spec::MySys.ABS.Ready" [ label = "t_result_pos" ];
+
+   "spec::MySys.ABS.Compute" -> "spec::MySys.ABS.Ready" [ label = "t_result_neg" ];
+  }
+ }
+}
+

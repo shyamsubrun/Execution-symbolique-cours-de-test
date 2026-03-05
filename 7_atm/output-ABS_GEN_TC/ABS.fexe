@@ -1,0 +1,460 @@
+xfsp< executable , 1.0 >:
+
+// timed#discrete #prototype system< moc: and % system > MySys {
+header:
+	fqn_id = sys::MySys
+	description = "the result of the system compilation"
+	count = 4
+
+instance:
+	// The Parameters Machine Instance
+	timed#discrete #prototype instance< id:0, multiplicity: [ 0, 1 ] > inst::#PARAMETERS#;
+
+	// The System Machine Instance
+	timed#discrete #prototype instance< id:0, multiplicity: [ 1 ] > prot::MySys {
+		rid#runtime = run::pid_1:MySys;
+		@create{ |§|
+			$time := 0;
+			z := 0;
+			_clock_index_ := 0;
+		}
+		@start{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init ABS;
+		}
+	}
+
+executable:
+	timed#discrete #prototype executable< moc: and % system , id:0, instanciation: [ + ] > exec::#PARAMETERS# {
+	moe:
+	}
+
+	timed#discrete #prototype executable< moc: and % system , id:0, instanciation: [ + ] > exec::MySys {
+		weak#lifeline = true;
+	variable:
+		public static const< id:0, ptr:std > time< uinteger > inst::MySys.$time#initial '$time#initial' {
+			rid#container = run::pid_0:#PARAMETERS#;
+			value = 0;
+		}
+		public static const< id:1, ptr:std > time< uinteger > inst::MySys.$delta#initial '$delta#initial' {
+			rid#container = run::pid_0:#PARAMETERS#;
+			value = 0;
+		}
+
+		var< id:0, ptr:std > time< uinteger > inst::MySys.$time '$time' {
+			rid#container = run::pid_1:MySys;
+			value = 0;
+		}
+		var< id:1, ptr:std > time< uinteger > inst::MySys.z 'z' {
+			rid#container = run::pid_1:MySys;
+			value = 0;
+		}
+		var< id:2, ptr:std > uint inst::MySys._clock_index_ '_clock_index_' {
+			rid#container = run::pid_1:MySys;
+			value = 0;
+		}
+	alias:
+		public volatile var< id:0, ptr:std > clock< urational > alias::MySys.ABS.clk 'clk' {
+			target = public volatile var< id:0, ptr:std > clock< urational > inst::MySys.ABS.clk;
+			rid#container = run::pid_2:MySys.ABS;
+			value = 0;
+		path#machine:
+			prot::MySys.ABS
+		}
+		inout parameter var< id:0, ptr:mix > clock< uinteger > inst::MySys.clock#reset#vector._clock_vector_[_clock_index_] '_clock_vector_[_clock_index_]' {
+			target = inout parameter var< id:0, ptr:std > vector< clock< uinteger > > inst::MySys.clock#reset#vector._clock_vector_;
+			value = _clock_index_;
+		}
+		inout parameter var< id:0, ptr:mix > clock< uinteger > inst::MySys.clock#update#vector._clock_vector_[_clock_index_] '_clock_vector_[_clock_index_]' {
+			target = inout parameter var< id:0, ptr:std > vector< clock< uinteger > > inst::MySys.clock#update#vector._clock_vector_;
+			value = _clock_index_;
+		}
+		inout parameter var< id:0, ptr:mix > clock< uinteger > inst::MySys.clock#update#vector._clock_vector_[_clock_index_] '_clock_vector_[_clock_index_]' {
+			target = inout parameter var< id:0, ptr:std > vector< clock< uinteger > > inst::MySys.clock#update#vector._clock_vector_;
+			value = _clock_index_;
+		}
+	time:
+		var< id:0, ptr:std > time< uinteger > inst::MySys.$time
+		var< id:1, ptr:std > time< uinteger > inst::MySys.z
+	connector:/* < exec::MySys > */
+		connector< id:0 , mid:1 , env > inst::MySys._#connector_0 {
+			input prot::MySys.ABS->Val;
+		}
+		connector< id:1 , mid:2 , env > inst::MySys._#connector_1 {
+			output prot::MySys.ABS->Res;
+		}
+	router:
+		router prot::MySys.$this< exec::MySys > {
+		}
+
+		router prot::MySys.ABS {
+		input:
+			routing< env , mid:1 > prot::MySys.ABS->inst::MySys.ABS.Val {
+				connector = inst::MySys._#connector_0;
+			}
+		output:
+			routing< env , mid:2 > prot::MySys.ABS->inst::MySys.ABS.Res {
+				connector = inst::MySys._#connector_1;
+			}
+		}
+
+	router#model:
+		router prot::MySys.$this< exec::MySys > {
+		}
+
+		router model::MySys.ABS {
+		input:
+			routing< env , mid:0 > model::MySys.ABS->inst::MySys.ABS.Val {
+				connector = $null<connector>;
+			}
+		output:
+			routing< env , mid:0 > model::MySys.ABS->inst::MySys.ABS.Res {
+				connector = $null<connector>;
+			}
+		}
+
+	model:
+		timed#discrete #model instance< id:0, multiplicity: [ 1 ], this > model::MySys.$this;
+		#model instance< id:1, multiplicity: [ + ] > model::MySys.ABS;
+	instance:
+		timed#discrete #static instance< id:0, multiplicity: [ 1 ], this > &exec::MySys prot::MySys.$this {
+			//model = model::MySys.$this;
+		}
+		#prototype instance< id:1, multiplicity: [ + ] > prot::MySys.ABS {
+			//model = model::MySys.ABS;
+			rid#runtime = run::pid_2:MySys.ABS;
+			@create{
+				clk := 0;
+			}
+		}
+	program:
+		macro routine< id:0 > routine::MySys.time#get {
+		returns:
+			return transient parameter var< id:0, ptr:std > time< uinteger > inst::MySys.time#get._time_ '_time_';
+		moe:
+			@run{ |§|
+				_time_ := $time;
+				return;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:1 > routine::MySys.delta#get {
+		returns:
+			return transient parameter var< id:0, ptr:std > time< uinteger > inst::MySys.delta#get._delta_ '_delta_';
+		moe:
+			@run{ |§|
+				_delta_ := z;
+				return;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:2 > routine::MySys.time#reset {
+		moe:
+			@run{
+				$time := 0;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:3 > routine::MySys.clock#reset {
+		parameter:
+			inout parameter var< id:0, ptr:std > clock< uinteger > inst::MySys.clock#reset._clock_ '_clock_';
+		moe:
+			@run{
+				_clock_ := 0;
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:4 > routine::MySys.clock#update {
+		parameter:
+			inout parameter var< id:0, ptr:std > clock< uinteger > inst::MySys.clock#update._clock_ '_clock_';
+		moe:
+			@run{
+				_clock_ := (_clock_ + z);
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:5 > routine::MySys.clock#reset#vector {
+		parameter:
+			inout parameter var< id:0, ptr:std > vector< clock< uinteger > > inst::MySys.clock#reset#vector._clock_vector_ '_clock_vector_';
+		moe:
+			@run{
+				for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+				{
+					_clock_vector_[_clock_index_] := 0;
+				}
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:6 > routine::MySys.clock#update#vector {
+		parameter:
+			inout parameter var< id:0, ptr:std > vector< clock< uinteger > > inst::MySys.clock#update#vector._clock_vector_ '_clock_vector_';
+		moe:
+			@run{
+				for( _clock_index_ := 0 ; (_clock_index_ < size(_clock_vector_)) ; _clock_index_ := (_clock_index_ + 1) )
+				{
+					_clock_vector_[_clock_index_] := (_clock_vector_[_clock_index_] + z);
+				}
+			 }
+		opcode#family = basic;
+		}
+
+		macro routine< id:7 > routine::MySys.time#update {
+		moe:
+			@run{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable ABS }
+				{
+					clk := (clk + z);
+				}
+			 }
+		opcode#family = basic;
+		}
+
+	moe:
+		@create{ |§|
+			$time := 0;
+			z := 0;
+			_clock_index_ := 0;
+		}
+		@init{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init ABS;
+		}
+		@start{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init ABS;
+		}
+		@enable{
+			enable ABS;
+		}
+		@disable{
+			disable ABS;
+		}
+		@abort{
+			abort#set ABS;
+		}
+		@irun{ |§|
+			newfresh(z)
+			$time := ($time + z);
+			if ${ status#is enable ABS }
+			{
+				clk := (clk + z);
+			}
+		}
+		@run{ |/;|
+			{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable ABS }
+				{
+					clk := (clk + z);
+				}
+			}
+			schedule $self;
+		}
+		@schedule< final >{
+			run ABS;
+		}
+		@concurrency{ |i| }
+		opcode#family = basic | guard | input | output;
+	}
+
+	#prototype executable< moc: or % statemachine , id:1, instanciation: [ + ] > exec::MySys.ABS {
+		weak#lifeline = true;
+	variable:
+		public volatile var< id:0, ptr:std > clock< urational > inst::MySys.ABS.clk 'clk' {
+			rid#container = run::pid_2:MySys.ABS;
+			value = 0;
+		}
+		var< id:1, ptr:std > integer inst::MySys.ABS.x 'x' {
+			rid#container = run::pid_2:MySys.ABS;
+		}
+		var< id:2, ptr:std > integer inst::MySys.ABS.yR 'yR' {
+			rid#container = run::pid_2:MySys.ABS;
+		}
+	port:
+		public input port< id:0 , route:0 > inst::MySys.ABS.Val {
+			rid#container = run::pid_2:MySys.ABS;
+			routing#input#data = routing< env , mid:1 > run::pid_1:MySys;
+		parameter:
+			parameter var< id:0, ptr:std > integer value;
+		}
+		public output port< id:0 , route:0 > inst::MySys.ABS.Res {
+			rid#container = run::pid_2:MySys.ABS;
+			routing#output#data = routing< env , mid:2 > run::pid_1:MySys;
+		parameter:
+			parameter var< id:0, ptr:std > integer result;
+		}
+	router:
+		router model::MySys.ABS {
+		input:
+			routing< env , mid:0 > model::MySys.ABS->inst::MySys.ABS.Val {
+				connector = $null<connector>;
+			}
+		output:
+			routing< env , mid:0 > model::MySys.ABS->inst::MySys.ABS.Res {
+				connector = $null<connector>;
+			}
+		}
+
+	router#model:
+		router model::MySys.ABS {
+		input:
+			routing< env , mid:0 > model::MySys.ABS->inst::MySys.ABS.Val {
+				connector = $null<connector>;
+			}
+		output:
+			routing< env , mid:0 > model::MySys.ABS->inst::MySys.ABS.Res {
+				connector = $null<connector>;
+			}
+		}
+
+	model:
+		#model instance< id:0, multiplicity: [ 1 ], this > model::MySys.ABS.$this;
+	instance:
+		#static instance< id:0, multiplicity: [ 1 ], this > &exec::MySys.ABS prot::MySys.ABS.$this {
+			//model = model::MySys.ABS.$this;
+		}
+		#prototype instance< id:1, multiplicity: [ + ] > prot::MySys.ABS.Ready {
+			rid#runtime = run::pid_3:MySys.ABS.Ready;
+		}
+		#prototype instance< id:2, multiplicity: [ + ] > prot::MySys.ABS.Compute {
+			rid#runtime = run::pid_4:MySys.ABS.Compute;
+		}
+	moe:
+		@create{
+			clk := 0;
+		}
+		@init{
+			init Ready;
+		}
+		@enable{
+			@comment "nop<enable> exec::MySys.ABS.Ready";
+		}
+		@disable{ |§|
+			disable#child;
+			disable#self;
+		}
+		@run{
+			schedule $self;
+		}
+		@schedule{
+			run Ready;
+		}
+		opcode#family = basic | guard | input | output;
+	}
+
+	#prototype executable< moc: start % state , id:2, instanciation: [ * ] > exec::MySys.ABS.Ready {
+	transition:
+		transition< id:0 > t_value --> Compute {
+		moe:
+			@run{
+				input Val(x);
+				{ |§|
+					clk := 0;
+					disable#set Ready;
+					enable#set Compute;
+					enable Compute;
+				}
+			}
+			opcode#family = basic | input;
+			communication<final>{
+				input Val(x);
+			}
+			com#internal{
+				input Val(x);
+			}
+			com#input{
+				inst::MySys.ABS.Val
+			}
+			com#input_enabled{
+				inst::MySys.ABS.Val
+			}
+		}
+	moe:
+		@run{
+			invoke#transition Ready.t_value;
+		}
+		opcode#family = basic | input;
+	}
+
+	#prototype executable< moc: simple % state , id:3, instanciation: [ * ] > exec::MySys.ABS.Compute {
+	transition:
+		transition< id:0 > t_result_pos --> Ready {
+		moe:
+			@run{
+				{ |§|
+					guard (x >= 0);
+					guard (yR == x);
+					output Res(yR);
+				}
+				{ |§|
+					guard (clk <= 1);
+					disable#set Compute;
+					enable#set Ready;
+				}
+			}
+			opcode#family = guard | output;
+			communication<final>{
+				output Res(yR);
+			}
+			com#internal{
+				output Res(yR);
+			}
+			com#output{
+				inst::MySys.ABS.Res
+			}
+		}
+		transition< id:1 > t_result_neg --> Ready {
+		moe:
+			@run{
+				{ |§|
+					guard (x < 0);
+					guard ((x + yR) == 0);
+					output Res(yR);
+				}
+				{ |§|
+					guard (clk <= 1);
+					disable#set Compute;
+					enable#set Ready;
+				}
+			}
+			opcode#family = guard | output;
+			communication<final>{
+				output Res(yR);
+			}
+			com#internal{
+				output Res(yR);
+			}
+			com#output{
+				inst::MySys.ABS.Res
+			}
+		}
+	moe:
+		@enable{
+			newfresh(yR)
+		}
+		@run{ |/\|
+			invoke#transition Compute.t_result_pos;
+			invoke#transition Compute.t_result_neg;
+		}
+		opcode#family = guard | output;
+	}
+
+// }

@@ -1,0 +1,114 @@
+EC:<Id:0;Ev:1;H:0;W:1>{ SC: pid_3:Ready
+	ALIAS{
+		:ppid_-1:pid_0 = spec::MySys;
+		:ppid_-1:pid_1 = spec::MySys;
+			DATA{
+				:ppid_-1:pid_1:$time = spec::MySys.$time;
+				:ppid_-1:pid_1:z = spec::MySys.z;
+				:ppid_-1:pid_1:_clock_index_ = spec::MySys._clock_index_;
+			}
+		:ppid_1:pid_2 = spec::MySys.ABS;
+			DATA{
+				:ppid_1:pid_2:clk = spec::MySys.ABS.clk;
+				:ppid_1:pid_2:x = spec::MySys.ABS.x;
+				:ppid_1:pid_2:yR = spec::MySys.ABS.yR;
+			}
+			INTERFACE{
+				:ppid_1:pid_2:Val = spec::MySys.ABS.Val;
+				:ppid_1:pid_2:Res = spec::MySys.ABS.Res;
+			}
+		:ppid_2:pid_3 = spec::MySys.ABS.Ready;
+		:ppid_2:pid_4 = spec::MySys.ABS.Compute;
+	}
+	PC: true
+	PtC: true
+	DATA{
+		:pid_1:$time = 0;
+		:pid_1:z = 0;
+		:pid_1:_clock_index_ = 0;
+		:pid_2:clk = 0;
+		:pid_2:x = x_0;
+		:pid_2:yR = yR_0;
+	}
+	EC:<Id:1;Ev:2;H:1;W:1>{ SC: pid_3:Ready
+		/*FLAGS{ COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED }*/
+		EC:<Id:2;Ev:3;H:2;W:1>{ SC: pid_4:Compute
+			EXE: { (:pid_2:ABS , run) (:pid_3:Ready , run) (:pid_3:Ready , 
+	t_value) }
+			TRACE: { (:pid_1:MySys , ${ newfresh inst::MySys.z param::MySys.z_1 }
+	) (:pid_3:Ready , ${ input#env inst::MySys.ABS.Val param::MySys.ABS.x_1 } @ z_1) 
+	(:pid_4:Compute , ${ newfresh inst::MySys.ABS.yR param::MySys.ABS.yR_1 }) }
+			/*FLAGS{ COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED }*/
+			INFO{
+				<ID:"sew:/workflow.extraneous#module.controlled_width_eval",kind="tpid#1->Ready.t_value" as trace="tpid#1->Ready.t_value">
+				<ID:"sew:/workflow.extraneous#module.controlled_width_eval",kind="DETERMINISTIC EC<4> , EC<5>">
+			}
+			DATA{
+				:pid_1:$time = z_1;
+				:pid_1:z = z_1;
+				:pid_2:clk = 0;
+				:pid_2:x = x_1;
+				:pid_2:yR = yR_1;
+			}
+			EC:<Id:4;Ev:0;H:3;W:1>{ SC: pid_3:Ready
+				EXE: { (:pid_2:ABS , run) (:pid_4:Compute , run) (:pid_4:Compute 
+	, t_result_pos) }
+				TRACE: { (:pid_1:MySys , ${ newfresh inst::MySys.z 
+	param::MySys.z_2 }) (:pid_4:Compute , ${ output#env inst::MySys.ABS.Res 
+	prot::MySys.ABS.Ready.$_1 } @ (z_1 + z_2)) }
+				NC: ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))
+				PC: ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))
+				DATA{
+					:pid_1:$time = (z_1 + z_2);
+					:pid_1:z = z_2;
+					:pid_2:clk = z_2;
+				}
+			}
+			EC:<Id:5;Ev:0;H:3;W:3>{ SC: pid_3:Ready
+				EXE: { (:pid_2:ABS , run) (:pid_4:Compute , run) (:pid_4:Compute 
+	, t_result_neg) }
+				TRACE: { (:pid_1:MySys , ${ newfresh inst::MySys.z 
+	param::MySys.z_2 }) (:pid_4:Compute , ${ output#env inst::MySys.ABS.Res 
+	prot::MySys.ABS.Ready.$_1 } @ (z_1 + z_2)) }
+				/*FLAGS{ COVERAGE-ELEMENT & OBJECTIVE-ACHIEVED }*/
+				INFO{
+					<ID:"sew:/workflow.extraneous#module.controlled_width_eval",kind="tpid#2->Compute.t_result_neg" as trace="tpid#2->Compute.t_result_neg">
+				}
+				NC: (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 
+	<= 1))
+				PC: (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1))
+				DATA{
+					:pid_1:$time = (z_1 + z_2);
+					:pid_1:z = z_2;
+					:pid_2:clk = z_2;
+				}
+			}
+			EC:<Id:6;Ev:0;H:3;W:4>{ SC: pid_4:Compute
+				TRACE: (:pid_1:MySys , ${ output inst::MySys.Quiescence } @ z_2)
+				INFO{
+					<ID:"sew:/workflow.extraneous#module.controlled_width_eval",kind="QUIESCENCE">
+				}
+				PC: (exists< # : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && 
+	(x_1 < 0) && (z_2 < #) && (# <= 1)) || exists< # : uinteger , $_1 : integer 
+	>((yR_1 == x_1) && ($_1 == yR_1) && (z_2 < #) && (# <= 1) && (x_1 >= 0)) || 
+	(forall< z_2 : uinteger >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || 
+	(z_2 > 1)) && forall< z_2 : uinteger >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 
+	1) || (x_1 < 0))))
+				DATA{
+					:pid_1:$time = (z_1 + z_2);
+					:pid_1:z = z_2;
+				}
+			}
+		}
+		EC:<Id:3;Ev:0;H:2;W:2>{ SC: pid_3:Ready
+			TRACE: (:pid_1:MySys , ${ output inst::MySys.Quiescence } @ z_1)
+			INFO{
+				<ID:"sew:/workflow.extraneous#module.controlled_width_eval",kind="QUIESCENCE">
+			}
+			DATA{
+				:pid_1:$time = z_1;
+				:pid_1:z = z_1;
+			}
+		}
+	}
+}

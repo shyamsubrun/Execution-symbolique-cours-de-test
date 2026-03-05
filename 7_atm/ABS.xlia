@@ -1,0 +1,55 @@
+@xlia< system , 1.0 >:
+
+timed#discrete system MySys {
+
+@composite:
+	statemachine  ABS {
+
+	@public:
+		port input Val( integer value);
+
+		port output Res(integer result);
+		
+	@private:
+		var clock urational clk;
+
+		var integer x;
+
+		var integer yR;
+	
+	@region:
+		state< start > Ready {
+			transition t_value --> Compute {
+				input Val( x );
+				clk = 0;
+			}
+		}//Standby
+
+		state Compute {
+			@enable{
+				newfresh(yR);
+			}
+			transition t_result_pos --> Ready {
+				guard( x >= 0 );
+				guard( yR == x);
+				output Res( yR );
+				guard( clk <= 1 );
+			}
+			transition t_result_neg --> Ready {
+				guard( x < 0 );
+				guard( yR == -x);
+				output Res( yR );
+				guard( clk <= 1 );
+			}
+		}//Compute
+
+	}
+
+@com:
+	connect< env >{
+		input ABS->Val;
+	}
+	connect< env >{
+		output ABS->Res;
+	}
+}

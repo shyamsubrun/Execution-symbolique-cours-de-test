@@ -1,0 +1,33 @@
+ec( Id:0 , Pr:0 , Ev:0 , H:0 , W:1 , Q:0 ) {
+	ed(pid_3:Ready) {
+		exec_status = AEES_OK;
+		@init{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init ABS;
+		}
+		@schedule{ |/;|
+			{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable ABS }
+				{
+					clk := (clk + z);
+				}
+			}
+			schedule $self;
+		}
+		rid = run::pid_1:MySys;
+
+	runtime#state:
+		<@rid#0 = STATE_UNDEFINED;		// run::#PARAMETERS#
+		<@rid#1 = STATE_RUNNING;		// run::MySys
+		<@rid#2 = STATE_DISABLED;		// run::MySys.ABS
+		<@rid#3 = STATE_DISABLED;		// run::MySys.ABS.Ready
+		<@rid#4 = STATE_DISABLED;		// run::MySys.ABS.Compute
+
+	runtime:
+	}
+}

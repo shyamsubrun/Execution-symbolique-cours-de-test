@@ -1,0 +1,113 @@
+@xlia< system , 1.0 >:
+
+timed#discrete system< and > Testcase_S {
+@composite:
+	statemachine Testcase_SM {
+	@property:
+		public input port Quiescence;
+		public output port Val(integer value);
+		public input port Res(integer result);
+		var pos_rational TM;
+		var clock< uinteger > clt;
+		var integer $_1;
+		var integer x_1;
+		var time< uinteger > z_2;
+		var time< uinteger > z_1;
+
+	@region:
+		state< start > ec_1 "ec1" {
+			transition tr_R1_Val --> ec_2 {
+				tguard ((z_1 == clt) && (clt < TM));
+				guard exists< z_2 : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1));
+				output Val(x_1);
+				clt := 0;
+			}
+			transition tr_R10b_Res --> FAIL_out_ec_1_Res {
+				tguard ((z_1 == clt) && (clt < TM));
+				input Res;
+				guard true;
+			}
+			transition tr_R9_quiescence --> INC_dur_ec_1 {
+				tguard ((z_1 == clt) && (clt >= TM));
+				input Quiescence;
+				guard true;
+			}
+			transition tr_R11_unspecifiedQuiescence --> FAIL_dur_ec_1 {
+				tguard ((z_1 == clt) && (clt >= TM));
+				input Quiescence;
+				guard false;
+			}
+		}
+
+		state ec_2 "ec2" {
+			transition tr_R4_PASS_Res --> PASS_ec_5 {
+				tguard ((z_2 == clt) && (clt < TM));
+				input Res($_1);
+				guard (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1));
+			}
+			transition tr_R10a_Res --> FAIL_out_ec_2_5_Res {
+				tguard ((z_2 == clt) && (clt < TM));
+				input Res($_1);
+				guard (((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 1) || (x_1 < 0)) && (((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 > 1)));
+			}
+			transition tr_R6_Res --> INC_out_ec_2_4_Res {
+				tguard ((z_2 == clt) && (clt < TM));
+				input Res($_1);
+				guard ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0));
+			}
+			transition tr_R9_quiescence --> INC_dur_ec_2 {
+				tguard ((z_2 == clt) && (clt >= TM));
+				input Quiescence;
+				guard (exists< # : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 < #) && (# <= 1)) || exists< # : uinteger , $_1 : integer >((yR_1 == x_1) && ($_1 == yR_1) && (z_2 < #) && (# <= 1) && (x_1 >= 0)) || (forall< z_2 : uinteger >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 > 1)) && forall< z_2 : uinteger >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 1) || (x_1 < 0))));
+			}
+			transition tr_R11_unspecifiedQuiescence --> FAIL_dur_ec_2 {
+				tguard ((z_2 == clt) && (clt >= TM));
+				input Quiescence;
+				guard (forall< # : uinteger , $_1 : integer >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 >= #) || (# > 1)) && forall< # : uinteger , $_1 : integer >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 >= #) || (# > 1) || (x_1 < 0)) && (exists< z_2 : uinteger >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1)) || exists< z_2 : uinteger >((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))));
+			}
+		}
+
+		state< terminal > FAIL_out_ec_1_Res "FAILout" {
+
+		}
+
+		state< terminal > INC_dur_ec_1 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_1 "FAILdur" {
+
+		}
+
+		state< final > PASS_ec_5 "PASS" {
+
+		}
+
+		state< terminal > FAIL_out_ec_2_5_Res "FAILout" {
+
+		}
+
+		state< terminal > INC_out_ec_2_4_Res "INCout" {
+
+		}
+
+		state< terminal > INC_dur_ec_2 "INCdur" {
+
+		}
+
+		state< terminal > FAIL_dur_ec_2 "FAILdur" {
+
+		}
+
+	@com:
+		connector< env >  {
+			input Testcase_SM->Quiescence;
+		}
+		connector< env >  {
+			output Testcase_SM->Val;
+		}
+		connector< env >  {
+			input Testcase_SM->Res;
+		}
+	}
+}

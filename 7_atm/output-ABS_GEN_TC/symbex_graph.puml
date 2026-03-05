@@ -1,0 +1,161 @@
+
+@startuml symbex_graph
+
+' // scale 600 width
+
+hide empty description
+
+skinparam linetype polyline
+' skinparam linetype ortho
+' left to right direction
+
+skinparam backgroundColor White
+skinparam backgroundColor White
+skinparam noteBorderColor White
+skinparam shadowing false
+skinparam notefontsize 16
+skinparam notefontname Verdana
+'skinparam notefontname Consolas
+'skinparam noteShadowing false
+
+skinparam state {
+	StartColor Green
+	EndColor Red
+
+	'Attribut pour les transitions
+	ArrowColor Black
+	ArrowColor<< Else >> Orange
+
+	'Attribut par défaut pour les états
+	BorderColor Gray
+	BackgroundColor Wheat
+
+	'Attribut pour les noeuds/feuilles du graphes SymBex
+	BackgroundColor<< DefaultNode >> LightBlue
+
+	BackgroundColor<< RedondancyTargetSource >> Green
+	BackgroundColor<< RedondancyTargetNode >> GreenYellow
+
+	BackgroundColor<< PassedNode >> GreenYellow
+	BackgroundColor<< FailedNode >> Red
+	BackgroundColor<< InconclusiveNode >> Orange
+	BackgroundColor<< AbortedNode >> Orange
+	BackgroundColor<< WarningNode >> Orange
+	BackgroundColor<< ErrorNode >> Red
+	BackgroundColor<< AlertNode >> Red
+	BackgroundColor<< ExitNode >> Red
+
+	'Attribut pour les paths du graphes SymBex
+	BackgroundColor<< PassedPath >> LawnGreen
+	BackgroundColor<< FailedPath >> Red
+	BackgroundColor<< InconclusiveNodePath >> Orange
+	BackgroundColor<< AbortedPath >> Red
+
+	FontColor Black
+	FontName Times
+	FontSize 14
+}
+
+
+
+state "EC 0" as EC0 << DefaultNode >>
+
+EC0: < ev:1 , h:0 , w:1 > 
+EC0: MySys:Ready
+note left of EC0
+$time = 0
+	z = 0
+	_clock_index_ = 0
+	clk = 0
+	x = x_0
+	yR = yR_0
+	
+end note
+
+EC0 -down-> EC1
+
+state "EC 1" as EC1 << PassedPath >>
+
+EC1: < ev:2 , h:1 , w:1 > 
+EC1: MySys:Ready
+
+EC1 -down-> EC2
+
+EC1 -down-> EC3
+
+state "EC 2" as EC2 << PassedPath >>
+
+EC2: < ev:3 , h:2 , w:1 > 
+EC2: MySys:Compute
+note left of EC2
+$time = z_1
+	z = z_1
+	x = x_1
+	yR = yR_1
+	
+end note
+EC2: ----
+EC2: tpid#1->Ready.t_value\nDETERMINISTIC EC<4> , EC<5>
+
+EC2 -down-> EC4
+
+EC2 -down-> EC5
+
+EC2 -down-> EC6
+
+state "EC 3" as EC3 << DefaultNode >>
+
+EC3: < ev:0 , h:2 , w:2 > 
+EC3: MySys:Ready
+note left of EC3
+$time = z_1
+	z = z_1
+	
+end note
+EC3: ----
+EC3: QUIESCENCE
+
+state "EC 4" as EC4 << DefaultNode >>
+
+EC4: < ev:0 , h:3 , w:1 > 
+EC4: MySys:Ready
+note left of EC4
+PC: ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))
+	$time = (z_1 + z_2)
+	z = z_2
+	clk = z_2
+	
+end note
+
+state "EC 5" as EC5 << PassedPath >>
+
+EC5: < ev:0 , h:3 , w:3 > 
+EC5: MySys:Ready
+note left of EC5
+PC: (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1))
+	$time = (z_1 + z_2)
+	z = z_2
+	clk = z_2
+	
+end note
+EC5: ----
+EC5: tpid#2->Compute.t_result_neg
+
+state "EC 6" as EC6 << DefaultNode >>
+
+EC6: < ev:0 , h:3 , w:4 > 
+EC6: MySys:Compute
+note left of EC6
+PC: (exists< # : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) 
+	&& (x_1 < 0) && (z_2 < #) && (# <= 1)) || exists< # : uinteger , $_1 : integer 
+	>((yR_1 == x_1) && ($_1 == yR_1) && (z_2 < #) && (# <= 1) && (x_1 >= 0)) || 
+	(forall< z_2 : uinteger >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || 
+	(z_2 > 1)) && forall< z_2 : uinteger >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 
+	1) || (x_1 < 0))))
+	$time = (z_1 + z_2)
+	z = z_2
+	
+end note
+EC6: ----
+EC6: QUIESCENCE
+@enduml

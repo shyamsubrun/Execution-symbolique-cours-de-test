@@ -1,0 +1,174 @@
+>>> construct ExecutionContext @ 0x1e329192470
+>>> construct ExecutionContext @ 0x7ff7d7433e00
+
+step:10000 , context:00 , height:00 , width:00
+E[   1] Id:0 PE:ROOT H:0 W:1 Q:0 pid_3:Ready
+coverage< controlled_width_eval >: 0 / 2
+==> ctx:1 pid_3:Ready
+|=> fired nothing in run::pid_1:MySys
+--------------------------------------------------------------------------------
+E[   2] Id:1 PE:1 H:1 W:1 Q:0 pid_3:Ready
+coverage< controlled_width_eval >: 0 / 2
+==> ctx:2 pid_4:Compute
+|=> fired { (:pid_2:ABS , run) (:pid_3:Ready , run) (:pid_3:Ready , t_value) }
+--------------------------------------------------------------------------------
+E[   3] Id:2 PE:2 H:2 W:1 Q:0 pid_4:Compute
+coverage< controlled_width_eval >: 1 / 2
+guard :> (x_1 >= 0)
+APPEND PATH CONDITION :begin> (x_1 >= 0) with PC: true
+Z3Solver::isSatisfiable(...) :1>
+	(x_1 >= 0)
+Z3Condition :1>
+	(>= _5_x_1 0)
+result :2> satisfiable
+ADD FIRED CONDITION :begin> (x_1 >= 0) with FC: true
+ADD FIRED CONDITION :end> (x_1 >= 0)
+SET PATH CONDITION :end> (x_1 >= 0)
+guard :> (yR_1 == x_1)
+APPEND PATH CONDITION :begin> (yR_1 == x_1) with PC: (x_1 >= 0)
+Z3Solver::isSatisfiable(...) :2>
+	((yR_1 == x_1) && (x_1 >= 0))
+Z3Condition :2>
+	(and (= _6_yR_1 _5_x_1) (>= _5_x_1 0))
+result :3> satisfiable
+ADD FIRED CONDITION :begin> (yR_1 == x_1) with FC: (x_1 >= 0)
+ADD FIRED CONDITION :end> ((yR_1 == x_1) && (x_1 >= 0))
+SET PATH CONDITION :end> ((yR_1 == x_1) && (x_1 >= 0))
+guard :> (z_2 <= 1)
+APPEND PATH CONDITION :begin> (z_2 <= 1) with PC: ((yR_1 == x_1) && (x_1 >= 0))
+Z3Solver::isSatisfiable(...) :3>
+	((yR_1 == x_1) && (z_2 <= 1) && (x_1 >= 0))
+Z3Condition :3>
+	(and (= _6_yR_1 _5_x_1) (<= _7_z_2 1) (>= _5_x_1 0))
+REQUIRED ASSERTION : 1000 for CONSTRAINED type
+REQUIRED ASSERTION : 1000 for POSITIVE type
+result :4> satisfiable
+ADD FIRED CONDITION :begin> (z_2 <= 1) with FC: ((yR_1 == x_1) && (x_1 >= 0))
+ADD FIRED CONDITION :end> ((yR_1 == x_1) && (z_2 <= 1) && (x_1 >= 0))
+SET PATH CONDITION :end> ((yR_1 == x_1) && (z_2 <= 1) && (x_1 >= 0))
+guard :> (x_1 < 0)
+APPEND PATH CONDITION :begin> (x_1 < 0) with PC: true
+Z3Solver::isSatisfiable(...) :4>
+	(x_1 < 0)
+Z3Condition :4>
+	(< _5_x_1 0)
+result :5> satisfiable
+ADD FIRED CONDITION :begin> (x_1 < 0) with FC: true
+ADD FIRED CONDITION :end> (x_1 < 0)
+SET PATH CONDITION :end> (x_1 < 0)
+guard :> ((x_1 + yR_1) == 0)
+APPEND PATH CONDITION :begin> ((x_1 + yR_1) == 0) with PC: (x_1 < 0)
+Z3Solver::isSatisfiable(...) :5>
+	(((x_1 + yR_1) == 0) && (x_1 < 0))
+Z3Condition :5>
+	(and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0))
+result :6> satisfiable
+ADD FIRED CONDITION :begin> ((x_1 + yR_1) == 0) with FC: (x_1 < 0)
+ADD FIRED CONDITION :end> (((x_1 + yR_1) == 0) && (x_1 < 0))
+SET PATH CONDITION :end> (((x_1 + yR_1) == 0) && (x_1 < 0))
+guard :> (z_2 <= 1)
+APPEND PATH CONDITION :begin> (z_2 <= 1) with PC: (((x_1 + yR_1) == 0) && (x_1 < 
+	0))
+Z3Solver::isSatisfiable(...) :6>
+	(((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 <= 1))
+Z3Condition :6>
+	(and (= (+ _5_x_1 _6_yR_1) 0) (< _5_x_1 0) (<= _7_z_2 1))
+REQUIRED ASSERTION : 1000 for CONSTRAINED type
+REQUIRED ASSERTION : 1000 for POSITIVE type
+result :7> satisfiable
+ADD FIRED CONDITION :begin> (z_2 <= 1) with FC: (((x_1 + yR_1) == 0) && (x_1 < 0)
+	)
+ADD FIRED CONDITION :end> (((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 <= 1))
+SET PATH CONDITION :end> (((x_1 + yR_1) == 0) && (x_1 < 0) && (z_2 <= 1))
+==> ctx:4 pid_3:Ready
+|=> fired { (:pid_2:ABS , run) (:pid_4:Compute , run) (:pid_4:Compute , 
+	t_result_pos) }
+==> ctx:5 pid_3:Ready
+|=> fired { (:pid_2:ABS , run) (:pid_4:Compute , run) (:pid_4:Compute , 
+	t_result_neg) }
+--------------------------------------------------------------------------------
+Z3Solver::isSatisfiable(...) :7>
+	(((x_1 + yR_1) == 0) && (yR_1 == x_1) && (x_1 < 0) && (z_2 <= 1) && (x_1 >= 0))
+Z3Condition :7>
+	(and (= (+ _5_x_1 _6_yR_1) 0)
+     (= _6_yR_1 _5_x_1)
+     (< _5_x_1 0)
+     (<= _7_z_2 1)
+     (>= _5_x_1 0))
+REQUIRED ASSERTION : 1000 for CONSTRAINED type
+REQUIRED ASSERTION : 1000 for POSITIVE type
+result :8> unsatisfiable
+ADD PATH CONDITION :begin> ($_1 == yR_1) with PC: ((yR_1 == x_1) && (z_2 <= 1) 
+	&& (x_1 >= 0))
+ADD PATH CONDITION :isSat?> ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && 
+	(x_1 >= 0))
+Z3Solver::isSatisfiable(...) :8>
+	((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 >= 0))
+Z3Condition :8>
+	(and (= _6_yR_1 _5_x_1) (= _2_0_$_1 _6_yR_1) (<= _7_z_2 1) (>= _5_x_1 0))
+REQUIRED ASSERTION : 10000 for CONSTRAINED type
+REQUIRED ASSERTION : 10000 for POSITIVE type
+result :9> satisfiable
+ADD FIRED CONDITION :begin> ($_1 == yR_1) with FC: ((yR_1 == x_1) && (z_2 <= 1) 
+	&& (x_1 >= 0))
+ADD FIRED CONDITION :end> ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 
+	>= 0))
+ADD PATH CONDITION :end> ((yR_1 == x_1) && ($_1 == yR_1) && (z_2 <= 1) && (x_1 
+	>= 0))
+ADD PATH CONDITION :begin> ($_1 == yR_1) with PC: (((x_1 + yR_1) == 0) && (x_1 < 
+	0) && (z_2 <= 1))
+ADD PATH CONDITION :isSat?> (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) 
+	&& (z_2 <= 1))
+Z3Solver::isSatisfiable(...) :9>
+	(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 <= 1))
+Z3Condition :9>
+	(and (= (+ _5_x_1 _6_yR_1) 0) (= _8_$_1 _6_yR_1) (< _5_x_1 0) (<= _7_z_2 1))
+REQUIRED ASSERTION : 10000 for CONSTRAINED type
+REQUIRED ASSERTION : 10000 for POSITIVE type
+result :10> satisfiable
+ADD FIRED CONDITION :begin> ($_1 == yR_1) with FC: (((x_1 + yR_1) == 0) && (x_1 
+	< 0) && (z_2 <= 1))
+ADD FIRED CONDITION :end> (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && 
+	(z_2 <= 1))
+ADD PATH CONDITION :end> (((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && 
+	(z_2 <= 1))
+Z3Solver::isSatisfiable(...) :10>
+	(exists< # : uinteger , $_1 : integer >(((x_1 + yR_1) == 0) && ($_1 == yR_1) && (x_1 < 0) && (z_2 < #) && (# <= 1)) || exists< # : uinteger , $_1 : integer >((yR_1 == x_1) && ($_1 == yR_1) && (z_2 < #) && (# <= 1) && (x_1 >= 0)) || (forall< z_2 : uinteger >(((x_1 + yR_1) != 0) || ($_1 != yR_1) || (x_1 >= 0) || (z_2 > 1)) && forall< z_2 : uinteger >((yR_1 != x_1) || ($_1 != yR_1) || (z_2 > 1) || (x_1 < 0))))
+Z3Condition :10>
+	(or (exists ((_0__ Int) (_8_$_1 Int))
+      (! (and (>= _0__ 0)
+              true
+              (= (+ _5_x_1 _6_yR_1) 0)
+              (= _8_$_1 _6_yR_1)
+              (< _5_x_1 0)
+              (< _7_z_2 _0__)
+              (<= _0__ 1))
+         :weight 0))
+    (exists ((_0__ Int) (_8_$_1 Int))
+      (! (and (>= _0__ 0)
+              true
+              (= _6_yR_1 _5_x_1)
+              (= _8_$_1 _6_yR_1)
+              (< _7_z_2 _0__)
+              (<= _0__ 1)
+              (>= _5_x_1 0))
+         :weight 0))
+    (and (forall ((_7_z_2 Int))
+           (! (=> (>= _7_z_2 0)
+                  (or (not (= (+ _5_x_1 _6_yR_1) 0))
+                      (not (= _8_$_1 _6_yR_1))
+                      (>= _5_x_1 0)
+                      (> _7_z_2 1)))
+              :weight 0))
+         (forall ((_7_z_2 Int))
+           (! (=> (>= _7_z_2 0)
+                  (or (not (= _6_yR_1 _5_x_1))
+                      (not (= _8_$_1 _6_yR_1))
+                      (> _7_z_2 1)
+                      (< _5_x_1 0)))
+              :weight 0))))
+REQUIRED ASSERTION : 0000100000 for CONSTRAINED type
+REQUIRED ASSERTION : 0000100000 for POSITIVE type
+result :11> satisfiable
+
+stop:  3 , context:  7 , height:  2 , width:  1

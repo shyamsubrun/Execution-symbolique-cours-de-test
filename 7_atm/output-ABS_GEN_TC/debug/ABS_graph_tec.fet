@@ -1,0 +1,73 @@
+ec( Id:0 , Pr:0 , Ev:0 , H:0 , W:1 , Q:0 ) {
+	ed(pid_3:Ready) {
+		exec_status = AEES_OK;
+		@init{
+			{ |§|
+				$time := 0;
+				z := 0;
+			}
+			init run::pid_2:MySys.ABS;
+		}
+		@schedule{ |/;|
+			{ |§|
+				newfresh(z)
+				$time := ($time + z);
+				if ${ status#is enable run::pid_2:MySys.ABS }
+				{
+					clk := (clk + z);
+				}
+			}
+			schedule $self;
+		}
+		rid = run::pid_1:MySys;
+
+	runtime#state:
+		<@rid#0 = STATE_UNDEFINED;		// run::#PARAMETERS#
+		<@rid#1 = STATE_RUNNING;		// run::MySys
+		<@rid#2 = STATE_DISABLED;		// run::MySys.ABS
+		<@rid#3 = STATE_DISABLED;		// run::MySys.ABS.Ready
+		<@rid#4 = STATE_DISABLED;		// run::MySys.ABS.Compute
+
+	runtime:
+		runtime ppid_0.pid_0 run::#PARAMETERS# as &inst::#PARAMETERS# {
+		}
+		runtime ppid_0.pid_1 run::MySys as &prot::MySys {
+			@schedule{
+				run run::pid_2:MySys.ABS;
+			}
+
+		variable:
+			$time := 0;
+			z := 0;
+			_clock_index_ := 0;
+
+		router:
+			router prot::MySys {
+			}
+		}
+		runtime ppid_1.pid_2 run::MySys.ABS as &prot::MySys.ABS {
+			@schedule{
+				run run::pid_3:MySys.ABS.Ready;
+			}
+
+		variable:
+			clk := 0;
+			x := x_0;
+			yR := yR_0;
+
+		router:
+			router prot::MySys.ABS {
+			input:
+				routing< env , mid:1 > pid_1:MySys->inst::MySys.ABS.Val {
+					connector = inst::MySys._#connector_0;
+				}
+			output:
+				routing< env , mid:2 > pid_1:MySys->inst::MySys.ABS.Res {
+					connector = inst::MySys._#connector_1;
+				}
+			}
+		}
+		runtime ppid_2.pid_3 run::MySys.ABS.Ready as &prot::MySys.ABS.Ready;
+		runtime ppid_2.pid_4 run::MySys.ABS.Compute as &prot::MySys.ABS.Compute;
+	}
+}
